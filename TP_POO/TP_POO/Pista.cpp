@@ -193,6 +193,15 @@ string Pista::getAsString() const
 	return oss.str();
 }
 
+void Pista::listaCarros() const
+{
+	int x = 0;
+	for (int i = 0; i != corridas.size(); i++) {
+		Consola::gotoxy(76, x++);
+		cout << corridas[i]->getCarro()->getAsString();
+	}
+}
+
 void Pista::carregaGrelha() 
 {
 	auto ptr = corridas.begin();

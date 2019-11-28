@@ -124,6 +124,11 @@ bool Carro::carregaEnergia(double ene) {
 	return false;
 }
 
+void Carro::carregaEnergiaM()
+{
+	energia = capacidadeMaxima;
+}
+
 
 void Carro::descarregaEnergia(double ene) 
 {

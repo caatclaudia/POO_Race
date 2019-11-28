@@ -50,6 +50,8 @@ public:
 
 	string getAsString()const;
 
+	void listaCarros()const;
+
 	void carregaGrelha();
 	vector< vector< char> > GetGrelha()const;
 	void mostraGrelha()const;

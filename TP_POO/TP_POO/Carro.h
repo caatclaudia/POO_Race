@@ -54,6 +54,7 @@ public:
 	bool operator==(const Carro &ob)const;
 
 	bool carregaEnergia(double ene);
+	void carregaEnergiaM();
 	void descarregaEnergia(double ene);
 	
 	void acelarar();
