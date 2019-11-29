@@ -198,7 +198,7 @@ void Pista::listaCarros() const
 	int x = 1;
 	for (int i = 0; i != corridas.size(); i++) {
 		Consola::gotoxy(76, x++);
-		cout << corridas[i]->getCarro()->getAsString();
+		cout << "Carro " << corridas[i]->getCarro()->getID() << " - Piloto " << corridas[i]->getPiloto()->getNome();
 	}
 }
 
