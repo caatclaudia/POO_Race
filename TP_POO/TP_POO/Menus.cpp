@@ -11,6 +11,7 @@ using namespace std;
 #include <sstream>
 #include <iostream>
 #include <fstream>
+#include <Windows.h>
 #include "Consola.h"
 
 Menus::Menus()
@@ -144,26 +145,26 @@ int Menus::modo2(Autodromo* autodromo)
 		if (buffer >> comando1)
 		{
 			if (comando1 == "listacarros") {
-
-				Consola::gotoxy(76, 1);
-				cout << "Comando " << comando1;
-
+				autodromo->getPista()->listaCarros();
 			}
 			else if (comando1 == "carregabat") {
 				char letra;
 				double num;
-				if (buffer >> letra && buffer >> num) {
+				if (buffer >> letra && buffer >> num && num > 0) {
 					Consola::gotoxy(76, 1);
 					cout << "Comando " << comando1 << " " << letra << " " << num;
+					for (int i = 0; i < (int)autodromo->getPista()->getCorridas().size(); i++)
+						if (autodromo->getPista()->getCorridaN(i)->getCarro()->getID() == letra) 
+							autodromo->getPista()->getCorridaN(i)->getCarro()->carregaEnergia(num);
 				}
 				else
 					PARAMETRO_INVALIDO = true;
 			}
 			else if (comando1 == "carregatudo") {
-
 				Consola::gotoxy(76, 1);
 				cout << "Comando " << comando1;
-
+				for (int i = 0; i < (int)autodromo->getPista()->getCorridas().size(); i++)
+					autodromo->getPista()->getCorridaN(i)->getCarro()->carregaEnergiaM();
 			}
 			else if (comando1 == "corrida") {
 
@@ -333,6 +334,8 @@ int Menus::modo1(string comando)
 					if (buffer >> nomeP) {
 						Consola::gotoxy(76, 1);
 						cout << "Eliminado piloto " << nomeP;
+						if(controlo.procuraPiloto(nomeP)->getCarro()!=nullptr)
+							controlo.procuraPiloto(nomeP)->saiCarro();
 						controlo.removePiloto(controlo.procuraPiloto(nomeP));
 					}
 					else
@@ -343,6 +346,9 @@ int Menus::modo1(string comando)
 					if (buffer >> id) {
 						Consola::gotoxy(76, 1);
 						cout << "Eliminado carro " << id;
+						for (auto ptr = controlo.getPiloto().begin(); ptr != controlo.getPiloto().end(); ptr++)
+							if ((*ptr)->getCarro()!=nullptr && (*ptr)->getCarro()->getID() == id)
+								(*ptr)->saiCarro();
 						controlo.removeCarro(controlo.procuraCarro(id));
 					}
 					else
@@ -425,18 +431,27 @@ int Menus::modo1(string comando)
 				PARAMETRO_INVALIDO = true;
 		}
 		else if (comando1 == "sair") {
+			Consola::clrscr();
 			return 0;
 		}
 		else if (comando1 == "campeonato") {
 			string nome;
 			if (buffer >> nome) {
 				for (auto ptr = autodromos.begin(); ptr != autodromos.end(); ptr++) {
-					if ((*ptr)->getNome() == nome) {
-						int i;
-						for (i = 0; i < (*ptr)->getPista()->getNMax() && i < (int)auxiliarCorrida.size(); i++)
-							(*ptr)->getPista()->adicionaCorrida(auxiliarCorrida[i]);
-						if (i >= 2)
-							modo2(*ptr);
+					if ((*ptr)->getNome() == nome && (int)auxiliarCorrida.size()>=2) {
+						int i, j, num;
+						bool NOVO;
+						for (i = 0; i < (*ptr)->getPista()->getNMax() && i < (int)auxiliarCorrida.size(); i++) {
+							do {
+								num = rand() % auxiliarCorrida.size();
+								NOVO = true;
+								for (j = 0; j < (int)(*ptr)->getPista()->getCorridas().size(); j++)
+									if ((*ptr)->getPista()->getCorridaN(j)->getCarro()->getID() == auxiliarCorrida[num]->getCarro()->getID())
+										NOVO = false;
+							} while (!NOVO);
+							(*ptr)->getPista()->adicionaCorrida(auxiliarCorrida[num]);
+						}
+						modo2(*ptr);
 						break;
 					}
 				}
@@ -471,8 +486,9 @@ void Menus::movimentoCarros(Autodromo* autodromo, int seg)
 	for (int i = 0; i < seg && autodromo->getPista()->getComecou() == JA_COMECOU; i++) {
 		autodromo->getPista()->avancaTempo();
 		autodromo->getPista()->carregaGrelha();
+		autodromo->getPista()->mostraGrelha();
+		Sleep(10);
 	}
-	autodromo->getPista()->mostraGrelha();
 	if (autodromo->getPista()->getComecou() == JA_TERMINOU) {
 		autodromo->obterInfo();
 	}
