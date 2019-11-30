@@ -1,20 +1,2 @@
-﻿  Autodromo.cpp
-  Carro.cpp
-  Corrida.cpp
-  CrazyDriver.cpp
-  DVG.cpp
-  Garagem.cpp
-  Menus.cpp
-C:\Users\Claudia Tavares\Documents\GitHub\POO\TP_POO\TP_POO\Menus.cpp(300,31): error C2664: 'std::basic_istream<char,std::char_traits<char>> &std::basic_istream<char,std::char_traits<char>>::get(std::basic_streambuf<char,std::char_traits<char>> &,_Elem)': cannot convert argument 1 from 'std::string' to '_Elem *'
-C:\Users\Claudia Tavares\Documents\GitHub\POO\TP_POO\TP_POO\Menus.cpp(300,31): error C2664:         with
-C:\Users\Claudia Tavares\Documents\GitHub\POO\TP_POO\TP_POO\Menus.cpp(300,31): error C2664:         [
-C:\Users\Claudia Tavares\Documents\GitHub\POO\TP_POO\TP_POO\Menus.cpp(300,31): error C2664:             _Elem=char
-C:\Users\Claudia Tavares\Documents\GitHub\POO\TP_POO\TP_POO\Menus.cpp(300,31): error C2664:         ]
-C:\Users\Claudia Tavares\Documents\GitHub\POO\TP_POO\TP_POO\Menus.cpp(300,15): message : No user-defined-conversion operator available that can perform this conversion, or the operator cannot be called
-  Piloto.cpp
-  PilotoRapido.cpp
-  PilotoSurpresa.cpp
-  Pista.cpp
-  TP_POO.cpp
-  Generating Code...
-C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.23.28105\include\istream(356,39): message : see declaration of 'std::basic_istream<char,std::char_traits<char>>::get'
+﻿  Simulacao.cpp
+  TP_POO.vcxproj -> C:\Users\Claudia Tavares\Documents\GitHub\POO\TP_POO\Debug\TP_POO.exe

@@ -84,4 +84,5 @@ bool Autodromo::acrescentaCarroGaragem(Carro* carro)
 Autodromo::~Autodromo()
 {
 	delete p;
+	delete gar;
 }

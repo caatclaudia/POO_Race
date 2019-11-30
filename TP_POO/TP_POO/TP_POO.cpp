@@ -10,12 +10,14 @@
 #include "Menus.h"
 #include "DVG.h"
 #include "Consola.h"
+#include "Simulacao.h"
 
 
 
 char Carro::identificacao = 'a';
 int DVG::Nome = 1;
 int Menus::NomeAutodromos = 1;
+int Simulacao::NomeAutodromos = 1;
 
 void inicio() {
 	Consola::setTextColor(Consola::VERMELHO_CLARO);
@@ -39,6 +41,7 @@ int main()
 {
 	string comando;
 	Menus menu;
+	Simulacao simulacao;
 	bool FLAG_INICIO = true;
 
 	Consola::setScreenSize(COLUNAS_BASE, LINHAS_BASE);
@@ -55,7 +58,7 @@ int main()
 		cout << "Introduza um comando: ";
 		getline(cin, comando);
 		FLAG_INICIO = false;
-	} while (menu.modo1(comando));
+	} while (menu.modo1(&simulacao, comando));
 
 	
 	return EXIT_SUCCESS;

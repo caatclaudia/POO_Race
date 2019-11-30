@@ -18,21 +18,21 @@ Menus::Menus()
 {
 }
 
-void Menus::acrescentaAutodromo(int N, double comp, string nome) 
-{
-	bool igual = false;
-	for (auto ptr = autodromos.begin(); ptr != autodromos.end(); ++ptr) {
-		if ((*ptr)->getNome() == nome)
-			igual = true;
-	}
-	if (igual) {
-		nome = nome + to_string(NomeAutodromos);
-		autodromos.push_back(new Autodromo(N, comp, nome));
-	}
-	else {
-		autodromos.push_back(new Autodromo(N, comp, nome));
-	}
-}
+//void Menus::acrescentaAutodromo(int N, double comp, string nome) 
+//{
+//	bool igual = false;
+//	for (auto ptr = autodromos.begin(); ptr != autodromos.end(); ++ptr) {
+//		if ((*ptr)->getNome() == nome)
+//			igual = true;
+//	}
+//	if (igual) {
+//		nome = nome + to_string(NomeAutodromos);
+//		autodromos.push_back(new Autodromo(N, comp, nome));
+//	}
+//	else {
+//		autodromos.push_back(new Autodromo(N, comp, nome));
+//	}
+//}
 
 void Menus::base()const 
 {
@@ -83,7 +83,7 @@ void Menus::limpaPista() const
 	}
 }
 
-void Menus::carregaP(string nome)
+void Menus::carregaP(DVG& controlo, string nome)
 {
 	ifstream ficheiro(nome);
 	if (ficheiro) {
@@ -98,7 +98,7 @@ void Menus::carregaP(string nome)
 	}
 }
 
-void Menus::carregaC(string nome)
+void Menus::carregaC(DVG& controlo, string nome)
 {
 	ifstream ficheiro(nome);
 	if (ficheiro) {
@@ -118,7 +118,7 @@ void Menus::carregaC(string nome)
 	}
 }
 
-void Menus::carregaA(string nome)
+void Menus::carregaA(Simulacao *simulacao, string nome)
 {
 	ifstream ficheiro(nome);
 	if (ficheiro) {
@@ -128,7 +128,7 @@ void Menus::carregaA(string nome)
 		while (getline(ficheiro, linha)) {
 			istringstream buffer(linha);
 			if (buffer >> n && buffer >> comp && buffer >> nome)
-				acrescentaAutodromo(n, comp, nome);
+				simulacao->addAutodromos(n, comp, nome);
 		}
 		Consola::gotoxy(76, 1);
 		cout << "Carregado com sucesso!";
@@ -252,7 +252,7 @@ int Menus::modo2(Autodromo* autodromo)
 	return 1;
 }
 
-int Menus::modo1(string comando)
+int Menus::modo1(Simulacao* simulacao, string comando)
 {
 	string comando1;
 	bool PARAMETRO_INVALIDO;
@@ -263,30 +263,30 @@ int Menus::modo1(string comando)
 		if (comando1 == "carregaP") {
 			string nome;
 			if (buffer >> nome) 
-				carregaP(nome);
+				carregaP(simulacao->getControlo(), nome);
 			else 
 				PARAMETRO_INVALIDO = true;
 		}
 		else if (comando1 == "carregaC") {
 			string nome;
 			if (buffer >> nome) 
-				carregaC(nome);
+				carregaC(simulacao->getControlo(), nome);
 			else
 				PARAMETRO_INVALIDO = true;
 		}
 		else if (comando1 == "carregaA") {
 			string nome;
 			if (buffer >> nome) 
-				carregaA(nome);
+				carregaA(simulacao, nome);
 			else
 				PARAMETRO_INVALIDO = true;
 		}
 		else if (comando1 == "carregatudo") {
 			string nomeP, nomeC, nomeA;
 			if (buffer >> nomeP && buffer >> nomeC && buffer >> nomeA) {
-				carregaP(nomeP);
-				carregaC(nomeC);
-				carregaA(nomeA);
+				carregaP(simulacao->getControlo(), nomeP);
+				carregaC(simulacao->getControlo(), nomeC);
+				carregaA(simulacao, nomeA);
 			}
 			else
 				PARAMETRO_INVALIDO = true;
@@ -323,7 +323,7 @@ int Menus::modo1(string comando)
 					double comp;
 					string nomeA;
 					if (buffer >> n && buffer >> comp && buffer >> nomeA) {
-						acrescentaAutodromo(n, comp, nomeA);
+						simulacao->addAutodromos(n, comp, nomeA);
 						Consola::gotoxy(76, 1);
 						cout << "Criado autodromo " << autodromos[(int)autodromos.size()-1]->getNome();
 					}
@@ -406,10 +406,10 @@ int Menus::modo1(string comando)
 			}
 		}
 		else if (comando1 == "lista") {
-			int i=controlo.getAsString();
-			for (auto ptr = autodromos.begin(); ptr != autodromos.end(); ptr++) {
+			int i=simulacao->getControlo().getAsString();
+			for (int x = 0; x < simulacao->getAutodromosSize(); x++) {
 				Consola::gotoxy(76, i);
-				cout << (*ptr)->getAsString();
+				cout << simulacao->getAutodromoN(x)->getAsString();
 				i++;
 			}
 		}

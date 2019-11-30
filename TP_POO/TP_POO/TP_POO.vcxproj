@@ -163,6 +163,7 @@
     <ClCompile Include="PilotoRapido.cpp" />
     <ClCompile Include="PilotoSurpresa.cpp" />
     <ClCompile Include="Pista.cpp" />
+    <ClCompile Include="Simulacao.cpp" />
     <ClCompile Include="TP_POO.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -178,6 +179,7 @@
     <ClInclude Include="PilotoRapido.h" />
     <ClInclude Include="PilotoSurpresa.h" />
     <ClInclude Include="Pista.h" />
+    <ClInclude Include="Simulacao.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
