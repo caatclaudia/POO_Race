@@ -66,6 +66,15 @@ void Piloto::acelararCarro()
 	carro->acelarar();
 }
 
+int Piloto::passouTempo(int s)
+{
+	if (carro->getMovimento() == CARRO_MOVIMENTO) {
+		return carro->getVelocidade() * s;
+	}
+	else
+		return 0;
+}
+
 string Piloto::getAsString() const
 {
 	ostringstream oss;

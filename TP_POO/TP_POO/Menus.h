@@ -25,6 +25,7 @@ public:
 	void acrescentaAutodromo(int N, double comp, string nome);
 
 	void base()const;
+	void limpaPista()const;
 
 	void carregaP(string nome);
 	void carregaC(string nome);

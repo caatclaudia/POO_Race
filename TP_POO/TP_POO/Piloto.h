@@ -36,10 +36,11 @@ public:
 	void travarCarro();
 	void acelararCarro();
 
+	int passouTempo(int s);
 
 	string getAsString()const;
 	bool operator==(const Piloto& ob)const;
 
-	~Piloto();
+	virtual ~Piloto();
 };
 

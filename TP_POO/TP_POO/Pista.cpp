@@ -133,7 +133,7 @@ void Pista::avancaTempo(int sec)
 {
 	if (comecou == JA_COMECOU) {
 		for (auto ptr = corridas.begin(); ptr != corridas.end(); ptr++) {
-			(*ptr)->avancaPosicao((*ptr)->getCarro()->passouTempo(sec));
+			(*ptr)->avancaPosicao((*ptr)->getParticipante()->passouTempo(sec));
 			if ((*ptr)->getPosicao() >= (int)comprimento) {
 				(*ptr)->setPosicao((int)comprimento-1);
 				comecou = JA_TERMINOU;
@@ -198,7 +198,7 @@ void Pista::listaCarros() const
 	int x = 1;
 	for (int i = 0; i != corridas.size(); i++) {
 		Consola::gotoxy(76, x++);
-		cout << "Carro " << corridas[i]->getCarro()->getID() << " - Piloto " << corridas[i]->getPiloto()->getNome();
+		cout << corridas[i]->getParticipante()->getAsString();
 	}
 }
 

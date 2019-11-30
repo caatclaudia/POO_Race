@@ -190,15 +190,6 @@ string Carro::getAsString() const
 	return oss.str();
 }
 
-int Carro::passouTempo(int s) 
-{
-	if (movimento == CARRO_MOVIMENTO) {
-		return velocidade * s;
-	}
-	else 
-		return 0;	
-}
-
 Carro::~Carro()
 {
 }

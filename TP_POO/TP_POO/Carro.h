@@ -64,8 +64,6 @@ public:
 	void acidenteDanoInevitavel(Piloto* ob);
 
 	string getAsString()const;
-
-	int passouTempo(int s);
 	
 	~Carro();
 };

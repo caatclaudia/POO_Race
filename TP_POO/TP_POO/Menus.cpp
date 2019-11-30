@@ -71,7 +71,16 @@ void Menus::base()const
 		Consola::gotoxy(i, 21);
 		cout << " ";
 	}
+}
 
+void Menus::limpaPista() const 
+{
+	for (int i = 1; i < 74; i++) {
+		for (int j = 1; j < 18; j++) {
+			Consola::gotoxy(i, j);
+			cout << " ";
+		}
+	}
 }
 
 void Menus::carregaP(string nome)
@@ -228,6 +237,7 @@ int Menus::modo2(Autodromo* autodromo)
 			else if (comando1 == "voltar") {
 				Consola::gotoxy(76, 1);
 				cout << "Voltando...";
+				limpaPista();
 			}
 			else {
 				Consola::gotoxy(76, 1);

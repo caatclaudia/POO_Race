@@ -155,10 +155,13 @@
     <ClCompile Include="Carro.cpp" />
     <ClCompile Include="Consola.cpp" />
     <ClCompile Include="Corrida.cpp" />
+    <ClCompile Include="CrazyDriver.cpp" />
     <ClCompile Include="DVG.cpp" />
     <ClCompile Include="Garagem.cpp" />
     <ClCompile Include="Menus.cpp" />
     <ClCompile Include="Piloto.cpp" />
+    <ClCompile Include="PilotoRapido.cpp" />
+    <ClCompile Include="PilotoSurpresa.cpp" />
     <ClCompile Include="Pista.cpp" />
     <ClCompile Include="TP_POO.cpp" />
   </ItemGroup>
@@ -167,10 +170,13 @@
     <ClInclude Include="Carro.h" />
     <ClInclude Include="Consola.h" />
     <ClInclude Include="Corrida.h" />
+    <ClInclude Include="CrazyDriver.h" />
     <ClInclude Include="DVG.h" />
     <ClInclude Include="Garagem.h" />
     <ClInclude Include="Menus.h" />
     <ClInclude Include="Piloto.h" />
+    <ClInclude Include="PilotoRapido.h" />
+    <ClInclude Include="PilotoSurpresa.h" />
     <ClInclude Include="Pista.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
