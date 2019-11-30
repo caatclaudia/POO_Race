@@ -18,22 +18,6 @@ Menus::Menus()
 {
 }
 
-//void Menus::acrescentaAutodromo(int N, double comp, string nome) 
-//{
-//	bool igual = false;
-//	for (auto ptr = autodromos.begin(); ptr != autodromos.end(); ++ptr) {
-//		if ((*ptr)->getNome() == nome)
-//			igual = true;
-//	}
-//	if (igual) {
-//		nome = nome + to_string(NomeAutodromos);
-//		autodromos.push_back(new Autodromo(N, comp, nome));
-//	}
-//	else {
-//		autodromos.push_back(new Autodromo(N, comp, nome));
-//	}
-//}
-
 void Menus::base()const 
 {
 	int i;
@@ -106,7 +90,7 @@ void Menus::carregaC(DVG& controlo, string nome)
 		string marca, modelo, linha;
 		while (getline(ficheiro, linha)) {
 			istringstream buffer(linha);
-			if (buffer >> vel && buffer >> capI && buffer >> capM && buffer >> marca) {
+			if (buffer >> vel && buffer >> capI && buffer >> capM && buffer >> marca && capI <= capM) {
 				if(buffer >> modelo)
 					controlo.novoCarro(marca, capI, capM, vel, modelo);
 				else
@@ -232,7 +216,7 @@ int Menus::modo2(Autodromo* autodromo)
 			}
 			else if (comando1 == "pontuacao") {
 				autodromo->getPista()->atualizaPontuacao();
-				controlo.getAsStringPontPilotos();
+//				controlo.getAsStringPontPilotos();		NECESSARIO REVER PONTUACAO PARA SER O AUTODROMO A MOSTRAR
 			}
 			else if (comando1 == "voltar") {
 				Consola::gotoxy(76, 1);
@@ -299,7 +283,7 @@ int Menus::modo1(Simulacao* simulacao, string comando)
 					if (buffer >> tipoP && buffer >> nomeP) {
 						Consola::gotoxy(76, 1);
 						cout << "Criado piloto " << nomeP;
-						controlo.novoPiloto(nomeP, tipoP);
+						simulacao->getControlo().novoPiloto(nomeP, tipoP);
 					}
 					else
 						PARAMETRO_INVALIDO = true;
@@ -307,13 +291,13 @@ int Menus::modo1(Simulacao* simulacao, string comando)
 				else if (tipo == "c") {
 					int capI, capM, vel;
 					string marcaC, modeloC;
-					if (buffer >> vel && buffer >> capI && buffer >> capM && buffer >> marcaC) {
+					if (buffer >> vel && buffer >> capI && buffer >> capM && buffer >> marcaC && capI <= capM) {
 						Consola::gotoxy(76, 1);
 						cout << "Criado carro";
 						if (buffer >> modeloC)
-							controlo.novoCarro(marcaC, capI, capM, vel, modeloC);
+							simulacao->getControlo().novoCarro(marcaC, capI, capM, vel, modeloC);
 						else
-							controlo.novoCarro(marcaC, capI, capM, vel);
+							simulacao->getControlo().novoCarro(marcaC, capI, capM, vel);
 					}
 					else
 						PARAMETRO_INVALIDO = true;
@@ -325,7 +309,7 @@ int Menus::modo1(Simulacao* simulacao, string comando)
 					if (buffer >> n && buffer >> comp && buffer >> nomeA) {
 						simulacao->addAutodromos(n, comp, nomeA);
 						Consola::gotoxy(76, 1);
-						cout << "Criado autodromo " << autodromos[(int)autodromos.size()-1]->getNome();
+						cout << "Criado autodromo " << simulacao->getAutodromoN(simulacao->getAutodromosSize()-1)->getNome();
 					}
 					else
 						PARAMETRO_INVALIDO = true;
@@ -344,9 +328,9 @@ int Menus::modo1(Simulacao* simulacao, string comando)
 					if (buffer >> nomeP) {
 						Consola::gotoxy(76, 1);
 						cout << "Eliminado piloto " << nomeP;
-						if(controlo.procuraPiloto(nomeP)->getCarro()!=nullptr)
-							controlo.procuraPiloto(nomeP)->saiCarro();
-						controlo.removePiloto(controlo.procuraPiloto(nomeP));
+						if(simulacao->getControlo().procuraPiloto(nomeP)->getCarro()!=nullptr)
+							simulacao->getControlo().procuraPiloto(nomeP)->saiCarro();
+						simulacao->getControlo().removePiloto(simulacao->getControlo().procuraPiloto(nomeP));
 					}
 					else
 						PARAMETRO_INVALIDO = true;
@@ -356,10 +340,10 @@ int Menus::modo1(Simulacao* simulacao, string comando)
 					if (buffer >> id) {
 						Consola::gotoxy(76, 1);
 						cout << "Eliminado carro " << id;
-						for (auto ptr = controlo.getPiloto().begin(); ptr != controlo.getPiloto().end(); ptr++)
+						for (auto ptr = simulacao->getControlo().getPiloto().begin(); ptr != simulacao->getControlo().getPiloto().end(); ptr++)
 							if ((*ptr)->getCarro()!=nullptr && (*ptr)->getCarro()->getID() == id)
 								(*ptr)->saiCarro();
-						controlo.removeCarro(controlo.procuraCarro(id));
+						simulacao->getControlo().removeCarro(simulacao->getControlo().procuraCarro(id));
 					}
 					else
 						PARAMETRO_INVALIDO = true;
@@ -367,12 +351,12 @@ int Menus::modo1(Simulacao* simulacao, string comando)
 				else if (tipo == "a") {
 					string nomeA;
 					if (buffer >> nomeA) {
-						for (auto ptr = autodromos.begin(); ptr != autodromos.end(); ptr++)
-							if ((*ptr)->getNome() == nomeA) {
-								Consola::gotoxy(76, 1);
-								cout << "Eliminado autodromo " << nomeA;
-								ptr = autodromos.erase(ptr);
-							}
+						if (simulacao->eliminaAutodromos(nomeA)) {
+							Consola::gotoxy(76, 1);
+							cout << "Eliminado autodromo " << nomeA;
+						}
+						else
+							PARAMETRO_INVALIDO = true;
 					}
 					else
 						PARAMETRO_INVALIDO = true;
@@ -387,21 +371,21 @@ int Menus::modo1(Simulacao* simulacao, string comando)
 			char letra;
 			string	nomeP;
 			if (buffer >> letra && buffer >> nomeP) {
-				if (controlo.procuraPiloto(nomeP)->getCarro() == nullptr && controlo.procuraCarro(letra)->getCondutor() == false) {
+				if (simulacao->getControlo().procuraPiloto(nomeP)->getCarro() == nullptr && simulacao->getControlo().procuraCarro(letra)->getCondutor() == false) {
 					Consola::gotoxy(76, 1);
 					cout << "Piloto " << nomeP << " entrou no carro " << letra;
-					controlo.procuraPiloto(nomeP)->entraCarro(controlo.procuraCarro(letra));
-					auxiliarCorrida.push_back(new Corrida(controlo.procuraCarro(letra), controlo.procuraPiloto(nomeP)));
+					simulacao->getControlo().procuraPiloto(nomeP)->entraCarro(simulacao->getControlo().procuraCarro(letra));
+					simulacao->addAuxiliarCorrida(new Corrida(simulacao->getControlo().procuraCarro(letra), simulacao->getControlo().procuraPiloto(nomeP)));
 				}
 			}
 		}
 		else if (comando1 == "saidocarro") {
 			char letra;
 			if (buffer >> letra) {
-				if (controlo.procuraCarro(letra)->getCondutor()) {
+				if (simulacao->getControlo().procuraCarro(letra)->getCondutor()) {
 					Consola::gotoxy(76, 1);
-					cout << "Piloto " << controlo.pilotoNoCarro(letra)->getNome() << " saiu do carro " << letra;
-					controlo.pilotoNoCarro(letra)->saiCarro();
+					cout << "Piloto " << simulacao->getControlo().pilotoNoCarro(letra)->getNome() << " saiu do carro " << letra;
+					simulacao->getControlo().pilotoNoCarro(letra)->saiCarro();
 				}
 			}
 		}
@@ -447,21 +431,21 @@ int Menus::modo1(Simulacao* simulacao, string comando)
 		else if (comando1 == "campeonato") {
 			string nome;
 			if (buffer >> nome) {
-				for (auto ptr = autodromos.begin(); ptr != autodromos.end(); ptr++) {
-					if ((*ptr)->getNome() == nome && (int)auxiliarCorrida.size()>=2) {
+				for (int x = 0; x < simulacao->getAutodromosSize(); x++) {
+					if (simulacao->getAutodromoN(x)->getNome() == nome && simulacao->getAuxiliarCorridaSize()>=2) {
 						int i, j, num;
 						bool NOVO;
-						for (i = 0; i < (*ptr)->getPista()->getNMax() && i < (int)auxiliarCorrida.size(); i++) {
+						for (i = 0; i < simulacao->getAutodromoN(x)->getPista()->getNMax() && i < simulacao->getAuxiliarCorridaSize(); i++) {
 							do {
-								num = rand() % auxiliarCorrida.size();
+								num = rand() % simulacao->getAuxiliarCorridaSize();
 								NOVO = true;
-								for (j = 0; j < (int)(*ptr)->getPista()->getCorridas().size(); j++)
-									if ((*ptr)->getPista()->getCorridaN(j)->getCarro()->getID() == auxiliarCorrida[num]->getCarro()->getID())
+								for (j = 0; j < (int)simulacao->getAutodromoN(x)->getPista()->getCorridas().size(); j++)
+									if (simulacao->getAutodromoN(x)->getPista()->getCorridaN(j)->getCarro()->getID() == simulacao->getAuxiliarCorridaN(num)->getCarro()->getID())
 										NOVO = false;
 							} while (!NOVO);
-							(*ptr)->getPista()->adicionaCorrida(auxiliarCorrida[num]);
+							simulacao->getAutodromoN(x)->getPista()->adicionaCorrida(simulacao->getAuxiliarCorridaN(num));
 						}
-						modo2(*ptr);
+						modo2(simulacao->getAutodromoN(x));
 						break;
 					}
 				}
@@ -472,7 +456,7 @@ int Menus::modo1(Simulacao* simulacao, string comando)
 		else if (comando1 == "aleatorio") {
 			int num;
 			if (buffer >> num && num > 0) {
-				associaCarros(num);
+				associaCarros(simulacao, num);
 				Consola::gotoxy(76, 1);
 				cout << "Comando " << comando1 << "!";
 			}
@@ -504,36 +488,36 @@ void Menus::movimentoCarros(Autodromo* autodromo, int seg)
 	}
 }
 
-void Menus::associaCarros(int num)
+void Menus::associaCarros(Simulacao* simulacao, int num)
 {
 	bool existeC, existeP;
 	int max = num;
 
-	if (num > controlo.getNCarrosDisponiveis() || num > controlo.getNPilotosDisponiveis()) {
-		if (controlo.getNCarrosDisponiveis() > controlo.getNPilotosDisponiveis())
-			max = controlo.getNPilotosDisponiveis();
+	if (num > simulacao->getControlo().getNCarrosDisponiveis() || num > simulacao->getControlo().getNPilotosDisponiveis()) {
+		if (simulacao->getControlo().getNCarrosDisponiveis() >= simulacao->getControlo().getNPilotosDisponiveis())
+			max = simulacao->getControlo().getNPilotosDisponiveis();
 		else
-			max = controlo.getNCarrosDisponiveis();
+			max = simulacao->getControlo().getNCarrosDisponiveis();
 	}
-	int ncar = controlo.getNCarros();
-	int npil = controlo.getNPilotos();
+	int ncar = simulacao->getControlo().getNCarros();
+	int npil = simulacao->getControlo().getNPilotos();
 	for (int i = 0; i < max; ) {
 		existeC = false;
 		existeP = false;
 		int num1 = rand() % ncar;
-		for (int j = 0; j < (int)auxiliarCorrida.size(); j++) {
-			if (controlo.procuraCarroN(num1) == auxiliarCorrida[j]->getCarro())
+		for (int j = 0; j < simulacao->getAuxiliarCorridaSize(); j++) {
+			if (simulacao->getControlo().procuraCarroN(num1) == simulacao->getAuxiliarCorridaN(j)->getCarro())
 				existeC = true;
 		}
 		int num2 = rand() % npil;
-		for (int j = 0; j < (int)auxiliarCorrida.size(); j++){
-			if (controlo.procuraPilotoN(num2) == auxiliarCorrida[j]->getParticipante())
+		for (int j = 0; j < simulacao->getAuxiliarCorridaSize(); j++){
+			if (simulacao->getControlo().procuraPilotoN(num2) == simulacao->getAuxiliarCorridaN(j)->getParticipante())
 				existeP = true;
 		}
 		
 		if (existeP == false && existeC == false) {
-			controlo.procuraPilotoN(num2)->entraCarro(controlo.procuraCarroN(num1));
-			auxiliarCorrida.push_back(new Corrida(controlo.procuraCarroN(num1), controlo.procuraPilotoN(num2)));
+			simulacao->getControlo().procuraPilotoN(num2)->entraCarro(simulacao->getControlo().procuraCarroN(num1));
+			simulacao->addAuxiliarCorrida(new Corrida(simulacao->getControlo().procuraCarroN(num1), simulacao->getControlo().procuraPilotoN(num2)));
 			i++;
 		}
 	}
@@ -541,8 +525,4 @@ void Menus::associaCarros(int num)
 
 Menus::~Menus()
 {
-	for (auto p : autodromos)
-		delete p;
-	for (auto p : auxiliarCorrida)
-		delete p;
 }

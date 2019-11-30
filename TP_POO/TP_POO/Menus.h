@@ -16,14 +16,10 @@ using namespace std;
 
 class Menus
 {
-	DVG controlo;
-	vector<Autodromo*> autodromos;
-	vector<Corrida*> auxiliarCorrida;
 public:
 	static int NomeAutodromos;
-	Menus();
 
-	/*void acrescentaAutodromo(int N, double comp, string nome);*/
+	Menus();
 
 	void base()const;
 	void limpaPista()const;
@@ -37,7 +33,7 @@ public:
 
 	void movimentoCarros(Autodromo* autodromo, int seg);
 
-	void associaCarros(int num);
+	void associaCarros(Simulacao* simulacao, int num);
 
 	~Menus();
 };

@@ -44,6 +44,11 @@ int Simulacao::getAutodromosSize() const
 	return (int)autodromos.size();
 }
 
+int Simulacao::getAuxiliarCorridaSize() const
+{
+	return (int)auxiliarCorrida.size();
+}
+
 void Simulacao::addAutodromos(int N, double comp, string nome)
 {
 	bool igual = false;
@@ -63,6 +68,16 @@ void Simulacao::addAutodromos(int N, double comp, string nome)
 void Simulacao::addAuxiliarCorrida(Corrida* novo) 
 {
 	auxiliarCorrida.push_back(novo);
+}
+
+bool Simulacao::eliminaAutodromos(string nome)
+{
+	for (auto ptr = autodromos.begin(); ptr != autodromos.end(); ptr++)
+		if ((*ptr)->getNome() == nome) {
+			ptr = autodromos.erase(ptr);
+			return true;
+		}
+	return false;
 }
 
 Simulacao::~Simulacao()

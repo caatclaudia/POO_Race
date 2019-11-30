@@ -26,9 +26,11 @@ public:
 	Autodromo* getAutodromoN(int n) const;
 	Corrida* getAuxiliarCorridaN(int n) const;
 	int getAutodromosSize() const;
+	int getAuxiliarCorridaSize() const;
 
 	void addAutodromos(int N, double comp, string nome);
 	void addAuxiliarCorrida(Corrida* novo) ;
+	bool eliminaAutodromos(string nome);
 
 	~Simulacao();
 };
