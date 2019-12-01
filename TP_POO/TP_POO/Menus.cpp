@@ -71,11 +71,15 @@ void Menus::carregaP(DVG& controlo, string nome)
 {
 	ifstream ficheiro(nome);
 	if (ficheiro) {
-		string tipo, nome, linha;
+		string tipo, linha;
 		while (getline(ficheiro, linha)) {
+			string nome;
 			istringstream buffer(linha);
-			if (buffer >> tipo && buffer >> nome)
-				controlo.novoPiloto(nome, tipo);
+			if (buffer >> tipo) {
+				if (getline(buffer, nome)) {
+					controlo.novoPiloto(nome, tipo);
+				}
+			}
 		}
 		Consola::gotoxy(76, 1);
 		cout << "Carregado com sucesso!";
@@ -280,10 +284,12 @@ int Menus::modo1(Simulacao* simulacao, string comando)
 			if (buffer >> tipo) {
 				if (tipo == "p") {
 					string tipoP, nomeP;
-					if (buffer >> tipoP && buffer >> nomeP) {
-						Consola::gotoxy(76, 1);
-						cout << "Criado piloto " << nomeP;
-						simulacao->getControlo().novoPiloto(nomeP, tipoP);
+					if (buffer >> tipoP) {
+						if (getline(buffer, nomeP)) {
+							Consola::gotoxy(76, 1);
+							cout << "Criado piloto " << nomeP;
+							simulacao->getControlo().novoPiloto(nomeP, tipoP);
+						}
 					}
 					else
 						PARAMETRO_INVALIDO = true;
@@ -325,7 +331,7 @@ int Menus::modo1(Simulacao* simulacao, string comando)
 			if (buffer >> tipo) {
 				if (tipo == "p") {
 					string nomeP;
-					if (buffer >> nomeP) {
+					if (getline(buffer, nomeP)) {
 						Consola::gotoxy(76, 1);
 						cout << "Eliminado piloto " << nomeP;
 						if(simulacao->getControlo().procuraPiloto(nomeP)->getCarro()!=nullptr)
