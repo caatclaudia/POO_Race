@@ -80,6 +80,35 @@ bool Autodromo::acrescentaCarroGaragem(Carro* carro)
 	return gar->adicionaCarro(carro);
 }
 
+void Autodromo::getAsStringPontPilotos()
+{
+	int i = 1, max, indiceMax, l;
+	vector<int> indiceUsado;
+
+	for (int j = 0; (int)indiceUsado.size() != (int)p->getCorridas().size(); ) {
+		max = 0;
+		for (l = 0; l < (int)p->getCorridas().size(); l++) {
+			bool EXISTE = false;
+			if (p->getCorridaN(l)->getParticipante()->getPontuacao() >= max) {
+				for (int k = 0; k < (int)indiceUsado.size(); k++) {
+					if (l == indiceUsado[k])
+						EXISTE = true;
+				}
+				if (!EXISTE) {
+					indiceMax = l;
+					max = p->getCorridaN(l)->getParticipante()->getPontuacao();
+				}
+			}
+		}
+		indiceUsado.push_back(indiceMax);
+		if (p->getCorridaN(indiceMax)->getParticipante()->getPontuacao() != 0) {
+			Consola::gotoxy(76, i++);
+			cout << (int)indiceUsado.size() << ": Piloto " << (p->getCorridaN(indiceMax)->getParticipante()->getNome()) << " com " << (p->getCorridaN(indiceMax)->getParticipante()->getPontuacao())<< " pontos!";
+		}
+
+	}
+}
+
 
 Autodromo::~Autodromo()
 {

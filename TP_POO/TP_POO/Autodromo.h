@@ -28,6 +28,7 @@ public:
 
 	bool acrescentaCarroPista(Carro *carro);
 	bool acrescentaCarroGaragem(Carro *carro);
+	void getAsStringPontPilotos();
 
 	~Autodromo();
 };

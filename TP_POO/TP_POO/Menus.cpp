@@ -77,6 +77,8 @@ void Menus::carregaP(DVG& controlo, string nome)
 			istringstream buffer(linha);
 			if (buffer >> tipo) {
 				if (getline(buffer, nome)) {
+					nome=nome.substr(1);
+					//nome=nome.replace(0, 1, "");
 					controlo.novoPiloto(nome, tipo);
 				}
 			}
@@ -221,6 +223,7 @@ int Menus::modo2(Autodromo* autodromo)
 			else if (comando1 == "pontuacao") {
 				autodromo->getPista()->atualizaPontuacao();
 //				controlo.getAsStringPontPilotos();		NECESSARIO REVER PONTUACAO PARA SER O AUTODROMO A MOSTRAR
+				autodromo->getAsStringPontPilotos();
 			}
 			else if (comando1 == "voltar") {
 				Consola::gotoxy(76, 1);
