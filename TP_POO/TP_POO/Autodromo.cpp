@@ -101,11 +101,9 @@ void Autodromo::getAsStringPontPilotos()
 			}
 		}
 		indiceUsado.push_back(indiceMax);
-		if (p->getCorridaN(indiceMax)->getParticipante()->getPontuacao() != 0) {
-			Consola::gotoxy(76, i++);
-			cout << (int)indiceUsado.size() << ": Piloto " << (p->getCorridaN(indiceMax)->getParticipante()->getNome()) << " com " << (p->getCorridaN(indiceMax)->getParticipante()->getPontuacao())<< " pontos!";
-		}
-
+			
+		Consola::gotoxy(76, i++);
+		cout << (int)indiceUsado.size() << ": Piloto " << (p->getCorridaN(indiceMax)->getParticipante()->getNome()) << " com " << (p->getCorridaN(indiceMax)->getParticipante()->getPontuacao())<< " pontos!";
 	}
 }
 

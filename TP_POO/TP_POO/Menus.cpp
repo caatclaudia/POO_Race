@@ -78,7 +78,6 @@ void Menus::carregaP(DVG& controlo, string nome)
 			if (buffer >> tipo) {
 				if (getline(buffer, nome)) {
 					nome=nome.substr(1);
-					//nome=nome.replace(0, 1, "");
 					controlo.novoPiloto(nome, tipo);
 				}
 			}
@@ -222,7 +221,6 @@ int Menus::modo2(Autodromo* autodromo)
 			}
 			else if (comando1 == "pontuacao") {
 				autodromo->getPista()->atualizaPontuacao();
-//				controlo.getAsStringPontPilotos();		NECESSARIO REVER PONTUACAO PARA SER O AUTODROMO A MOSTRAR
 				autodromo->getAsStringPontPilotos();
 			}
 			else if (comando1 == "voltar") {
@@ -289,6 +287,7 @@ int Menus::modo1(Simulacao* simulacao, string comando)
 					string tipoP, nomeP;
 					if (buffer >> tipoP) {
 						if (getline(buffer, nomeP)) {
+							nomeP = nomeP.substr(1);
 							Consola::gotoxy(76, 1);
 							cout << "Criado piloto " << nomeP;
 							simulacao->getControlo().novoPiloto(nomeP, tipoP);
@@ -335,6 +334,7 @@ int Menus::modo1(Simulacao* simulacao, string comando)
 				if (tipo == "p") {
 					string nomeP;
 					if (getline(buffer, nomeP)) {
+						nomeP = nomeP.substr(1);
 						Consola::gotoxy(76, 1);
 						cout << "Eliminado piloto " << nomeP;
 						if(simulacao->getControlo().procuraPiloto(nomeP)->getCarro()!=nullptr)
@@ -471,6 +471,9 @@ int Menus::modo1(Simulacao* simulacao, string comando)
 			}
 			else
 				PARAMETRO_INVALIDO = true;
+		}
+		else if (comando1 == "pontuacao") {
+			simulacao->getControlo().getAsStringPontPilotos();
 		}
 		else {
 			Consola::gotoxy(76, 1);

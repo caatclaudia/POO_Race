@@ -58,6 +58,11 @@ void Corrida::setCarro(Carro* car) {
 	carro = car;
 }
 
+bool Corrida::getMovimento() const
+{
+	return carro->getMovimento();
+}
+
 Corrida::~Corrida()
 {
 }

@@ -164,11 +164,9 @@ void DVG::getAsStringPontPilotos() const
 			}
 		}
 		indiceUsado.push_back(indiceMax);
-		if (pilotos[indiceMax]->getPontuacao() != 0) {
-			Consola::gotoxy(76, i++);
-			cout << (int)indiceUsado.size() << ": Piloto " << pilotos[indiceMax]->getNome() << " com " << pilotos[indiceMax]->getPontuacao() << " pontos!";
-		}
-		
+
+		Consola::gotoxy(76, i++);
+		cout << (int)indiceUsado.size() << ": Piloto " << pilotos[indiceMax]->getNome() << " com " << pilotos[indiceMax]->getPontuacao() << " pontos!";
 	}
 }
 
