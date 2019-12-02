@@ -15,7 +15,7 @@ class Carro;
 
 class Piloto
 {
-	const string nome,tipo;	
+	const string nome, tipo;	
 	Carro *carro;
 	int pontuacao;
 
@@ -30,13 +30,11 @@ public:
 
 	bool entraCarro(Carro* ob);
 	bool saiCarro();
-	/*Pode operar os mecanismos do carro que está a conduzir.
-		Isto implica que o piloto tenha a capacidade de decidir o que vai fazer com o carro, e também
-		a capacidade de receber ordens*/
+
 	void travarCarro();
 	void acelararCarro();
 
-	int passouTempo(int s);
+	virtual int passouTempo(int s);
 
 	string getAsString()const;
 	bool operator==(const Piloto& ob)const;
