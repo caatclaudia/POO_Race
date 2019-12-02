@@ -102,7 +102,7 @@ void Pista::comecarCorrida()
 		if (n == corridas.size()) {
 			comecou = JA_COMECOU;
 			for (auto ptr = corridas.begin(); ptr != corridas.end(); ptr++)
-				(*ptr)->getParticipante()->acelararCarro();
+				(*ptr)->getParticipante()->passouTempo(1);	// acelararCarro();
 		}
 		else {
 			Consola::gotoxy(76, 2);

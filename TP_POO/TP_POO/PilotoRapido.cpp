@@ -15,11 +15,11 @@ PilotoRapido::PilotoRapido(const string nome, const string t) : Piloto(nome, t),
 
 int PilotoRapido::passouTempo(int s)
 {
-	if (comeca) {
+	if (comeca > 0) {
 		getCarro()->setMovimento(CARRO_MOVIMENTO);
+		acelararCarro();
 		comeca--;
 	}
-	
 	return getCarro()->getVelocidade() * s;
 }
 

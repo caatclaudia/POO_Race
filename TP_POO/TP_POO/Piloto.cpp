@@ -6,6 +6,7 @@ Piloto::Piloto(const string nome, const string t):nome(nome), tipo(t)
 {
 	carro = nullptr;
 	pontuacao = 0;
+	comeca = 1;
 }
 
 
@@ -68,11 +69,12 @@ void Piloto::acelararCarro()
 
 int Piloto::passouTempo(int s)
 {
-	if (carro->getMovimento() == CARRO_MOVIMENTO) {
-		return carro->getVelocidade() * s;
+	if (comeca > 0) {
+		carro->setMovimento(CARRO_MOVIMENTO);
+		acelararCarro();
+		comeca--;
 	}
-	else
-		return 0;
+	return carro->getVelocidade() * s;
 }
 
 string Piloto::getAsString() const

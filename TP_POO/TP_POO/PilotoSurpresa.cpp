@@ -14,11 +14,12 @@ PilotoSurpresa::PilotoSurpresa(const string nome, const string t) : Piloto(nome,
 
 int PilotoSurpresa::passouTempo(int s)
 {
-	if (comeca) {
+	if (comeca > 0) {
 		getCarro()->setMovimento(CARRO_MOVIMENTO);
+		acelararCarro();
 		comeca--;
 	}
-
+	//ACELARAR/DESACELARAR A CADA SEGUNDO ALEATORIAMENTE
 	return getCarro()->getVelocidade() * s;
 }
 

@@ -59,7 +59,6 @@ int main()
 		getline(cin, comando);
 		FLAG_INICIO = false;
 	} while (menu.modo1(&simulacao, comando));
-
 	
 	return EXIT_SUCCESS;
 }

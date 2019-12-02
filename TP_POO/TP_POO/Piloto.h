@@ -17,7 +17,7 @@ class Piloto
 {
 	const string nome, tipo;	
 	Carro *carro;
-	int pontuacao;
+	int pontuacao, comeca;
 
 public:
 	Piloto(const string nome, const string t);

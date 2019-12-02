@@ -25,6 +25,7 @@ int CrazyDriver::passouTempo(int s)
 	}
 	else if (comeca == 0) {
 		getCarro()->setMovimento(CARRO_MOVIMENTO);
+		acelararCarro();
 		comeca--;
 	}
 	
