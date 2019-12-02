@@ -6,13 +6,6 @@ PilotoRapido::PilotoRapido(const string nome, const string t) : Piloto(nome, t),
 	comeca = 1;
 }
 
-/*COMECA A CORRER NO 1ºSEGUNDO
-	ACELERA ATE VER QUE ENERGIA = MAXIMA/2,
-	DPS DISSO SO ACELERA 1m/s POR CADA 3SEG
-
-	A CADA 10SEG TEM PROBABILIDADE DE 10% DE ATIVAR BOTAO DE EMERGENCIA
-*/
-
 int PilotoRapido::passouTempo(int s)
 {
 	if (comeca > 0) {
@@ -20,6 +13,13 @@ int PilotoRapido::passouTempo(int s)
 		acelararCarro();
 		comeca--;
 	}
+	/*ACELERA ATE VER QUE ENERGIA = MAXIMA/2,
+	DPS DISSO SO ACELERA 1m/s POR CADA 3SEG */
+
+	//A cada 10seg: 
+	//if((rand() % 100) < 10) //A CADA 10SEG TEM PROBABILIDADE DE 10% DE ATIVAR BOTAO DE EMERGENCIA
+	//	getCarro()->setEmergencia(EMERGENCIA_ON);
+	
 	return getCarro()->getVelocidade() * s;
 }
 
