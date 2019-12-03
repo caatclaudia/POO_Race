@@ -6,7 +6,7 @@ Piloto::Piloto(const string nome, const string t):nome(nome), tipo(t)
 {
 	carro = nullptr;
 	pontuacao = 0;
-	comeca = 1;
+	segundos = 0;
 }
 
 
@@ -40,6 +40,16 @@ void Piloto::acrescentaPontuacao(int n)
 	pontuacao = pontuacao + n;
 }
 
+int Piloto::getSegundos() const
+{
+	return segundos;
+}
+
+void Piloto::setSegundos(int n)
+{
+	segundos = segundos + n;
+}
+
 bool Piloto::entraCarro(Carro *ob) 
 {
 	if (carro!=nullptr)
@@ -69,11 +79,11 @@ void Piloto::acelararCarro()
 
 int Piloto::passouTempo(int s)
 {
-	if (comeca > 0) {
+	if (segundos == 0) {
 		carro->setMovimento(CARRO_MOVIMENTO);
 		acelararCarro();
-		comeca--;
 	}
+	segundos++;		//VERIFICAR ESTA CHAMADA, SE É 1SEG OU MAIS
 	return carro->getVelocidade() * s;
 }
 

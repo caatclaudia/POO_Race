@@ -3,20 +3,20 @@
 
 PilotoSurpresa::PilotoSurpresa(const string nome, const string t) : Piloto(nome, t), prob(0.05)
 {
-	comeca = 1;
 }
 
 int PilotoSurpresa::passouTempo(int s)
 {
-	if (comeca > 0) {
+	if (Piloto::getSegundos() == 1) {
 		getCarro()->setMovimento(CARRO_MOVIMENTO);
 		acelararCarro();
-		comeca--;
 	}
 	//ACELARAR/DESACELARAR A CADA SEGUNDO ALEATORIAMENTE
 
 	if ((rand() % 100) < 5)	//A PROBABILIDADE DE DANIFICAR CARRO É DE 5%
 		getCarro()->setEmergencia(CARRO_DANIFICADO);
+
+	Piloto::setSegundos(Piloto::getSegundos() + 1);		//VERIFICAR ESTA CHAMADA, SE É 1SEG OU MAIS
 
 	return getCarro()->getVelocidade() * s;
 }

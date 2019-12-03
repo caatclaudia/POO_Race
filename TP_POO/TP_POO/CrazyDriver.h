@@ -5,10 +5,9 @@
 class CrazyDriver : public Piloto
 {
 	const double prob;
-	int comeca;
+	const int segundo;
 	
 public:
-	static int segundos;
 
 	CrazyDriver(const string nome, const string t);
 

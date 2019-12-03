@@ -1,21 +1,18 @@
 #include "CrazyDriver.h"
 #include "Carro.h"
 
-CrazyDriver::CrazyDriver(const string nome, const string t) : Piloto(nome, t), prob(0.05)
+CrazyDriver::CrazyDriver(const string nome, const string t) : Piloto(nome, t), prob(0.05), segundo(rand() % 5 + 1)
 {
-	comeca = rand() % 5 + 1;
 }
 
 int CrazyDriver::passouTempo(int s)
 {
-	if (comeca > 0) {	//SO COMECA A CORRER NO XºSEGUNDO(ALEATORIO ENTRE 1 E 5)
-		comeca--;
+	if (Piloto::getSegundos() < segundo) {	//SO COMECA A CORRER NO XºSEGUNDO(ALEATORIO ENTRE 1 E 5)
 		return 0;
 	}
-	else if (comeca == 0) {
+	else if (Piloto::getSegundos() == segundo) {
 		getCarro()->setMovimento(CARRO_MOVIMENTO);
 		acelararCarro();
-		comeca--;
 	}
 
 	/*A CADA SEGUNDO PERGUNTA A PISTA QUAL O SEU LUGAR
@@ -27,6 +24,8 @@ int CrazyDriver::passouTempo(int s)
 
 	if (getCarro()->getEnergia() == 0)	//SE FICAR SEM ENERGIA, ACENDE SINAL DE EMERGENCIA
 		getCarro()->setEmergencia(EMERGENCIA_ON);
+
+	Piloto::setSegundos(Piloto::getSegundos()+1);		//VERIFICAR ESTA CHAMADA, SE É 1SEG OU MAIS
 
 	//PROBABILIDADE DE 5% DE DANIFICAR IRREMEDIAVELMENTE E O CARRO DE TRAS TB
 	
