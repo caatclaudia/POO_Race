@@ -175,6 +175,9 @@ int Menus::modo2(Autodromo* autodromo)
 				if (buffer >> letra) {
 					Consola::gotoxy(76, 1);
 					cout << "Comando " << comando1 << " " << letra;
+					for (int i = 0; i < (int)autodromo->getPista()->getCorridas().size(); i++)
+						if (autodromo->getPista()->getCorridaN(i)->getCarro()->getID() == letra)
+							autodromo->getPista()->getCorridaN(i)->getCarro()->acidenteDanoInevitavel(autodromo->getPista()->getCorridaN(i)->getParticipante());
 				}
 				else
 					PARAMETRO_INVALIDO = true;
@@ -184,6 +187,9 @@ int Menus::modo2(Autodromo* autodromo)
 				if (buffer >> nome) {
 					Consola::gotoxy(76, 1);
 					cout << "Comando " << comando1 << " " << nome;
+					/*for (int i = 0; i < (int)autodromo->getPista()->getCorridas().size(); i++)
+						if (autodromo->getPista()->getCorridaN(i)->getParticipante()->getNome() == nome)*/
+							//TRAVAR ATE PARAR
 				}
 				else
 					PARAMETRO_INVALIDO = true;
