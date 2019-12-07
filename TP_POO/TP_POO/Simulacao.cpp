@@ -5,6 +5,7 @@
 #include "Pista.h"
 #include "Piloto.h"
 #include "Corrida.h"
+#include <iostream>
 
 Simulacao::Simulacao()
 {
@@ -47,6 +48,29 @@ int Simulacao::getAutodromosSize() const
 int Simulacao::getAuxiliarCorridaSize() const
 {
 	return (int)auxiliarCorrida.size();
+}
+
+vector<Autodromo*> Simulacao::getCampeonato() 
+{
+	return campeonato;
+}
+
+Autodromo* Simulacao::getCampeonatoN(int n) const
+{
+	return campeonato[n];
+}
+
+int Simulacao::getCampeonatoSize() const
+{
+	return (int)campeonato.size();
+}
+
+void Simulacao::addCampeonato(Autodromo* novo)
+{
+	for (int i = 0; i < (int)campeonato.size(); i++)
+		if (campeonato[i]->getNome() == novo->getNome())
+			return ;
+	campeonato.push_back(novo);
 }
 
 void Simulacao::addAutodromos(int N, double comp, string nome)

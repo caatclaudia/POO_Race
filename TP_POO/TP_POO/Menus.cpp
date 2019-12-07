@@ -124,13 +124,14 @@ void Menus::carregaA(Simulacao *simulacao, string nome)
 	}
 }
 
-int Menus::modo2(Autodromo* autodromo)
+int Menus::modo2(vector<Autodromo*> campeonato)
 {
 	string comando, comando1;
 	bool PARAMETRO_INVALIDO;
+	int indice = 0;
 
 	Consola::gotoxy(76, 1);
-	cout << "Autodromo " << autodromo->getNome();
+	cout << "Autodromo " << campeonato[indice]->getNome();
 	do {
 		PARAMETRO_INVALIDO = false;
 		Consola::getch();
@@ -143,7 +144,7 @@ int Menus::modo2(Autodromo* autodromo)
 		if (buffer >> comando1)
 		{
 			if (comando1 == "listacarros") {
-				autodromo->getPista()->listaCarros();
+				campeonato[indice]->getPista()->listaCarros();
 			}
 			else if (comando1 == "carregabat") {
 				char letra;
@@ -151,9 +152,9 @@ int Menus::modo2(Autodromo* autodromo)
 				if (buffer >> letra && buffer >> num && num > 0) {
 					Consola::gotoxy(76, 1);
 					cout << "Comando " << comando1 << " " << letra << " " << num;
-					for (int i = 0; i < (int)autodromo->getPista()->getCorridas().size(); i++)
-						if (autodromo->getPista()->getCorridaN(i)->getCarro()->getID() == letra) 
-							autodromo->getPista()->getCorridaN(i)->getCarro()->carregaEnergia(num);
+					for (int i = 0; i < (int)campeonato[indice]->getPista()->getCorridas().size(); i++)
+						if (campeonato[indice]->getPista()->getCorridaN(i)->getCarro()->getID() == letra)
+							campeonato[indice]->getPista()->getCorridaN(i)->getCarro()->carregaEnergia(num);
 				}
 				else
 					PARAMETRO_INVALIDO = true;
@@ -161,23 +162,26 @@ int Menus::modo2(Autodromo* autodromo)
 			else if (comando1 == "carregatudo") {
 				Consola::gotoxy(76, 1);
 				cout << "Comando " << comando1;
-				for (int i = 0; i < (int)autodromo->getPista()->getCorridas().size(); i++)
-					autodromo->getPista()->getCorridaN(i)->getCarro()->carregaEnergiaM();
+				for (int i = 0; i < (int)campeonato[indice]->getPista()->getCorridas().size(); i++)
+					campeonato[indice]->getPista()->getCorridaN(i)->getCarro()->carregaEnergiaM();
 			}
 			else if (comando1 == "corrida") {
-
 				Consola::gotoxy(76, 1);
-				cout << "Comando " << comando1;
-
+				if (indice < (int)campeonato.size() - 1) {
+					indice++;
+					cout << "Autodromo " << campeonato[indice]->getNome();
+				}
+				else
+					cout << "Campeonato terminou!";
 			}
 			else if (comando1 == "acidente") {
 				char letra;
 				if (buffer >> letra) {
 					Consola::gotoxy(76, 1);
 					cout << "Comando " << comando1 << " " << letra;
-					for (int i = 0; i < (int)autodromo->getPista()->getCorridas().size(); i++)
-						if (autodromo->getPista()->getCorridaN(i)->getCarro()->getID() == letra)
-							autodromo->getPista()->getCorridaN(i)->getCarro()->acidenteDanoInevitavel(autodromo->getPista()->getCorridaN(i)->getParticipante());
+					for (int i = 0; i < (int)campeonato[indice]->getPista()->getCorridas().size(); i++)
+						if (campeonato[indice]->getPista()->getCorridaN(i)->getCarro()->getID() == letra)
+							campeonato[indice]->getPista()->getCorridaN(i)->getCarro()->acidenteDanoInevitavel(campeonato[indice]->getPista()->getCorridaN(i)->getParticipante());
 				}
 				else
 					PARAMETRO_INVALIDO = true;
@@ -187,8 +191,8 @@ int Menus::modo2(Autodromo* autodromo)
 				if (buffer >> nome) {
 					Consola::gotoxy(76, 1);
 					cout << "Comando " << comando1 << " " << nome;
-					/*for (int i = 0; i < (int)autodromo->getPista()->getCorridas().size(); i++)
-						if (autodromo->getPista()->getCorridaN(i)->getParticipante()->getNome() == nome)*/
+					/*for (int i = 0; i < (int)campeonato[indice]->getPista()->getCorridas().size(); i++)
+						if (campeonato[indice]->getPista()->getCorridaN(i)->getParticipante()->getNome() == nome)*/
 							//TRAVAR ATE PARAR
 				}
 				else
@@ -208,14 +212,14 @@ int Menus::modo2(Autodromo* autodromo)
 				if (buffer >> n && n > 0) {
 					Consola::gotoxy(2, 21);
 					cout << "Passou " << n << " segundos!";
-					if (autodromo->getPista()->getComecou() == JA_TERMINOU) {
+					if (campeonato[indice]->getPista()->getComecou() == JA_TERMINOU) {
 						Consola::gotoxy(76, 1);
 						cout << "Corrida ja terminada!";
 					}
-					if (autodromo->getPista()->getComecou() == NAO_COMECOU) 
-						autodromo->getPista()->comecarCorrida();
-					if (autodromo->getPista()->getComecou() == JA_COMECOU) 
-						movimentoCarros(autodromo, n);
+					if (campeonato[indice]->getPista()->getComecou() == NAO_COMECOU)
+						campeonato[indice]->getPista()->comecarCorrida();
+					if (campeonato[indice]->getPista()->getComecou() == JA_COMECOU)
+						movimentoCarros(campeonato[indice], n);
 				}
 				else
 					PARAMETRO_INVALIDO = true;
@@ -226,8 +230,8 @@ int Menus::modo2(Autodromo* autodromo)
 
 			}
 			else if (comando1 == "pontuacao") {
-				autodromo->getPista()->atualizaPontuacao();
-				autodromo->getAsStringPontPilotos();
+				campeonato[indice]->getPista()->atualizaPontuacao();
+				campeonato[indice]->getAsStringPontPilotos();
 			}
 			else if (comando1 == "voltar") {
 				Consola::gotoxy(76, 1);
@@ -445,7 +449,8 @@ int Menus::modo1(Simulacao* simulacao, string comando)
 		}
 		else if (comando1 == "campeonato") {
 			string nome;
-			if (buffer >> nome) {
+			bool CERTO = false;
+			while (buffer >> nome) {
 				for (int x = 0; x < simulacao->getAutodromosSize(); x++) {
 					if (simulacao->getAutodromoN(x)->getNome() == nome && simulacao->getAuxiliarCorridaSize()>=2) {
 						int i, j, num;
@@ -460,11 +465,20 @@ int Menus::modo1(Simulacao* simulacao, string comando)
 							} while (!NOVO);
 							simulacao->getAutodromoN(x)->getPista()->adicionaCorrida(simulacao->getAuxiliarCorridaN(num));
 						}
-						modo2(simulacao->getAutodromoN(x));
+						//NESTE CASO A SEGUNDA CORRIDA ESTA A FICAR COM O PONTEIRO PARA A DA PRIMEIRA E NAO PODE
+						//PORQUE ESTA A FICAR COM O VALOR DO LUGAR E POSICAO DOS CARROS?! - NO CASO DE POR DUAS CORRIDAS
+						simulacao->addCampeonato(simulacao->getAutodromoN(x));
 						break;
 					}
+					else {
+						Consola::gotoxy(76, 1);
+						cout << "Falta participantes!";
+					}
 				}
+				CERTO = true;
 			}
+			if(CERTO)
+				modo2(simulacao->getCampeonato());
 			else
 				PARAMETRO_INVALIDO = true;
 		}

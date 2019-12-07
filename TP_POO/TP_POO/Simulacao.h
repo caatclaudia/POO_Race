@@ -15,6 +15,8 @@ class Simulacao
 	DVG controlo;
 	vector<Autodromo*> autodromos;
 	vector<Corrida*> auxiliarCorrida;
+	vector<Autodromo*> campeonato;	//PARA COLOCAR TODA A INFORMACAO, COMO OS AUTODROMOS PELA ORDEM DE CORRIDA
+
 public:
 	static int NomeAutodromos;
 
@@ -27,6 +29,12 @@ public:
 	Corrida* getAuxiliarCorridaN(int n) const;
 	int getAutodromosSize() const;
 	int getAuxiliarCorridaSize() const;
+
+	vector<Autodromo*> getCampeonato() ;
+	Autodromo* getCampeonatoN(int n) const;
+	int getCampeonatoSize() const;
+	void addCampeonato(Autodromo *novo);
+
 
 	void addAutodromos(int N, double comp, string nome);
 	void addAuxiliarCorrida(Corrida* novo) ;
