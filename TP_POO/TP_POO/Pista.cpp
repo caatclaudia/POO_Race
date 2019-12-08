@@ -103,6 +103,7 @@ void Pista::comecarCorrida()
 			comecou = JA_COMECOU;
 			for (auto ptr = corridas.begin(); ptr != corridas.end(); ptr++) {
 				(*ptr)->getParticipante()->setSegundos();
+				(*ptr)->setPosicao(0);
 				(*ptr)->getParticipante()->passouTempo(1);
 			}
 		}
@@ -124,8 +125,9 @@ void Pista::terminarCorrida(Garagem* g)
 		comecou = JA_TERMINOU;
 		atualizaPontuacao();
 		for (auto ptr = corridas.begin(); ptr != corridas.end(); ptr++) {
-			(*ptr)->getParticipante()->saiCarro();
-			g->adicionaCarro((*ptr)->getCarro());
+		//	(*ptr)->getParticipante()->saiCarro();
+		//	g->adicionaCarro((*ptr)->getCarro());
+			(*ptr)->setPosicao(0);
 			delete (*ptr);
 		}
 	}

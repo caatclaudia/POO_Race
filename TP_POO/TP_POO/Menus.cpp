@@ -170,6 +170,8 @@ int Menus::modo2(vector<Autodromo*> campeonato)
 				if (indice < (int)campeonato.size() - 1) {
 					indice++;
 					cout << "Autodromo " << campeonato[indice]->getNome();
+					campeonato[indice]->getPista()->setComecou(NAO_COMECOU);
+					//NECESSARIO VERIFICAR QUE TODOS OS PARES AINDA PODEM CONTINUAR A CORRER
 				}
 				else
 					cout << "Campeonato terminou!";
@@ -451,28 +453,28 @@ int Menus::modo1(Simulacao* simulacao, string comando)
 			string nome;
 			bool CERTO = false;
 			while (buffer >> nome) {
-				for (int x = 0; x < simulacao->getAutodromosSize(); x++) {
-					if (simulacao->getAutodromoN(x)->getNome() == nome && simulacao->getAuxiliarCorridaSize()>=2) {
-						int i, j, num;
-						bool NOVO;
-						for (i = 0; i < simulacao->getAutodromoN(x)->getPista()->getNMax() && i < simulacao->getAuxiliarCorridaSize(); i++) {
-							do {
-								num = rand() % simulacao->getAuxiliarCorridaSize();
-								NOVO = true;
-								for (j = 0; j < (int)simulacao->getAutodromoN(x)->getPista()->getCorridas().size(); j++)
-									if (simulacao->getAutodromoN(x)->getPista()->getCorridaN(j)->getCarro()->getID() == simulacao->getAuxiliarCorridaN(num)->getCarro()->getID())
-										NOVO = false;
-							} while (!NOVO);
-							simulacao->getAutodromoN(x)->getPista()->adicionaCorrida(simulacao->getAuxiliarCorridaN(num));
+				if (simulacao->getAuxiliarCorridaSize() < 2) {
+					Consola::gotoxy(76, 1);
+					cout << "Falta participantes!";
+				}
+				else {
+					for (int x = 0; x < simulacao->getAutodromosSize(); x++) {
+						if (simulacao->getAutodromoN(x)->getNome() == nome && simulacao->getAuxiliarCorridaSize() >= 2) {
+							int i, j, num;
+							bool NOVO;
+							for (i = 0; i < simulacao->getAutodromoN(x)->getPista()->getNMax() && i < simulacao->getAuxiliarCorridaSize(); i++) {
+								do {
+									num = rand() % simulacao->getAuxiliarCorridaSize();
+									NOVO = true;
+									for (j = 0; j < (int)simulacao->getAutodromoN(x)->getPista()->getCorridas().size(); j++)
+										if (simulacao->getAutodromoN(x)->getPista()->getCorridaN(j)->getCarro()->getID() == simulacao->getAuxiliarCorridaN(num)->getCarro()->getID())
+											NOVO = false;
+								} while (!NOVO);
+								simulacao->getAutodromoN(x)->getPista()->adicionaCorrida(simulacao->getAuxiliarCorridaN(num));
+							}
+							simulacao->addCampeonato(simulacao->getAutodromoN(x));
+							break;
 						}
-						//NESTE CASO A SEGUNDA CORRIDA ESTA A FICAR COM O PONTEIRO PARA A DA PRIMEIRA E NAO PODE
-						//PORQUE ESTA A FICAR COM O VALOR DO LUGAR E POSICAO DOS CARROS?! - NO CASO DE POR DUAS CORRIDAS
-						simulacao->addCampeonato(simulacao->getAutodromoN(x));
-						break;
-					}
-					else {
-						Consola::gotoxy(76, 1);
-						cout << "Falta participantes!";
 					}
 				}
 				CERTO = true;
