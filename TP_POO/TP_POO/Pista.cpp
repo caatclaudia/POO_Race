@@ -139,7 +139,6 @@ void Pista::terminarCorrida(Garagem* g)
 		//	(*ptr)->getParticipante()->saiCarro();
 		//	g->adicionaCarro((*ptr)->getCarro());
 			(*ptr)->setPosicao(0);
-			//delete (*ptr);
 		}
 	}
 }

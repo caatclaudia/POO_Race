@@ -61,7 +61,7 @@ public:
 	void travar();
 
 	void acidenteDanifica();
-	void acidenteDanoInevitavel(Piloto* ob);
+	void acidenteDanoIrreparavel(Piloto* ob);
 
 	string getAsString()const;
 	

@@ -176,11 +176,10 @@ void Carro::acidenteDanifica()
 	acidente = CARRO_DANIFICADO;
 }
 
-void Carro::acidenteDanoInevitavel(Piloto* ob) 
+void Carro::acidenteDanoIrreparavel(Piloto* ob)
 {
 	acidente = CARRO_IRREPARAVEL;
-	if(ob->getCarro()==this)
-		delete ob;
+	ob->saiCarro();
 }
 
 string Carro::getAsString() const

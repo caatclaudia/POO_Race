@@ -1,4 +1,14 @@
-﻿  Menus.cpp
+﻿  Autodromo.cpp
+  Carro.cpp
+  Corrida.cpp
+  CrazyDriver.cpp
+  DVG.cpp
+  Garagem.cpp
+  Menus.cpp
+  Piloto.cpp
+  PilotoRapido.cpp
+  PilotoSurpresa.cpp
+  Pista.cpp
   Simulacao.cpp
   TP_POO.cpp
   Generating Code...

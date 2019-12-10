@@ -183,10 +183,16 @@ int Menus::modo2(vector<Autodromo*> campeonato, DVG *controlo)
 				char letra;
 				if (buffer >> letra) {
 					Consola::gotoxy(76, 1);
-					cout << "Comando " << comando1 << " " << letra;
 					for (int i = 0; i < (int)campeonato[indice]->getPista()->getCorridas().size(); i++)
-						if (campeonato[indice]->getPista()->getCorridaN(i)->getCarro()->getID() == letra)
-							campeonato[indice]->getPista()->getCorridaN(i)->getCarro()->acidenteDanoInevitavel(campeonato[indice]->getPista()->getCorridaN(i)->getParticipante());
+						if (campeonato[indice]->getPista()->getCorridaN(i)->getCarro()->getID() == letra) {
+							cout << "Carro " << letra << " teve acidente!";
+							campeonato[indice]->getPista()->getCorridaN(i)->getCarro()->acidenteDanoIrreparavel(campeonato[indice]->getPista()->getCorridaN(i)->getParticipante());
+							campeonato[indice]->getPista()->removerCarro(letra);
+							controlo->removeCarro(controlo->procuraCarro(letra));
+							limpaPista();
+							if (campeonato[indice]->getPista()->atualizaPares() < 2)
+								campeonato[indice]->getPista()->terminarCorrida(campeonato[indice]->getGaragem());
+						}
 				}
 				else
 					PARAMETRO_INVALIDO = true;
