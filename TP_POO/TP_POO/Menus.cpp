@@ -169,9 +169,12 @@ int Menus::modo2(vector<Autodromo*> campeonato)
 				Consola::gotoxy(76, 1);
 				if (indice < (int)campeonato.size() - 1) {
 					indice++;
-					cout << "Autodromo " << campeonato[indice]->getNome();
-					campeonato[indice]->getPista()->setComecou(NAO_COMECOU);
-					//NECESSARIO VERIFICAR QUE TODOS OS PARES AINDA PODEM CONTINUAR A CORRER
+					if (campeonato[indice]->getPista()->atualizaPares() >= 2) { //NECESSARIO VERIFICAR QUE TODOS OS PARES AINDA PODEM CONTINUAR A CORRER
+						cout << "Autodromo " << campeonato[indice]->getNome();
+						campeonato[indice]->getPista()->setComecou(NAO_COMECOU);
+					}
+					else
+						cout << "Autodromo " << campeonato[indice]->getNome() << " nao tem participantes!";
 				}
 				else
 					cout << "Campeonato terminou!";
@@ -218,7 +221,7 @@ int Menus::modo2(vector<Autodromo*> campeonato)
 						Consola::gotoxy(76, 1);
 						cout << "Corrida ja terminada!";
 					}
-					if (campeonato[indice]->getPista()->getComecou() == NAO_COMECOU)
+					if (campeonato[indice]->getPista()->getComecou() == NAO_COMECOU && campeonato[indice]->getPista()->atualizaPares()>=2)
 						campeonato[indice]->getPista()->comecarCorrida();
 					if (campeonato[indice]->getPista()->getComecou() == JA_COMECOU)
 						movimentoCarros(campeonato[indice], n);

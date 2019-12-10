@@ -77,6 +77,16 @@ void Pista::parPilotoCarro(Piloto* p, Carro* c)
 	}
 }
 
+void Pista::removerPar(Corrida *c)
+{
+	for (auto ptr = corridas.begin(); ptr != corridas.end(); ) {
+		if (*(ptr) == c)
+			ptr = corridas.erase(ptr);
+		else
+			ptr++;
+	}
+}
+
 void Pista::atualizaPontuacao()
 {
 	if (comecou == JA_TERMINOU) {
@@ -178,6 +188,14 @@ bool Pista::haCampeao() const
 			return true;
 	}
 	return false;
+}
+
+int Pista::atualizaPares()
+{
+	for (int i = 0; i < (int)corridas.size(); i++)
+		if (corridas[i]->continuaDisponivel())
+			removerPar(corridas[i]);
+	return (int)corridas.size();
 }
 
 int Pista::getComecou()const 

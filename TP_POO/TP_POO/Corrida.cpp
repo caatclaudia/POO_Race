@@ -58,6 +58,13 @@ void Corrida::setCarro(Carro* car) {
 	carro = car;
 }
 
+bool Corrida::continuaDisponivel() const
+{
+	if(participante->getVivo() && carro->getAcidente()!= CARRO_IRREPARAVEL)
+		return true;
+	return false;
+}
+
 bool Corrida::getMovimento() const
 {
 	return carro->getMovimento();

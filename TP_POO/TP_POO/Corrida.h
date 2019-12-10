@@ -32,6 +32,8 @@ public:
 	Carro* getCarro()const;
 	void setCarro(Carro* car);
 
+	bool continuaDisponivel() const;
+
 	bool getMovimento()const;
 	
 	~Corrida();

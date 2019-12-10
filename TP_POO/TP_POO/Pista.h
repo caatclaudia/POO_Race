@@ -35,6 +35,7 @@ public:
 
 	bool adicionarCarro(Carro* c);
 	void parPilotoCarro(Piloto* p, Carro* c);
+	void removerPar(Corrida* c);
 	void atualizaPontuacao();
 	void comecarCorrida();
 	void terminarCorrida(Garagem* g);
@@ -44,6 +45,8 @@ public:
 	void verificaLugar();
 
 	bool haCampeao()const;
+
+	int atualizaPares();
 
 	int getComecou()const;
 	void setComecou(int c);
