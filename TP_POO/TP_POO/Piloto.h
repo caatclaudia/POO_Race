@@ -18,6 +18,7 @@ class Piloto
 	const string nome, tipo;	
 	Carro *carro;
 	int pontuacao, segundos;
+	bool vivo;
 
 public:
 	Piloto(const string nome, const string t);
@@ -29,6 +30,8 @@ public:
 	void acrescentaPontuacao(int n);
 	int getSegundos() const;
 	void setSegundos(int n=0);
+	bool getVivo() const;
+	void morreu();
 
 	bool entraCarro(Carro* ob);
 	bool saiCarro();

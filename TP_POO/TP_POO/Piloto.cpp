@@ -7,6 +7,7 @@ Piloto::Piloto(const string nome, const string t):nome(nome), tipo(t)
 	carro = nullptr;
 	pontuacao = 0;
 	segundos = 0;
+	vivo = true;
 }
 
 
@@ -48,6 +49,16 @@ int Piloto::getSegundos() const
 void Piloto::setSegundos(int n)
 {
 	segundos = segundos + n;
+}
+
+bool Piloto::getVivo() const
+{
+	return vivo;
+}
+
+void Piloto::morreu()
+{
+	vivo = false;
 }
 
 bool Piloto::entraCarro(Carro *ob) 

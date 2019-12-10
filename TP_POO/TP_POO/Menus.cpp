@@ -505,6 +505,7 @@ int Menus::modo1(Simulacao* simulacao, string comando)
 			Consola::gotoxy(76, 1);
 			cout << "Parametro invalido!";
 		}
+		simulacao->atualizaDVG();
 	}
 	return 1;
 }

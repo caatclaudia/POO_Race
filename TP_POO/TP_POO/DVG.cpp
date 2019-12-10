@@ -170,6 +170,26 @@ void DVG::getAsStringPontPilotos() const
 	}
 }
 
+void DVG::removeMortos()
+{
+	for (auto ptr = pilotos.begin(); ptr != pilotos.end(); ) {
+		if ((*ptr)->getVivo()==false)
+			ptr = pilotos.erase(ptr);
+		else
+			ptr++;
+	}
+}
+
+void DVG::removeIrreparaveis()
+{
+	for (auto ptr = carros.begin(); ptr != carros.end(); ) {
+		if ((*ptr)->getAcidente() == CARRO_IRREPARAVEL)
+			ptr = carros.erase(ptr);
+		else
+			ptr++;
+	}
+}
+
 DVG::~DVG()
 {
 	for (Carro* p : carros)

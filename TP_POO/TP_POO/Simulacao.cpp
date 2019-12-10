@@ -104,6 +104,12 @@ bool Simulacao::eliminaAutodromos(string nome)
 	return false;
 }
 
+void Simulacao::atualizaDVG()
+{
+	controlo.removeIrreparaveis();
+	controlo.removeMortos();
+}
+
 Simulacao::~Simulacao()
 {
 	for (auto p : autodromos)

@@ -40,6 +40,8 @@ public:
 	void addAuxiliarCorrida(Corrida* novo) ;
 	bool eliminaAutodromos(string nome);
 
+	void atualizaDVG();
+
 	~Simulacao();
 };
 

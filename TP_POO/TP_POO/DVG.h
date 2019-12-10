@@ -38,6 +38,9 @@ public:
 	int getAsString()const;
 	void getAsStringPontPilotos()const;
 
+	void removeMortos();
+	void removeIrreparaveis();
+
 
 	~DVG();
 };
