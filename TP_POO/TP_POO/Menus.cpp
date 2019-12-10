@@ -475,6 +475,7 @@ int Menus::modo1(Simulacao* simulacao, string comando)
 						if (simulacao->getAutodromoN(x)->getNome() == nome && simulacao->getAuxiliarCorridaSize() >= 2) {
 							int i, j, num;
 							bool NOVO;
+							CERTO = true;
 							for (i = 0; i < simulacao->getAutodromoN(x)->getPista()->getNMax() && i < simulacao->getAuxiliarCorridaSize(); i++) {
 								do {
 									num = rand() % simulacao->getAuxiliarCorridaSize();
@@ -490,7 +491,6 @@ int Menus::modo1(Simulacao* simulacao, string comando)
 						}
 					}
 				}
-				CERTO = true;
 			}
 			if(CERTO)
 				modo2(simulacao->getCampeonato(), &simulacao->getControlo());

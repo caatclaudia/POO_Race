@@ -1,4 +1,3 @@
-
 #include "DVG.h"
 #include "Carro.h"
 #include "Piloto.h"
@@ -27,7 +26,7 @@ void DVG::novoCarro(string marca, double cInicial, double cMaxima, int vMaxima, 
 void DVG::removeCarro(Carro* car)
 {
 	for (auto ptr = carros.begin(); ptr != carros.end(); ) {
-		if (*(ptr) == car){
+		if ((*ptr) == car){
 			delete (*ptr);
 			ptr = carros.erase(ptr);
 		}
@@ -65,7 +64,7 @@ void DVG::novoPiloto(string n,string t)
 void DVG::removePiloto(Piloto* pil)
 {
 	for (auto ptr = pilotos.begin(); ptr != pilotos.end(); ) {
-		if (*(ptr) == pil) {
+		if ((*ptr) == pil) {
 			delete (*ptr);
 			ptr = pilotos.erase(ptr);
 		}
@@ -176,17 +175,25 @@ void DVG::getAsStringPontPilotos() const
 
 void DVG::removeMortos()
 {
-	for (auto ptr = pilotos.begin(); ptr != pilotos.end(); ptr++) {
-		if ((*ptr)->getVivo()==false)
-			removePiloto((*ptr));
+	for (auto ptr = pilotos.begin(); ptr != pilotos.end(); ) {
+		if ((*ptr)->getVivo() == false) {
+			delete (*ptr);
+			ptr = pilotos.erase(ptr);
+		}
+		else
+			ptr++;
 	}
 }
 
 void DVG::removeIrreparaveis()
 {
-	for (auto ptr = carros.begin(); ptr != carros.end(); ptr++) {
-		if ((*ptr)->getAcidente() == CARRO_IRREPARAVEL)
-			removeCarro((*ptr));
+	for (auto ptr = carros.begin(); ptr != carros.end(); ) {
+		if ((*ptr)->getAcidente() == CARRO_IRREPARAVEL) {
+			delete (*ptr);
+			ptr = carros.erase(ptr);
+		}
+		else
+			ptr++;
 	}
 }
 
