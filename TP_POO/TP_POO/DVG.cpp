@@ -27,8 +27,10 @@ void DVG::novoCarro(string marca, double cInicial, double cMaxima, int vMaxima, 
 void DVG::removeCarro(Carro* car)
 {
 	for (auto ptr = carros.begin(); ptr != carros.end(); ) {
-		if (*(ptr) == car)
+		if (*(ptr) == car){
+			delete (*ptr);
 			ptr = carros.erase(ptr);
+		}
 		else
 			ptr++;
 	}
@@ -63,8 +65,10 @@ void DVG::novoPiloto(string n,string t)
 void DVG::removePiloto(Piloto* pil)
 {
 	for (auto ptr = pilotos.begin(); ptr != pilotos.end(); ) {
-		if (*(ptr) == pil)
+		if (*(ptr) == pil) {
+			delete (*ptr);
 			ptr = pilotos.erase(ptr);
+		}
 		else
 			ptr++;
 	}
@@ -172,21 +176,17 @@ void DVG::getAsStringPontPilotos() const
 
 void DVG::removeMortos()
 {
-	for (auto ptr = pilotos.begin(); ptr != pilotos.end(); ) {
+	for (auto ptr = pilotos.begin(); ptr != pilotos.end(); ptr++) {
 		if ((*ptr)->getVivo()==false)
-			ptr = pilotos.erase(ptr);
-		else
-			ptr++;
+			removePiloto((*ptr));
 	}
 }
 
 void DVG::removeIrreparaveis()
 {
-	for (auto ptr = carros.begin(); ptr != carros.end(); ) {
+	for (auto ptr = carros.begin(); ptr != carros.end(); ptr++) {
 		if ((*ptr)->getAcidente() == CARRO_IRREPARAVEL)
-			ptr = carros.erase(ptr);
-		else
-			ptr++;
+			removeCarro((*ptr));
 	}
 }
 

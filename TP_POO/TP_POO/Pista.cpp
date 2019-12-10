@@ -89,6 +89,7 @@ void Pista::removerPar(Corrida *c)
 
 void Pista::atualizaPontuacao()
 {
+	verificaLugar();
 	if (comecou == JA_TERMINOU) {
 		for (int i = 0; i < (int)corridas.size(); i++) {
 			if (corridas[i]->getLugar() == 1)
@@ -138,7 +139,7 @@ void Pista::terminarCorrida(Garagem* g)
 		//	(*ptr)->getParticipante()->saiCarro();
 		//	g->adicionaCarro((*ptr)->getCarro());
 			(*ptr)->setPosicao(0);
-			delete (*ptr);
+			//delete (*ptr);
 		}
 	}
 }
@@ -168,6 +169,19 @@ void Pista::removerCarroemEmergencia(Garagem* g)
 	}
 }
 
+void Pista::removerCarro(char c)
+{
+	for (auto ptr = corridas.begin(); ptr != corridas.end(); ) {
+		if ((*ptr)->getCarro()->getID() == c) {
+			(*ptr)->getParticipante()->saiCarro();
+			ptr = corridas.erase(ptr);
+		}
+		else
+			ptr++;
+	}
+	verificaLugar();
+}
+
 void Pista::verificaLugar()
 {
 	int n = 1;
@@ -193,7 +207,7 @@ bool Pista::haCampeao() const
 int Pista::atualizaPares()
 {
 	for (int i = 0; i < (int)corridas.size(); i++)
-		if (corridas[i]->continuaDisponivel())
+		if (!corridas[i]->continuaDisponivel())
 			removerPar(corridas[i]);
 	return (int)corridas.size();
 }

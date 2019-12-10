@@ -41,6 +41,7 @@ public:
 	void terminarCorrida(Garagem* g);
 	void avancaTempo(int sec=1);
 	void removerCarroemEmergencia(Garagem* g);
+	void removerCarro(char c);
 	
 	void verificaLugar();
 

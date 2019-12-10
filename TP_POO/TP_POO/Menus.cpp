@@ -124,7 +124,7 @@ void Menus::carregaA(Simulacao *simulacao, string nome)
 	}
 }
 
-int Menus::modo2(vector<Autodromo*> campeonato)
+int Menus::modo2(vector<Autodromo*> campeonato, DVG *controlo)
 {
 	string comando, comando1;
 	bool PARAMETRO_INVALIDO;
@@ -207,7 +207,12 @@ int Menus::modo2(vector<Autodromo*> campeonato)
 				char letra;
 				if (buffer >> letra) {
 					Consola::gotoxy(76, 1);
-					cout << "Comando " << comando1 << " " << letra;
+					cout << "Destruido carro " << letra << "!";
+					campeonato[indice]->getPista()->removerCarro(letra);
+					controlo->removeCarro(controlo->procuraCarro(letra));
+					limpaPista();
+					if (campeonato[indice]->getPista()->atualizaPares() < 2)
+						campeonato[indice]->getPista()->terminarCorrida(campeonato[indice]->getGaragem());
 				}
 				else
 					PARAMETRO_INVALIDO = true;
@@ -235,7 +240,6 @@ int Menus::modo2(vector<Autodromo*> campeonato)
 
 			}
 			else if (comando1 == "pontuacao") {
-				campeonato[indice]->getPista()->atualizaPontuacao();
 				campeonato[indice]->getAsStringPontPilotos();
 			}
 			else if (comando1 == "voltar") {
@@ -483,7 +487,7 @@ int Menus::modo1(Simulacao* simulacao, string comando)
 				CERTO = true;
 			}
 			if(CERTO)
-				modo2(simulacao->getCampeonato());
+				modo2(simulacao->getCampeonato(), &simulacao->getControlo());
 			else
 				PARAMETRO_INVALIDO = true;
 		}

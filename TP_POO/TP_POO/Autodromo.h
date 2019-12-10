@@ -23,6 +23,7 @@ public:
 	string getNome()const;
 	Pista* getPista()const;
 	string getAsString()const;
+	Garagem* getGaragem() const;
 	void obterInfo()const;
 	void carregaCarros();
 

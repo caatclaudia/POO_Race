@@ -31,6 +31,11 @@ string Autodromo::getAsString() const
 	return oss.str();
 }
 
+Garagem* Autodromo::getGaragem() const
+{
+	return gar;
+}
+
 void Autodromo::obterInfo() const
 {
 	int i = 1;

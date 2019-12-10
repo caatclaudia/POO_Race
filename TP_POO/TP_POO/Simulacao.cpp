@@ -98,6 +98,7 @@ bool Simulacao::eliminaAutodromos(string nome)
 {
 	for (auto ptr = autodromos.begin(); ptr != autodromos.end(); ptr++)
 		if ((*ptr)->getNome() == nome) {
+			delete (*ptr);
 			ptr = autodromos.erase(ptr);
 			return true;
 		}
