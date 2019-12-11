@@ -13,6 +13,7 @@ Corrida::Corrida(Carro* part)
 	lugar = NULL;
 	carro = part;
 	participante = nullptr;
+	travar = true;
 }
 
 Corrida::Corrida(Carro* part, Piloto* pil)
@@ -21,7 +22,18 @@ Corrida::Corrida(Carro* part, Piloto* pil)
 	lugar = NULL;
 	carro = part;
 	participante = pil;
+	travar = true;
 
+}
+
+bool Corrida::getTravar() const
+{
+	return travar;
+}
+
+void Corrida::setTravar(bool t)
+{
+	travar = t;
 }
 
 int Corrida::getPosicao()const {

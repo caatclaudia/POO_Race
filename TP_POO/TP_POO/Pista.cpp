@@ -116,6 +116,7 @@ void Pista::comecarCorrida()
 				(*ptr)->getParticipante()->setSegundos();
 				(*ptr)->setPosicao(0);
 				(*ptr)->getParticipante()->passouTempo(1);
+				(*ptr)->setTravar(false);
 			}
 		}
 		else {
@@ -139,6 +140,7 @@ void Pista::terminarCorrida(Garagem* g)
 		//	(*ptr)->getParticipante()->saiCarro();
 		//	g->adicionaCarro((*ptr)->getCarro());
 			(*ptr)->setPosicao(0);
+			(*ptr)->setTravar(true);
 		}
 	}
 }
@@ -147,11 +149,15 @@ void Pista::avancaTempo(int sec)
 {
 	if (comecou == JA_COMECOU) {
 		for (auto ptr = corridas.begin(); ptr != corridas.end(); ptr++) {
-			(*ptr)->avancaPosicao((*ptr)->getParticipante()->passouTempo(sec));
-			if ((*ptr)->getPosicao() >= (int)comprimento) {
-				(*ptr)->setPosicao((int)comprimento-1);
-				comecou = JA_TERMINOU;
+			if (!(*ptr)->getTravar()) {
+				(*ptr)->avancaPosicao((*ptr)->getParticipante()->passouTempo(sec));
+				if ((*ptr)->getPosicao() >= (int)comprimento) {
+					(*ptr)->setPosicao((int)comprimento - 1);
+					comecou = JA_TERMINOU;
+				}
 			}
+			else if ((*ptr)->getCarro()->getVelocidade() > 0)
+				(*ptr)->getParticipante()->travarCarro();
 		}
 		verificaLugar();
 	}

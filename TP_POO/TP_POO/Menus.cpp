@@ -202,9 +202,9 @@ int Menus::modo2(vector<Autodromo*> campeonato, DVG *controlo)
 				if (buffer >> nome) {
 					Consola::gotoxy(76, 1);
 					cout << "Comando " << comando1 << " " << nome;
-					/*for (int i = 0; i < (int)campeonato[indice]->getPista()->getCorridas().size(); i++)
-						if (campeonato[indice]->getPista()->getCorridaN(i)->getParticipante()->getNome() == nome)*/
-							//TRAVAR ATE PARAR
+					for (int i = 0; i < (int)campeonato[indice]->getPista()->getCorridas().size(); i++)
+						if (campeonato[indice]->getPista()->getCorridaN(i)->getParticipante()->getNome() == nome)
+							campeonato[indice]->getPista()->getCorridaN(i)->setTravar(true);
 				}
 				else
 					PARAMETRO_INVALIDO = true;
@@ -234,8 +234,13 @@ int Menus::modo2(vector<Autodromo*> campeonato, DVG *controlo)
 					}
 					if (campeonato[indice]->getPista()->getComecou() == NAO_COMECOU && campeonato[indice]->getPista()->atualizaPares()>=2)
 						campeonato[indice]->getPista()->comecarCorrida();
-					if (campeonato[indice]->getPista()->getComecou() == JA_COMECOU)
+					if (campeonato[indice]->getPista()->getComecou() == JA_COMECOU) {
 						movimentoCarros(campeonato[indice], n);
+						/*if (campeonato[indice]->getPista()->atualizaPares() < 2) {
+							limpaPista();
+							campeonato[indice]->getPista()->terminarCorrida(campeonato[indice]->getGaragem());
+						}*/
+					}
 				}
 				else
 					PARAMETRO_INVALIDO = true;
@@ -527,8 +532,20 @@ void Menus::movimentoCarros(Autodromo* autodromo, int seg)
 {
 	for (int i = 0; i < seg && autodromo->getPista()->getComecou() == JA_COMECOU; i++) {
 		autodromo->getPista()->avancaTempo();
+		for (auto ptr = autodromo->getPista()->getCorridas().begin(); ptr != autodromo->getPista()->getCorridas().end(); ) {
+			if ((*ptr)->getTravar()==true && (*ptr)->getCarro()->getVelocidade()==0) {
+				(*ptr)->getParticipante()->saiCarro();
+				ptr = autodromo->getPista()->getCorridas().erase(ptr);
+			}
+			else
+				ptr++;
+		}
 		autodromo->getPista()->carregaGrelha();
 		autodromo->getPista()->mostraGrelha();
+		if (autodromo->getPista()->atualizaPares() < 2) {
+			limpaPista();
+			autodromo->getPista()->terminarCorrida(autodromo->getGaragem());
+		}
 		Sleep(10);
 	}
 	if (autodromo->getPista()->getComecou() == JA_TERMINOU) {

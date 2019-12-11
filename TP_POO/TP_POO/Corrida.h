@@ -13,11 +13,14 @@ class Corrida
 	int posicao, lugar;
 	Piloto* participante;
 	Carro* carro;
-	
+	bool travar;
 	
 public:
 	Corrida(Carro *part);
 	Corrida(Carro* part, Piloto* pil);
+
+	bool getTravar() const;
+	void setTravar(bool t);
 
 	int getPosicao()const;
 	void setPosicao(int pos);
