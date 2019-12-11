@@ -39,6 +39,7 @@ public:
 	void atualizaPontuacao();
 	void comecarCorrida();
 	void terminarCorrida(Garagem* g);
+	void terminarCorrida();
 	void avancaTempo(int sec=1);
 	void removerCarroemEmergencia(Garagem* g);
 	void removerCarro(char c);

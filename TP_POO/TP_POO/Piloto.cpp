@@ -95,6 +95,8 @@ int Piloto::passouTempo(int s)
 		acelararCarro();
 	}
 	segundos++;		//VERIFICAR ESTA CHAMADA, SE É 1SEG OU MAIS
+	if (carro->getVelocidade() == 0)
+		acelararCarro();
 	return carro->getVelocidade() * s;
 }
 

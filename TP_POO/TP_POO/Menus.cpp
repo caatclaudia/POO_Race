@@ -169,7 +169,7 @@ int Menus::modo2(vector<Autodromo*> campeonato, DVG *controlo)
 				Consola::gotoxy(76, 1);
 				if (indice < (int)campeonato.size() - 1) {
 					indice++;
-					if (campeonato[indice]->getPista()->atualizaPares() >= 2) { //NECESSARIO VERIFICAR QUE TODOS OS PARES AINDA PODEM CONTINUAR A CORRER
+					if (campeonato[indice]->getPista()->atualizaPares() >= 2) {
 						cout << "Autodromo " << campeonato[indice]->getNome();
 						campeonato[indice]->getPista()->setComecou(NAO_COMECOU);
 					}
@@ -234,13 +234,8 @@ int Menus::modo2(vector<Autodromo*> campeonato, DVG *controlo)
 					}
 					if (campeonato[indice]->getPista()->getComecou() == NAO_COMECOU && campeonato[indice]->getPista()->atualizaPares()>=2)
 						campeonato[indice]->getPista()->comecarCorrida();
-					if (campeonato[indice]->getPista()->getComecou() == JA_COMECOU) {
+					if (campeonato[indice]->getPista()->getComecou() == JA_COMECOU) 
 						movimentoCarros(campeonato[indice], n);
-						/*if (campeonato[indice]->getPista()->atualizaPares() < 2) {
-							limpaPista();
-							campeonato[indice]->getPista()->terminarCorrida(campeonato[indice]->getGaragem());
-						}*/
-					}
 				}
 				else
 					PARAMETRO_INVALIDO = true;
@@ -534,7 +529,6 @@ void Menus::movimentoCarros(Autodromo* autodromo, int seg)
 		autodromo->getPista()->avancaTempo();
 		for (auto ptr = autodromo->getPista()->getCorridas().begin(); ptr != autodromo->getPista()->getCorridas().end(); ) {
 			if ((*ptr)->getTravar()==true && (*ptr)->getCarro()->getVelocidade()==0) {
-				(*ptr)->getParticipante()->saiCarro();
 				ptr = autodromo->getPista()->getCorridas().erase(ptr);
 			}
 			else
