@@ -199,9 +199,10 @@ int Menus::modo2(vector<Autodromo*> campeonato, DVG *controlo)
 			}
 			else if (comando1 == "stop") {
 				string nome;
-				if (buffer >> nome) {
+				if (getline(buffer, nome)) {
+					nome = nome.substr(1);
 					Consola::gotoxy(76, 1);
-					cout << "Comando " << comando1 << " " << nome;
+					cout << "Stop " << nome << "!";
 					for (int i = 0; i < (int)campeonato[indice]->getPista()->getCorridas().size(); i++)
 						if (campeonato[indice]->getPista()->getCorridaN(i)->getParticipante()->getNome() == nome)
 							campeonato[indice]->getPista()->getCorridaN(i)->setTravar(true);
@@ -404,12 +405,15 @@ int Menus::modo1(Simulacao* simulacao, string comando)
 		else if (comando1 == "entranocarro") {
 			char letra;
 			string	nomeP;
-			if (buffer >> letra && buffer >> nomeP) {
-				if (simulacao->getControlo().procuraPiloto(nomeP)->getCarro() == nullptr && simulacao->getControlo().procuraCarro(letra)->getCondutor() == false) {
-					Consola::gotoxy(76, 1);
-					cout << "Piloto " << nomeP << " entrou no carro " << letra;
-					simulacao->getControlo().procuraPiloto(nomeP)->entraCarro(simulacao->getControlo().procuraCarro(letra));
-					simulacao->addAuxiliarCorrida(new Corrida(simulacao->getControlo().procuraCarro(letra), simulacao->getControlo().procuraPiloto(nomeP)));
+			if (buffer >> letra) {
+				if (getline(buffer, nomeP)) {
+					nomeP = nomeP.substr(1);
+					if (simulacao->getControlo().procuraPiloto(nomeP)->getCarro() == nullptr && simulacao->getControlo().procuraCarro(letra)->getCondutor() == false) {
+						Consola::gotoxy(76, 1);
+						cout << "Piloto " << nomeP << " entrou no carro " << letra;
+						simulacao->getControlo().procuraPiloto(nomeP)->entraCarro(simulacao->getControlo().procuraCarro(letra));
+						simulacao->addAuxiliarCorrida(new Corrida(simulacao->getControlo().procuraCarro(letra), simulacao->getControlo().procuraPiloto(nomeP)));
+					}
 				}
 			}
 		}
