@@ -10,6 +10,7 @@ public:
 	PilotoSurpresa(const string nome, const string t);
 
 	int passouTempo(int s) override;
+	string getProbAsString()const;
 
 	~PilotoSurpresa();
 };

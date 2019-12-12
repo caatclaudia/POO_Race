@@ -100,6 +100,15 @@ int Piloto::passouTempo(int s)
 	return carro->getVelocidade() * s;
 }
 
+string Piloto::getProbAsString() const
+{
+	ostringstream oss;
+	oss << "Piloto " << nome;
+	if (carro != nullptr)
+		oss << "("<< carro->getID()<<")";
+	return oss.str();
+}
+
 string Piloto::getAsString() const
 {
 	ostringstream oss;

@@ -32,6 +32,13 @@ int CrazyDriver::passouTempo(int s)
 	return getCarro()->getVelocidade() * s;
 }
 
+string CrazyDriver::getProbAsString()const 
+{
+	ostringstream oss;
+	oss << Piloto::getProbAsString() << " tem " << prob << " probabilidade de danificar irremidiavelmente o carro!" << endl;
+	return oss.str();
+}
+
 CrazyDriver::~CrazyDriver()
 {
 }

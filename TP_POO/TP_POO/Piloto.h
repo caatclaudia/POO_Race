@@ -40,6 +40,7 @@ public:
 	void acelararCarro();
 
 	virtual int passouTempo(int s);
+	virtual string getProbAsString()const;
 
 	string getAsString()const;
 	bool operator==(const Piloto& ob)const;

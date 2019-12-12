@@ -23,6 +23,13 @@ int PilotoRapido::passouTempo(int s)
 	return getCarro()->getVelocidade() * s;
 }
 
+string PilotoRapido::getProbAsString() const
+{
+	ostringstream oss;
+	oss << Piloto::getProbAsString() << " tem " << prob << " probabilidade de sofrer ataque de panico!" << endl;
+	return oss.str();
+}
+
 PilotoRapido::~PilotoRapido()
 {
 }

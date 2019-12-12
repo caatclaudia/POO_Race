@@ -21,6 +21,13 @@ int PilotoSurpresa::passouTempo(int s)
 	return getCarro()->getVelocidade() * s;
 }
 
+string PilotoSurpresa::getProbAsString() const
+{
+	ostringstream oss;
+	oss <<Piloto::getProbAsString()<< " tem " << prob << " probabilidade de explodir o carro!" << endl;
+	return oss.str();
+}
+
 PilotoSurpresa::~PilotoSurpresa()
 {
 }

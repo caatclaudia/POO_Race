@@ -12,6 +12,7 @@ public:
 	CrazyDriver(const string nome, const string t);
 
 	int passouTempo(int s) override;
+	string getProbAsString()const;
 
 	~CrazyDriver();
 };
