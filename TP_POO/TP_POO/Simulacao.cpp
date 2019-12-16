@@ -20,6 +20,17 @@ void Simulacao::addDVG(DVG& novo)
 {
 	lista.push_back(novo);
 }
+
+bool Simulacao::deldgv(string nome)
+{
+	for (int i = 0; i < (int)lista.size(); i++)
+		if (lista[i].getNomeDVG() == nome) {
+			lista.erase(lista.begin() + i);
+			return true;
+		}
+	return false;
+}
+
 bool Simulacao::loaddgv(string nome)
 {
 	for (int i = 0; i < (int)lista.size(); i++)

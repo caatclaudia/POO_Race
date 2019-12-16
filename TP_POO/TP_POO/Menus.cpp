@@ -465,7 +465,10 @@ int Menus::modo1(Simulacao* simulacao, string comando)
 			string nome;
 			if (buffer >> nome) {
 				Consola::gotoxy(76, 1);
-				cout << "Comando " << comando1 << " " << nome;
+				if(simulacao->deldgv(nome))
+					cout << "Apaga DVG " << nome;
+				else
+					cout << "Nao existe DVG " << nome;
 			}
 			else
 				PARAMETRO_INVALIDO = true;

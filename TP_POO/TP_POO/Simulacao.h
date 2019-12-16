@@ -23,9 +23,9 @@ public:
 
 	Simulacao();
 
-	DVG& getControlo() ;
 	DVG& getControlo();
 	void addDVG(DVG& novo);
+	bool deldgv(string nome);
 	bool loaddgv(string nome);
 
 	vector<Autodromo*> getAutodromos() const;
