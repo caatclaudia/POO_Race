@@ -14,6 +14,8 @@ public:
 	int passouTempo(int s) override;
 	string getProbAsString()const;
 
+	CrazyDriver* duplica()const override;
+
 	~CrazyDriver();
 };
 

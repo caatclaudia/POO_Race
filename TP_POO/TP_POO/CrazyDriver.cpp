@@ -39,6 +39,11 @@ string CrazyDriver::getProbAsString()const
 	return oss.str();
 }
 
+CrazyDriver* CrazyDriver::duplica() const
+{
+	return new CrazyDriver(*this);
+}
+
 CrazyDriver::~CrazyDriver()
 {
 }

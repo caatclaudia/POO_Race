@@ -127,6 +127,11 @@ bool Piloto::operator==(const Piloto& ob) const
 	return false;
 }
 
+Piloto* Piloto::duplica() const
+{
+	return new Piloto(*this);
+}
+
 Piloto::~Piloto()
 {
 }

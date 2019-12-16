@@ -190,6 +190,11 @@ string Carro::getAsString() const
 	return oss.str();
 }
 
+Carro* Carro::duplica() const
+{
+	return new Carro(*this);
+}
+
 Carro::~Carro()
 {
 }

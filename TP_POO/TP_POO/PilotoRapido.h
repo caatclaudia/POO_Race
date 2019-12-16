@@ -12,6 +12,8 @@ public:
 	int passouTempo(int s) override;
 	string getProbAsString()const;
 
+	PilotoRapido* duplica()const override;
+
 	~PilotoRapido();
 };
 

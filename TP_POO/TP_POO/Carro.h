@@ -64,6 +64,8 @@ public:
 	void acidenteDanoIrreparavel(Piloto* ob);
 
 	string getAsString()const;
+
+	Carro* duplica()const;
 	
 	~Carro();
 };

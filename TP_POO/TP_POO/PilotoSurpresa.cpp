@@ -28,6 +28,11 @@ string PilotoSurpresa::getProbAsString() const
 	return oss.str();
 }
 
+PilotoSurpresa* PilotoSurpresa::duplica() const
+{
+	return new PilotoSurpresa(*this);
+}
+
 PilotoSurpresa::~PilotoSurpresa()
 {
 }

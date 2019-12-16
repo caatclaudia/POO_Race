@@ -30,6 +30,11 @@ string PilotoRapido::getProbAsString() const
 	return oss.str();
 }
 
+PilotoRapido* PilotoRapido::duplica() const
+{
+	return new PilotoRapido(*this);
+}
+
 PilotoRapido::~PilotoRapido()
 {
 }

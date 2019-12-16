@@ -45,6 +45,8 @@ public:
 	string getAsString()const;
 	bool operator==(const Piloto& ob)const;
 
+	virtual Piloto* duplica()const;		//TEM DE SER =0
+
 	virtual ~Piloto();
 };
 

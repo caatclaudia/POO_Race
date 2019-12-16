@@ -11,11 +11,15 @@ using namespace std;
 
 class DVG
 {
+	string nomeDVG;
 	vector<Piloto *> pilotos;
 	vector<Carro*> carros;
 public:
 	static int Nome;
-	DVG();
+	DVG(string nomeDVG = "default");
+	DVG(const DVG &outro);
+	void setNomeDVG(string nome);
+	string getNomeDVG() const;
 
 	vector<Carro*> & getCarro();
 	int getNCarros()const;
@@ -41,6 +45,7 @@ public:
 	void removeMortos();
 	void removeIrreparaveis();
 
+	DVG& operator=(const DVG &outro);
 
 	~DVG();
 };

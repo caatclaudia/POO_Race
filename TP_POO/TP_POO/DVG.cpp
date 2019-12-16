@@ -3,9 +3,24 @@
 #include "Piloto.h"
 #include "Consola.h"
 
-DVG::DVG()
+DVG::DVG(string nomeDVG):nomeDVG(nomeDVG)
 {
 
+}
+
+DVG::DVG(const DVG& outro)
+{
+	*this = outro;
+}
+
+void DVG::setNomeDVG(string nome)
+{
+	nomeDVG = nome;
+}
+
+string DVG::getNomeDVG() const
+{
+	return nomeDVG;
 }
 
 vector<Carro*> & DVG::getCarro()
@@ -195,6 +210,25 @@ void DVG::removeIrreparaveis()
 		else
 			ptr++;
 	}
+}
+
+DVG& DVG::operator=(const DVG& outro)
+{
+	nomeDVG = outro.nomeDVG;
+	if (this != &outro) {
+		for (Piloto* c : pilotos)
+			delete c;
+		pilotos.clear();
+		for (Piloto* c1 : outro.pilotos)
+			pilotos.push_back(c1->duplica());
+
+		for (Carro* c : carros)
+			delete c;
+		carros.clear();
+		for (Carro* c1 : outro.carros)
+			carros.push_back(c1->duplica());
+	}
+	return *this;
 }
 
 DVG::~DVG()
