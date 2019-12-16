@@ -20,6 +20,17 @@ void Simulacao::addDVG(DVG& novo)
 {
 	lista.push_back(novo);
 }
+bool Simulacao::loaddgv(string nome)
+{
+	for (int i = 0; i < (int)lista.size(); i++)
+		if (lista[i].getNomeDVG() == nome) {
+			addDVG(controlo);
+			controlo = lista[i];
+			return true;
+		}
+	return false;
+}
+
 vector<Autodromo*> Simulacao::getAutodromos() const
 {
 	return autodromos;

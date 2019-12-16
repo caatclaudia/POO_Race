@@ -26,6 +26,8 @@ public:
 	DVG& getControlo() ;
 	DVG& getControlo();
 	void addDVG(DVG& novo);
+	bool loaddgv(string nome);
+
 	vector<Autodromo*> getAutodromos() const;
 	vector<Corrida*> getAuxiliarCorrida() const;
 	Autodromo* getAutodromoN(int n) const;
