@@ -13,6 +13,7 @@ using namespace std;
 class Simulacao
 {
 	DVG controlo;
+	vector<DVG> lista;
 	vector<Autodromo*> autodromos;
 	vector<Corrida*> auxiliarCorrida;
 	vector<Autodromo*> campeonato;	//PARA COLOCAR TODA A INFORMACAO, COMO OS AUTODROMOS PELA ORDEM DE CORRIDA
@@ -23,6 +24,8 @@ public:
 	Simulacao();
 
 	DVG& getControlo() ;
+	DVG& getControlo();
+	void addDVG(DVG& novo);
 	vector<Autodromo*> getAutodromos() const;
 	vector<Corrida*> getAuxiliarCorrida() const;
 	Autodromo* getAutodromoN(int n) const;

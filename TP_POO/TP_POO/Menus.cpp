@@ -440,6 +440,12 @@ int Menus::modo1(Simulacao* simulacao, string comando)
 			if (buffer >> nome) {
 				Consola::gotoxy(76, 1);
 				cout << "Comando " << comando1 << " " << nome;
+				cout << "Copia de DVG para " << nome;
+
+				DVG copia = simulacao->getControlo();
+
+				copia.setNomeDVG(nome);
+				simulacao->addDVG(copia);
 			}
 			else
 				PARAMETRO_INVALIDO = true;

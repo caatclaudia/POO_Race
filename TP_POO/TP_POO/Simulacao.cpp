@@ -16,6 +16,10 @@ DVG& Simulacao::getControlo()
 	return controlo;
 }
 
+void Simulacao::addDVG(DVG& novo)
+{
+	lista.push_back(novo);
+}
 vector<Autodromo*> Simulacao::getAutodromos() const
 {
 	return autodromos;
