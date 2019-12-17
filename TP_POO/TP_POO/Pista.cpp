@@ -113,6 +113,7 @@ void Pista::comecarCorrida()
 		if (n == corridas.size()) {
 			comecou = JA_COMECOU;
 			for (auto ptr = corridas.begin(); ptr != corridas.end(); ptr++) {
+				(*ptr)->getParticipante()->iniciaCompeticao();
 				(*ptr)->getParticipante()->setSegundos();
 				(*ptr)->setPosicao(0);
 				(*ptr)->getParticipante()->passouTempo(1);

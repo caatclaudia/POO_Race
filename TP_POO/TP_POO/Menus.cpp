@@ -283,7 +283,7 @@ int Menus::modo2(vector<Autodromo*> campeonato, DVG *controlo, Simulacao *simula
 				}
 			}
 			else if (comando1 == "pontuacao") {
-				campeonato[indice]->getAsStringPontPilotos();
+				controlo->getAsStringPontCompeticao();
 			}
 			else if (comando1 == "voltar") {
 				Consola::gotoxy(76, 1);
@@ -465,7 +465,15 @@ int Menus::modo1(Simulacao* simulacao, string comando)
 			}
 		}
 		else if (comando1 == "lista") {
-			int i=simulacao->getControlo().getAsString();
+			simulacao->getControlo().getAsStringPilotos();
+			Consola::getch();
+			base();
+			fflush(stdout);
+			simulacao->getControlo().getAsStringCarros();
+			Consola::getch();
+			base();
+			fflush(stdout);
+			int i = 1;
 			for (int x = 0; x < simulacao->getAutodromosSize(); x++) {
 				Consola::gotoxy(76, i);
 				cout << simulacao->getAutodromoN(x)->getAsString();
@@ -544,8 +552,10 @@ int Menus::modo1(Simulacao* simulacao, string comando)
 					}
 				}
 			}
-			if(CERTO)
-				modo2(simulacao->getCampeonato(), &simulacao->getControlo(),simulacao/*simulacao->getListaMensagens()*/);
+			if (CERTO) {
+				modo2(simulacao->getCampeonato(), &simulacao->getControlo(), simulacao/*simulacao->getListaMensagens()*/);
+				simulacao->getControlo().terminaCompeticao();
+			}
 			else
 				PARAMETRO_INVALIDO = true;
 		}

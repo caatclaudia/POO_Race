@@ -39,7 +39,11 @@ public:
 	Piloto* procuraPilotoN(int n)const;
 	Piloto* pilotoNoCarro(char id)const;
 
-	int getAsString()const;
+	void getAsStringPilotos() const;
+
+	void getAsStringCarros() const;
+	void terminaCompeticao();
+	void getAsStringPontCompeticao() const;
 	void getAsStringPontPilotos()const;
 
 	void removeMortos();

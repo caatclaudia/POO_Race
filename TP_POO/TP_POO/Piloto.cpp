@@ -8,6 +8,7 @@ Piloto::Piloto(const string nome, const string t):nome(nome), tipo(t)
 	pontuacao = 0;
 	segundos = 0;
 	vivo = true;
+	competicao = false;
 }
 
 
@@ -59,6 +60,21 @@ bool Piloto::getVivo() const
 void Piloto::morreu()
 {
 	vivo = false;
+}
+
+bool Piloto::getCompeticao() const
+{
+	return competicao;
+}
+
+void Piloto::terminaCompeticao()
+{
+	competicao = false;
+}
+
+void Piloto::iniciaCompeticao()
+{
+	competicao = true;
 }
 
 bool Piloto::entraCarro(Carro *ob) 
