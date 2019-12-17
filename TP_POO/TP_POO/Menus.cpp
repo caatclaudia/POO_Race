@@ -67,6 +67,31 @@ void Menus::limpaPista() const
 	}
 }
 
+/*void Menus::mostraMensagem(vector<string> listaMensagens)
+{
+	/*int pos = 1;
+
+	for (int i = 0; i < 10; i++) {
+		Consola::gotoxy(76, pos++);
+		cout << "                                            ";
+	}
+	int pos = 2;
+	if (listaMensagens.size() > 0) {
+		for (int i = 0; i < (int)listaMensagens.size(); i++) {
+			Consola::gotoxy(76, pos++);
+			cout << listaMensagens[i] << endl;
+		}
+		/*for (int i = 0; i < listaMensagens.size(); i++) {
+			listaMensagens.erase(listaMensagens.begin() + i);
+		}
+		listaMensagens.clear();
+	}
+	else {
+		Consola::gotoxy(76, pos);
+		cout << "Turno sem acontecimentos.";
+	}
+}*/
+
 void Menus::carregaP(DVG& controlo, string nome)
 {
 	ifstream ficheiro(nome);
@@ -124,7 +149,7 @@ void Menus::carregaA(Simulacao *simulacao, string nome)
 	}
 }
 
-int Menus::modo2(vector<Autodromo*> campeonato, DVG *controlo)
+int Menus::modo2(vector<Autodromo*> campeonato, DVG *controlo, vector<string> listaMensagens)
 {
 	string comando, comando1;
 	bool PARAMETRO_INVALIDO;
@@ -242,9 +267,18 @@ int Menus::modo2(vector<Autodromo*> campeonato, DVG *controlo)
 					PARAMETRO_INVALIDO = true;
 			}
 			else if (comando1 == "log") {
-				Consola::gotoxy(76, 1);
-				cout << "Comando " << comando1;
-
+				//mostraMensagem(listaMen);
+				int pos = 2;
+				if (listaMensagens.size() > 0) {
+					for (int i = 0; i < (int)listaMensagens.size(); i++) {
+						Consola::gotoxy(76, pos++);
+						cout << listaMensagens[i] << endl;
+					}
+				}
+				else {
+					Consola::gotoxy(76, pos);
+					cout << "Turno sem acontecimentos.";
+				}
 			}
 			else if (comando1 == "pontuacao") {
 				campeonato[indice]->getAsStringPontPilotos();
@@ -266,6 +300,7 @@ int Menus::modo2(vector<Autodromo*> campeonato, DVG *controlo)
 	} while (comando1 != "voltar");
 	return 1;
 }
+
 
 int Menus::modo1(Simulacao* simulacao, string comando)
 {
@@ -508,7 +543,7 @@ int Menus::modo1(Simulacao* simulacao, string comando)
 				}
 			}
 			if(CERTO)
-				modo2(simulacao->getCampeonato(), &simulacao->getControlo());
+				modo2(simulacao->getCampeonato(), &simulacao->getControlo(),simulacao->getListaMensagens());
 			else
 				PARAMETRO_INVALIDO = true;
 		}
