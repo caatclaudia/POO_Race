@@ -465,15 +465,7 @@ int Menus::modo1(Simulacao* simulacao, string comando)
 			}
 		}
 		else if (comando1 == "lista") {
-			simulacao->getControlo().getAsStringPilotos();
-			Consola::getch();
-			base();
-			fflush(stdout);
-			simulacao->getControlo().getAsStringCarros();
-			Consola::getch();
-			base();
-			fflush(stdout);
-			int i = 1;
+			int i=simulacao->getControlo().getAsString();
 			for (int x = 0; x < simulacao->getAutodromosSize(); x++) {
 				Consola::gotoxy(76, i);
 				cout << simulacao->getAutodromoN(x)->getAsString();

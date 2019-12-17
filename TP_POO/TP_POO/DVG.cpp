@@ -145,22 +145,20 @@ Piloto* DVG::pilotoNoCarro(char id) const
 	return nullptr;
 }
 
-void DVG::getAsStringPilotos()const {
+int DVG::getAsString() const
+{
 	int i = 1;
 	for (auto ptr = pilotos.begin(); ptr != pilotos.end(); ptr++) {
 		Consola::gotoxy(76, i);
 		cout << (*ptr)->getAsString();
 		i++;
 	}
-}
-
-void DVG::getAsStringCarros()const {
-	int i = 1;
 	for (auto ptr = carros.begin(); ptr != carros.end(); ptr++) {
 		Consola::gotoxy(76, i);
 		cout << (*ptr)->getAsString();
 		i++;
 	}
+	return i;
 }
 
 void DVG::getAsStringPontPilotos() const

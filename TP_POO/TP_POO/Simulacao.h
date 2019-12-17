@@ -16,8 +16,8 @@ class Simulacao
 	vector<DVG> lista;
 	vector<Autodromo*> autodromos;
 	vector<Corrida*> auxiliarCorrida;
-	vector<Autodromo*> campeonato;	//PARA COLOCAR TODA A INFORMACAO, COMO OS AUTODROMOS PELA ORDEM DE CORRIDA
-	/*static*/ vector<string> listaMensagens;
+	vector<Autodromo*> campeonato;	
+	vector<string> listaMensagens;
 
 public:
 	static int NomeAutodromos;
@@ -48,10 +48,9 @@ public:
 
 	void atualizaDVG();
 
-	/*static*/ void addMensagem(string s);
+	void addMensagem(string s);
 	void addMensagemAcidente(vector<Corrida*> c);
 	vector<string> getListaMensagens()const;
-	//void mostraMensagem();
 	int nMensagens();
 
 	~Simulacao();

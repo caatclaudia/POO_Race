@@ -139,9 +139,9 @@ void Simulacao::atualizaDVG()
 
 void Simulacao::addMensagem(string s)
 {
-	//listaMensagens.push_back(s);
-	//inserir sempre na primeira posição
 	listaMensagens.insert(listaMensagens.begin(), s);
+	if ((int)listaMensagens.size() > 17)
+		listaMensagens.pop_back();
 }
 void Simulacao::addMensagemAcidente(vector<Corrida*> c)
 {
@@ -166,30 +166,6 @@ vector<string> Simulacao::getListaMensagens() const
 {
 	return listaMensagens;
 }
-/*void Simulacao::mostraMensagem()
-{
-	int pos = 2;
-
-	for (int i = 0; i < 10; i++) {
-		Consola::gotoxy(75, pos++);
-		cout << "                                            ";
-	}
-	pos = 2;
-	if (listaMensagens.size() > 0) {
-		for (int i = 0; i < listaMensagens.size(); i++) {
-			Consola::gotoxy(75, pos++);
-			cout << listaMensagens[i] << endl;
-		}
-		for (int i = 0; i < listaMensagens.size(); i++) {
-			listaMensagens.erase(listaMensagens.begin() + i);
-		}
-		listaMensagens.clear();
-	}
-	else {
-		Consola::gotoxy(75, pos);
-		cout << "Turno sem acontecimentos.";
-	}
-}*/
 
 int Simulacao::nMensagens()
 {
