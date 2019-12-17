@@ -149,12 +149,11 @@ void Menus::carregaA(Simulacao *simulacao, string nome)
 	}
 }
 
-int Menus::modo2(vector<Autodromo*> campeonato, DVG *controlo, vector<string> listaMensagens)
+int Menus::modo2(vector<Autodromo*> campeonato, DVG *controlo, Simulacao *simulacao /*vector<string> listaMensagens*/)
 {
 	string comando, comando1;
 	bool PARAMETRO_INVALIDO;
 	int indice = 0;
-
 	Consola::gotoxy(76, 1);
 	cout << "Autodromo " << campeonato[indice]->getNome();
 	do {
@@ -191,6 +190,7 @@ int Menus::modo2(vector<Autodromo*> campeonato, DVG *controlo, vector<string> li
 					campeonato[indice]->getPista()->getCorridaN(i)->getCarro()->carregaEnergiaM();
 			}
 			else if (comando1 == "corrida") {
+				simulacao->getListaMensagens().clear();
 				Consola::gotoxy(76, 1);
 				if (indice < (int)campeonato.size() - 1) {
 					indice++;
@@ -252,16 +252,18 @@ int Menus::modo2(vector<Autodromo*> campeonato, DVG *controlo, vector<string> li
 			else if (comando1 == "passatempo") {
 				int n;
 				if (buffer >> n && n > 0) {
-					Consola::gotoxy(2, 21);
-					cout << "Passou " << n << " segundos!";
 					if (campeonato[indice]->getPista()->getComecou() == JA_TERMINOU) {
 						Consola::gotoxy(76, 1);
 						cout << "Corrida ja terminada!";
 					}
 					if (campeonato[indice]->getPista()->getComecou() == NAO_COMECOU && campeonato[indice]->getPista()->atualizaPares()>=2)
 						campeonato[indice]->getPista()->comecarCorrida();
-					if (campeonato[indice]->getPista()->getComecou() == JA_COMECOU) 
+					if (campeonato[indice]->getPista()->getComecou() == JA_COMECOU) {
 						movimentoCarros(campeonato[indice], n);
+						simulacao->addMensagemAcidente(campeonato[indice]->getPista()->getCorridas());
+					}
+					Consola::gotoxy(2, 21);
+					cout << "Passou " << n << " segundos!";
 				}
 				else
 					PARAMETRO_INVALIDO = true;
@@ -269,15 +271,15 @@ int Menus::modo2(vector<Autodromo*> campeonato, DVG *controlo, vector<string> li
 			else if (comando1 == "log") {
 				//mostraMensagem(listaMen);
 				int pos = 2;
-				if (listaMensagens.size() > 0) {
-					for (int i = 0; i < (int)listaMensagens.size(); i++) {
+				if (simulacao->getListaMensagens().size() > 0) {
+					for (int i = 0; i < (int)simulacao->getListaMensagens().size(); i++) {
 						Consola::gotoxy(76, pos++);
-						cout << listaMensagens[i] << endl;
+						cout << simulacao->getListaMensagens()[i] << endl;
 					}
 				}
 				else {
 					Consola::gotoxy(76, pos);
-					cout << "Turno sem acontecimentos.";
+					cout << "Campeonato sem acontecimentos.";
 				}
 			}
 			else if (comando1 == "pontuacao") {
@@ -543,7 +545,7 @@ int Menus::modo1(Simulacao* simulacao, string comando)
 				}
 			}
 			if(CERTO)
-				modo2(simulacao->getCampeonato(), &simulacao->getControlo(),simulacao->getListaMensagens());
+				modo2(simulacao->getCampeonato(), &simulacao->getControlo(),simulacao/*simulacao->getListaMensagens()*/);
 			else
 				PARAMETRO_INVALIDO = true;
 		}

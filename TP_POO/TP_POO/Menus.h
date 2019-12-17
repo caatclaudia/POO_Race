@@ -30,7 +30,7 @@ public:
 	void carregaC(DVG& controlo, string nome);
 	void carregaA(Simulacao* simulacao, string nome);
 
-	int modo2(vector<Autodromo*> campeonato, DVG *controlo,vector<string> listaMensagens);
+	int modo2(vector<Autodromo*> campeonato, DVG *controlo,Simulacao *simulacao/*vector<string> listaMensagens*/);
 	int modo1(Simulacao *simulacao, string comando);
 
 	void movimentoCarros(Autodromo* autodromo, int seg);

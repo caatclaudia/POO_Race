@@ -49,6 +49,7 @@ public:
 	void atualizaDVG();
 
 	/*static*/ void addMensagem(string s);
+	void addMensagemAcidente(vector<Corrida*> c);
 	vector<string> getListaMensagens()const;
 	//void mostraMensagem();
 	int nMensagens();

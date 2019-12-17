@@ -1,2 +1,4 @@
 3 150 primeira
 4 200 segunda
+6 300 terceira
+8 500 quarta
