@@ -280,7 +280,7 @@ int Menus::modo2(vector<Autodromo*> campeonato, DVG *controlo, Simulacao *simula
 				}
 				else {
 					Consola::gotoxy(76, pos);
-					cout << "Campeonato sem acontecimentos.";
+					cout << "Campeonato sem acontecimentos!";
 				}
 			}
 			else if (comando1 == "pontuacao") {

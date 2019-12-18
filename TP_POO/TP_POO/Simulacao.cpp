@@ -143,25 +143,29 @@ void Simulacao::addMensagem(string s)
 	if ((int)listaMensagens.size() > 17)
 		listaMensagens.pop_back();
 }
+
 void Simulacao::addMensagemAcidente(vector<Corrida*> c)
 {
 	ostringstream os;
 
 	for (auto ptr = c.begin(); ptr != c.end(); ptr++) {
-		if ((*ptr)->getCarro()->getAcidente() == CARRO_IRREPARAVEL) {
-			os << "Acidente do piloto" << (*ptr)->getParticipante()->getNome() << " (" << (*ptr)->getCarro()->getID() << ")" << endl;
-			addMensagem(os.str());
-			os.clear();
-		}
+		if ((*ptr)->getCarro()->getAcidente() != CARRO_IRREPARAVEL)
+			os << "Nao houve ";
+
+		os << "Acidente do piloto " << (*ptr)->getParticipante()->getNome() << " (" << (*ptr)->getCarro()->getID() << ")" << endl;
+		addMensagem(os.str());
+		os.str("");
+
 		if ((*ptr)->getCarro()->getEmergencia() == EMERGENCIA_ON) {
-			os << "O piloto" << (*ptr)->getParticipante()->getNome() << " (" << (*ptr)->getCarro()->getID() << ") ativou emergencia" << endl;
+			os << "O piloto " << (*ptr)->getParticipante()->getNome() << " (" << (*ptr)->getCarro()->getID() << ") ativou emergencia" << endl;
 			addMensagem(os.str());
-			os.clear();
-		} 
+			os.str("");
+		}
 		// FAZER a prob do piloto surpresa
 			
 	}
 }
+
 vector<string> Simulacao::getListaMensagens() const
 {
 	return listaMensagens;

@@ -13,8 +13,6 @@ int PilotoRapido::passouTempo(int s)
 		acelararCarro();
 	}
 	else {
-		/*ACELERA ATE VER QUE ENERGIA = MAXIMA/2,
-		DPS DISSO SO ACELERA 1m/s POR CADA 3SEG */
 		if (Piloto::getCarro()->getEnergia() >= Piloto::getCarro()->getCapacidadeMaxima() / 2) {
 			acelararCarro();
 			if (Piloto::getCarro()->getEnergia() == Piloto::getCarro()->getCapacidadeMaxima() / 2)
@@ -27,8 +25,7 @@ int PilotoRapido::passouTempo(int s)
 		}
 	}
 
-	//A cada 10seg: 
-	if((Piloto::getSegundos() % 10) == 0 && (rand() % 100) < 10) //A CADA 10SEG TEM PROBABILIDADE DE 10% DE ATIVAR BOTAO DE EMERGENCIA
+	if((Piloto::getSegundos() % 10) == 0 && (rand() % 100) < 10)
 		getCarro()->setEmergencia(EMERGENCIA_ON);
 
 	Piloto::setSegundos(Piloto::getSegundos() + 1);

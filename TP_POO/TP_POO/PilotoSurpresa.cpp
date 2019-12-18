@@ -11,12 +11,19 @@ int PilotoSurpresa::passouTempo(int s)
 		getCarro()->setMovimento(CARRO_MOVIMENTO);
 		acelararCarro();
 	}
-	//ACELARAR/DESACELARAR A CADA SEGUNDO ALEATORIAMENTE
+	else {
+		if ((rand() % 100) < 20)
+			travarCarro();
+		else if ((rand() % 100) < 50) {
+			for (int i = 0; i < 2; i++)
+				acelararCarro();
+		}
+	}
 
-	if ((rand() % 100) < 5)	//A PROBABILIDADE DE DANIFICAR CARRO É DE 5%
+	if ((rand() % 100) < 5)
 		getCarro()->setEmergencia(CARRO_DANIFICADO);
 
-	Piloto::setSegundos(Piloto::getSegundos() + 1);		//VERIFICAR ESTA CHAMADA, SE É 1SEG OU MAIS
+	Piloto::setSegundos(Piloto::getSegundos() + 1);
 
 	return getCarro()->getVelocidade() * s;
 }
