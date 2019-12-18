@@ -146,15 +146,16 @@ void Simulacao::addMensagem(string s)
 
 void Simulacao::addMensagemAcidente(vector<Corrida*> c)
 {
+	bool ACIDENTE = false;
 	ostringstream os;
 
 	for (auto ptr = c.begin(); ptr != c.end(); ptr++) {
-		if ((*ptr)->getCarro()->getAcidente() != CARRO_IRREPARAVEL)
-			os << "Nao houve ";
-
-		os << "Acidente do piloto " << (*ptr)->getParticipante()->getNome() << " (" << (*ptr)->getCarro()->getID() << ")" << endl;
-		addMensagem(os.str());
-		os.str("");
+		if ((*ptr)->getCarro()->getAcidente() == CARRO_IRREPARAVEL) {
+			os << "Acidente do piloto " << (*ptr)->getParticipante()->getNome() << " (" << (*ptr)->getCarro()->getID() << ")" << endl;
+			addMensagem(os.str());
+			os.str("");
+			ACIDENTE = true;
+		}
 
 		if ((*ptr)->getCarro()->getEmergencia() == EMERGENCIA_ON) {
 			os << "O piloto " << (*ptr)->getParticipante()->getNome() << " (" << (*ptr)->getCarro()->getID() << ") ativou emergencia" << endl;
@@ -162,8 +163,14 @@ void Simulacao::addMensagemAcidente(vector<Corrida*> c)
 			os.str("");
 		}
 		// FAZER a prob do piloto surpresa
-			
 	}
+	if (!ACIDENTE) 
+	{
+		os << "Sem Acidentes!" << endl;
+		addMensagem(os.str());
+		os.str("");
+	}
+
 }
 
 vector<string> Simulacao::getListaMensagens() const
