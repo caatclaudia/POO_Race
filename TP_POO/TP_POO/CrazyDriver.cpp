@@ -8,6 +8,7 @@ CrazyDriver::CrazyDriver(const string nome, const string t) : Piloto(nome, t), p
 int CrazyDriver::passouTempo(int s)
 {
 	if (Piloto::getSegundos() < segundo) {	//SO COMECA A CORRER NO XºSEGUNDO(ALEATORIO ENTRE 1 E 5)
+		Piloto::setSegundos(Piloto::getSegundos() + 1);
 		return 0;
 	}
 	else if (Piloto::getSegundos() == segundo) {

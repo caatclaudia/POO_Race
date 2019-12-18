@@ -1,6 +1,8 @@
 #include "DVG.h"
 #include "Carro.h"
-#include "Piloto.h"
+#include "PilotoRapido.h"
+#include "PilotoSurpresa.h"
+#include "CrazyDriver.h"
 #include "Consola.h"
 
 DVG::DVG(string nomeDVG):nomeDVG(nomeDVG)
@@ -69,10 +71,20 @@ void DVG::novoPiloto(string n,string t)
 	}
 	if (igual) {
 		n = n + to_string(Nome);
-		pilotos.push_back(new Piloto(n,t));
+		if (t == "crazy")
+			pilotos.push_back(new CrazyDriver(n, t));
+		else if (t == "rapido")
+			pilotos.push_back(new PilotoRapido(n, t));
+		else if (t == "surpresa")
+			pilotos.push_back(new PilotoSurpresa(n, t));
 	}
 	else {
-		pilotos.push_back(new Piloto (n,t));
+		if (t == "crazy")
+			pilotos.push_back(new CrazyDriver(n, t));
+		else if (t == "rapido")
+			pilotos.push_back(new PilotoRapido(n, t));
+		else if (t == "surpresa")
+			pilotos.push_back(new PilotoSurpresa(n, t));
 	}
 }
 
@@ -147,6 +159,11 @@ Piloto* DVG::pilotoNoCarro(char id) const
 
 void DVG::getAsStringPilotos()const {
 	int i = 1;
+	if (pilotos.empty()) {
+		Consola::gotoxy(76, i);
+		cout << "Nao existe pilotos!";
+		return;
+	}
 	for (auto ptr = pilotos.begin(); ptr != pilotos.end(); ptr++) {
 		Consola::gotoxy(76, i);
 		cout << (*ptr)->getAsString();
@@ -156,6 +173,11 @@ void DVG::getAsStringPilotos()const {
 
 void DVG::getAsStringCarros()const {
 	int i = 1;
+	if (pilotos.empty()) {
+		Consola::gotoxy(76, i);
+		cout << "Nao existe carros!";
+		return;
+	}
 	for (auto ptr = carros.begin(); ptr != carros.end(); ptr++) {
 		Consola::gotoxy(76, i);
 		cout << (*ptr)->getAsString();

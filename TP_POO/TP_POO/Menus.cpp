@@ -474,10 +474,16 @@ int Menus::modo1(Simulacao* simulacao, string comando)
 			base();
 			fflush(stdout);
 			int i = 1;
-			for (int x = 0; x < simulacao->getAutodromosSize(); x++) {
+			if (simulacao->getAutodromos().empty()) {
 				Consola::gotoxy(76, i);
-				cout << simulacao->getAutodromoN(x)->getAsString();
-				i++;
+				cout << "Nao existe carros!";
+			}
+			else {
+				for (int x = 0; x < simulacao->getAutodromosSize(); x++) {
+					Consola::gotoxy(76, i);
+					cout << simulacao->getAutodromoN(x)->getAsString();
+					i++;
+				}
 			}
 		}
 		else if (comando1 == "savedgv") {

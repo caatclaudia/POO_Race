@@ -42,13 +42,13 @@ public:
 	void travarCarro();
 	void acelararCarro();
 
-	virtual int passouTempo(int s);
+	virtual int passouTempo(int s) =0;
 	virtual string getProbAsString()const;
 
 	string getAsString()const;
 	bool operator==(const Piloto& ob)const;
 
-	virtual Piloto* duplica()const;		//TEM DE SER =0
+	virtual Piloto* duplica()const =0;
 
 	virtual ~Piloto();
 };

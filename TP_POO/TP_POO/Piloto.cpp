@@ -49,7 +49,7 @@ int Piloto::getSegundos() const
 
 void Piloto::setSegundos(int n)
 {
-	segundos = segundos + n;
+	segundos = n;
 }
 
 bool Piloto::getVivo() const
@@ -104,17 +104,17 @@ void Piloto::acelararCarro()
 	carro->acelarar();
 }
 
-int Piloto::passouTempo(int s)
-{
-	if (segundos == 0) {
-		carro->setMovimento(CARRO_MOVIMENTO);
-		acelararCarro();
-	}
-	segundos++;		//VERIFICAR ESTA CHAMADA, SE É 1SEG OU MAIS
-	if (carro->getVelocidade() == 0)
-		acelararCarro();
-	return carro->getVelocidade() * s;
-}
+//int Piloto::passouTempo(int s)
+//{
+//	if (segundos == 0) {
+//		carro->setMovimento(CARRO_MOVIMENTO);
+//		acelararCarro();
+//	}
+//	segundos++;		//VERIFICAR ESTA CHAMADA, SE É 1SEG OU MAIS
+//	if (carro->getVelocidade() == 0)
+//		acelararCarro();
+//	return carro->getVelocidade() * s;
+//}
 
 string Piloto::getProbAsString() const
 {
@@ -143,10 +143,10 @@ bool Piloto::operator==(const Piloto& ob) const
 	return false;
 }
 
-Piloto* Piloto::duplica() const
-{
-	return new Piloto(*this);
-}
+//Piloto* Piloto::duplica() const
+//{
+//	return new Piloto(*this);
+//}
 
 Piloto::~Piloto()
 {
