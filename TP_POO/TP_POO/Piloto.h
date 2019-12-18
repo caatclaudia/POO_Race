@@ -48,6 +48,10 @@ public:
 	string getAsString()const;
 	bool operator==(const Piloto& ob)const;
 
+	virtual bool acidente() =0;
+	virtual int verificaLugar(int lugar, int max) =0;
+	virtual void perdeuLugar() =0;
+
 	virtual Piloto* duplica()const =0;
 
 	virtual ~Piloto();

@@ -16,21 +16,18 @@ int CrazyDriver::passouTempo(int s)
 		acelararCarro();
 	}
 
-	/*A CADA SEGUNDO PERGUNTA A PISTA QUAL O SEU LUGAR
-		SE FOR !=1 OU !=ULTIMO ACELERA
-		SE FOR 1 MANTEM
-		SE FOR ULTIMO TRAVA
-
-	SE NOTAR QUE PERDEU LUGARES AUMENTA VELOCIDADE EM 2m/s */
-
-	if (getCarro()->getEnergia() == 0)	//SE FICAR SEM ENERGIA, ACENDE SINAL DE EMERGENCIA
+	if (getCarro()->getEnergia() == 0)
 		getCarro()->setEmergencia(EMERGENCIA_ON);
-
-	Piloto::setSegundos(Piloto::getSegundos()+1);		//VERIFICAR ESTA CHAMADA, SE É 1SEG OU MAIS
-
-	//PROBABILIDADE DE 5% DE DANIFICAR IRREMEDIAVELMENTE E O CARRO DE TRAS TB
 	
-	return getCarro()->getVelocidade() * s;
+	return getCarro()->getVelocidade() * 1;
+}
+
+bool CrazyDriver::acidente() {
+	if ((rand() % 100) < 5) {
+		getCarro()->acidenteDanoIrreparavel(this);
+		return true;
+	}
+	return false;
 }
 
 string CrazyDriver::getProbAsString()const 
@@ -38,6 +35,24 @@ string CrazyDriver::getProbAsString()const
 	ostringstream oss;
 	oss << Piloto::getProbAsString() << " tem " << prob << " probabilidade de danificar irremidiavelmente o carro!" << endl;
 	return oss.str();
+}
+
+int CrazyDriver::verificaLugar(int lugar, int max)
+{
+	if (lugar == max)
+		travarCarro();
+	else if (lugar != 1)
+		acelararCarro();
+
+	Piloto::setSegundos(Piloto::getSegundos() + 1);
+
+	return getCarro()->getVelocidade() * 1;
+}
+
+void CrazyDriver::perdeuLugar()
+{
+	for(int i=0; i<2; i++)
+		acelararCarro();
 }
 
 CrazyDriver* CrazyDriver::duplica() const

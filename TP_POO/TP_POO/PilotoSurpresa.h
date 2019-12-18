@@ -12,6 +12,10 @@ public:
 	int passouTempo(int s) override;
 	string getProbAsString()const;
 
+	virtual bool acidente();
+	virtual int verificaLugar(int lugar, int max);
+	virtual void perdeuLugar();
+
 	PilotoSurpresa* duplica()const override;
 
 	~PilotoSurpresa();

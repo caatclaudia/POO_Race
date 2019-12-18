@@ -28,6 +28,20 @@ string PilotoSurpresa::getProbAsString() const
 	return oss.str();
 }
 
+bool PilotoSurpresa::acidente()
+{
+	return false;
+}
+
+int PilotoSurpresa::verificaLugar(int lugar, int max)
+{
+	return 0;
+}
+
+void PilotoSurpresa::perdeuLugar()
+{
+}
+
 PilotoSurpresa* PilotoSurpresa::duplica() const
 {
 	return new PilotoSurpresa(*this);

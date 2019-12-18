@@ -143,6 +143,20 @@ bool Piloto::operator==(const Piloto& ob) const
 	return false;
 }
 
+//bool Piloto::acidente()
+//{
+//	return false;
+//}
+//
+//int Piloto::verificaLugar(int lugar, int max)
+//{
+//	return 0;
+//}
+//
+//void Piloto::perdeuLugar()
+//{
+//}
+
 //Piloto* Piloto::duplica() const
 //{
 //	return new Piloto(*this);

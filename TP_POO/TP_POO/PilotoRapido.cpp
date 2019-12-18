@@ -43,6 +43,20 @@ string PilotoRapido::getProbAsString() const
 	return oss.str();
 }
 
+bool PilotoRapido::acidente()
+{
+	return false;
+}
+
+int PilotoRapido::verificaLugar(int lugar, int max)
+{
+	return 0;
+}
+
+void PilotoRapido::perdeuLugar()
+{
+}
+
 PilotoRapido* PilotoRapido::duplica() const
 {
 	return new PilotoRapido(*this);
