@@ -23,7 +23,7 @@ public:
 
 	vector<Carro*> & getCarro();
 	int getNCarros()const;
-	void novoCarro(string marca, double cInicial, double cMaxima, int vMaxima, string modelo="modelo base");
+	void novoCarro(string marca, float cInicial, float cMaxima, int vMaxima, string modelo="modelo base");
 	void removeCarro(Carro* car);
 	vector<Piloto*> & getPiloto();
 	int getNPilotos()const;

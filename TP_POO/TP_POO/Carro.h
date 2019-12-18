@@ -18,8 +18,8 @@ class Carro
 {
 	const string marca, modelo;			
 	char ID;						
-	const double capacidadeMaxima;		
-	double energia;
+	const float capacidadeMaxima;
+	float energia;
 	int velocidade;
 	const int velocidadeMaxima;			
 	bool movimento;
@@ -31,14 +31,14 @@ class Carro
 public:
 	 static char identificacao;
 
-	Carro(const string marca, double cInicial, const double cMaxima, const int vMaxima, const string modelo="modelo base");
+	Carro(const string marca, float cInicial, const float cMaxima, const int vMaxima, const string modelo="modelo base");
 	
 	string getMarca()const;
 	string getModelo()const;
 	char getID()const;
-	double getCapacidadeMaxima()const;
-	double getEnergia()const;
-	void setEnergia(double ene);
+	float getCapacidadeMaxima()const;
+	float getEnergia()const;
+	void setEnergia(float ene);
 	int getVelocidade()const;
 	void setVelocidade(int v);
 	int getVelocidadeMaxima()const;
@@ -53,9 +53,9 @@ public:
 
 	bool operator==(const Carro &ob)const;
 
-	bool carregaEnergia(double ene);
+	bool carregaEnergia(float ene);
 	void carregaEnergiaM();
-	void descarregaEnergia(double ene);
+	void descarregaEnergia(float ene);
 	
 	void acelarar();
 	void travar();

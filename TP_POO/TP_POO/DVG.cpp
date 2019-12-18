@@ -35,7 +35,7 @@ int DVG::getNCarros() const
 	return carros.size();
 }
 
-void DVG::novoCarro(string marca, double cInicial, double cMaxima, int vMaxima, string modelo)
+void DVG::novoCarro(string marca, float cInicial, float cMaxima, int vMaxima, string modelo)
 {
 	carros.push_back(new Carro(marca, cInicial, cMaxima, vMaxima, modelo));
 }

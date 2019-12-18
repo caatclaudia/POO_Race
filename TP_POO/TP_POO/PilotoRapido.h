@@ -5,6 +5,7 @@
 class PilotoRapido : public Piloto
 {
 	const double prob;
+	int contador;
 
 public:
 	PilotoRapido(const string nome, const string t);

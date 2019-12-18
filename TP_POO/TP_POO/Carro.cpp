@@ -3,7 +3,7 @@
 
 
 
-Carro::Carro(const string marca, double cInicial, const double cMaxima, const int vMaxima, const string modelo): capacidadeMaxima(cMaxima), velocidadeMaxima(vMaxima), marca(marca),modelo(modelo), ID(identificacao)
+Carro::Carro(const string marca, float cInicial, const float cMaxima, const int vMaxima, const string modelo): capacidadeMaxima(cMaxima), velocidadeMaxima(vMaxima), marca(marca),modelo(modelo), ID(identificacao)
 {
 	
 	if (identificacao == 'z' || identificacao == '?')
@@ -34,17 +34,17 @@ char Carro::getID()const
 	return ID;
 }
 
-double Carro::getCapacidadeMaxima()const
+float Carro::getCapacidadeMaxima()const
 {
 	return capacidadeMaxima;
 }
 
-double Carro::getEnergia()const
+float Carro::getEnergia()const
 {
 	return energia;
 }
 
-void Carro::setEnergia(double ene)
+void Carro::setEnergia(float ene)
 {
 	energia = ene;
 }
@@ -114,7 +114,7 @@ bool Carro::operator==(const Carro& ob) const
 	return false;
 }
 
-bool Carro::carregaEnergia(double ene) {
+bool Carro::carregaEnergia(float ene) {
 	if (ene > 0 && movimento == CARRO_PARADO) {
 		energia = energia + ene;
 		if (energia > capacidadeMaxima)
@@ -130,7 +130,7 @@ void Carro::carregaEnergiaM()
 }
 
 
-void Carro::descarregaEnergia(double ene) 
+void Carro::descarregaEnergia(float ene)
 {
 	if (ene > 0 && movimento == CARRO_MOVIMENTO) {
 		energia = energia - ene;
@@ -153,7 +153,7 @@ void Carro::acelarar()
 		}
 		else if (velocidade < velocidadeMaxima)
 			velocidade++;
-		descarregaEnergia(0.1);
+		descarregaEnergia(0.1f);
 	}
 }
 
@@ -162,7 +162,6 @@ void Carro::travar()
 	if (condutor == CARRO_CONDUTOR) {
 		if (velocidade > 0)
 			velocidade--;
-		descarregaEnergia(0.1);
 	}
 	if(velocidade==0)
 		movimento = CARRO_PARADO;

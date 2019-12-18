@@ -268,6 +268,8 @@ void Pista::carregaGrelha()
 				}
 				else
 					grelha[i][j] = ' ';
+				if ((*ptr)->getPosicao() > comprimento)
+					grelha[i][COLUNAS - 1] = toupper((*ptr)->getCarro()->getID());
 			}
 			else {
 				grelha[i][j] = '-';
@@ -276,7 +278,6 @@ void Pista::carregaGrelha()
 		if (i % 2 == 0)
 			ptr++;
 	}
-
 }
 
 vector< vector< char> > Pista::GetGrelha()const

@@ -116,7 +116,8 @@ void Menus::carregaC(DVG& controlo, string nome)
 {
 	ifstream ficheiro(nome);
 	if (ficheiro) {
-		int capI, capM, vel;
+		float capI, capM;
+		int vel;
 		string marca, modelo, linha;
 		while (getline(ficheiro, linha)) {
 			istringstream buffer(linha);
@@ -172,7 +173,7 @@ int Menus::modo2(vector<Autodromo*> campeonato, DVG *controlo, Simulacao *simula
 			}
 			else if (comando1 == "carregabat") {
 				char letra;
-				double num;
+				float num;
 				if (buffer >> letra && buffer >> num && num > 0) {
 					Consola::gotoxy(76, 1);
 					cout << "Comando " << comando1 << " " << letra << " " << num;
@@ -285,6 +286,8 @@ int Menus::modo2(vector<Autodromo*> campeonato, DVG *controlo, Simulacao *simula
 			else if (comando1 == "pontuacao") {
 				controlo->getAsStringPontCompeticao();
 			}
+			else if(comando1=="obterinfo")
+				campeonato[indice]->obterInfo();
 			else if (comando1 == "voltar") {
 				Consola::gotoxy(76, 1);
 				cout << "Voltando...";
@@ -360,7 +363,8 @@ int Menus::modo1(Simulacao* simulacao, string comando)
 						PARAMETRO_INVALIDO = true;
 				}
 				else if (tipo == "c") {
-					int capI, capM, vel;
+					float capI, capM;
+					int vel;
 					string marcaC, modeloC;
 					if (buffer >> vel && buffer >> capI && buffer >> capM && buffer >> marcaC && capI <= capM) {
 						Consola::gotoxy(76, 1);
@@ -611,7 +615,7 @@ void Menus::movimentoCarros(Autodromo* autodromo, int seg)
 		Sleep(10);
 	}
 	if (autodromo->getPista()->getComecou() == JA_TERMINOU) {
-		autodromo->obterInfo();
+		autodromo->getAsStringPontPilotos();
 	}
 }
 
