@@ -129,7 +129,6 @@ void Carro::carregaEnergiaM()
 	energia = capacidadeMaxima;
 }
 
-
 void Carro::descarregaEnergia(float ene)
 {
 	if (ene > 0 && movimento == CARRO_MOVIMENTO) {
@@ -163,7 +162,7 @@ void Carro::travar()
 		if (velocidade > 0)
 			velocidade--;
 	}
-	if(velocidade==0)
+	else if(velocidade==0)
 		movimento = CARRO_PARADO;
 }
 

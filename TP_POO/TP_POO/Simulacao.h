@@ -17,7 +17,6 @@ class Simulacao
 	vector<Autodromo*> autodromos;
 	vector<Corrida*> auxiliarCorrida;
 	vector<Autodromo*> campeonato;	
-	vector<string> listaMensagens;
 
 public:
 	static int NomeAutodromos;
@@ -47,11 +46,6 @@ public:
 	bool eliminaAutodromos(string nome);
 
 	void atualizaDVG();
-
-	void addMensagem(string s);
-	void addMensagemAcidente(vector<Corrida*> c);
-	vector<string> getListaMensagens()const;
-	int nMensagens();
 
 	~Simulacao();
 };

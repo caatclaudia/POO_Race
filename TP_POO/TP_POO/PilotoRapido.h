@@ -10,12 +10,8 @@ class PilotoRapido : public Piloto
 public:
 	PilotoRapido(const string nome, const string t);
 
-	int passouTempo(int s) override;
+	int passouTempo(int s, Pista* pista) override;
 	string getProbAsString()const;
-
-	virtual bool acidente() ;
-	virtual int verificaLugar(int lugar, int max);
-	virtual void perdeuLugar();
 
 	PilotoRapido* duplica()const override;
 

@@ -150,8 +150,45 @@ void Menus::carregaA(Simulacao *simulacao, string nome)
 	}
 }
 
-int Menus::modo2(vector<Autodromo*> campeonato, DVG *controlo, Simulacao *simulacao /*vector<string> listaMensagens*/)
+void Menus::addMensagem(vector<string>* listaMensagens, string s)
 {
+	listaMensagens->insert(listaMensagens->begin(), s);
+	if ((int)listaMensagens->size() > 17)
+		listaMensagens->pop_back();
+}
+
+void Menus::addMensagemAcidente(vector<string>* listaMensagens, vector<Corrida*> c)
+{
+	bool ACIDENTE = false;
+	ostringstream os;
+
+	for (auto ptr = c.begin(); ptr != c.end(); ptr++) {
+		if ((*ptr)->getCarro()->getAcidente() != CARRO_BOMESTADO) {
+			os << "Acidente do piloto " << (*ptr)->getParticipante()->getNome() << " (" << (*ptr)->getCarro()->getID() << ")" << endl;
+			addMensagem(listaMensagens, os.str());
+			os.str("");
+			ACIDENTE = true;
+		}
+
+		if ((*ptr)->getCarro()->getEmergencia() == EMERGENCIA_ON) {
+			os << "O piloto " << (*ptr)->getParticipante()->getNome() << " (" << (*ptr)->getCarro()->getID() << ") - emergencia ativa" << endl;
+			addMensagem(listaMensagens, os.str());
+			os.str("");
+		}
+		// FAZER a prob do piloto surpresa
+	}
+	if (!ACIDENTE)
+	{
+		os << "Ronda sem Acidentes!" << endl;
+		addMensagem(listaMensagens, os.str());
+		os.str("");
+	}
+}
+
+int Menus::modo2(vector<Autodromo*> campeonato, DVG *controlo)
+{
+	vector<string> listaMensagens;
+
 	string comando, comando1;
 	bool PARAMETRO_INVALIDO;
 	int indice = 0;
@@ -191,7 +228,7 @@ int Menus::modo2(vector<Autodromo*> campeonato, DVG *controlo, Simulacao *simula
 					campeonato[indice]->getPista()->getCorridaN(i)->getCarro()->carregaEnergiaM();
 			}
 			else if (comando1 == "corrida") {
-				simulacao->getListaMensagens().clear();
+				listaMensagens.clear();
 				Consola::gotoxy(76, 1);
 				if (indice < (int)campeonato.size() - 1) {
 					indice++;
@@ -260,8 +297,7 @@ int Menus::modo2(vector<Autodromo*> campeonato, DVG *controlo, Simulacao *simula
 					if (campeonato[indice]->getPista()->getComecou() == NAO_COMECOU && campeonato[indice]->getPista()->atualizaPares()>=2)
 						campeonato[indice]->getPista()->comecarCorrida();
 					if (campeonato[indice]->getPista()->getComecou() == JA_COMECOU) {
-						movimentoCarros(campeonato[indice], n);
-						simulacao->addMensagemAcidente(campeonato[indice]->getPista()->getCorridas());
+						movimentoCarros(campeonato[indice], n, &listaMensagens);
 					}
 					Consola::gotoxy(2, 21);
 					cout << "Passou " << n << " segundos!";
@@ -270,12 +306,11 @@ int Menus::modo2(vector<Autodromo*> campeonato, DVG *controlo, Simulacao *simula
 					PARAMETRO_INVALIDO = true;
 			}
 			else if (comando1 == "log") {
-				//mostraMensagem(listaMen);
 				int pos = 2;
-				if (simulacao->getListaMensagens().size() > 0) {
-					for (int i = 0; i < (int)simulacao->getListaMensagens().size(); i++) {
+				if (listaMensagens.size() > 0) {
+					for (int i = 0; i < (int)listaMensagens.size(); i++) {
 						Consola::gotoxy(76, pos++);
-						cout << simulacao->getListaMensagens()[i] << endl;
+						cout << listaMensagens[i] << endl;
 					}
 				}
 				else {
@@ -563,7 +598,7 @@ int Menus::modo1(Simulacao* simulacao, string comando)
 				}
 			}
 			if (CERTO) {
-				modo2(simulacao->getCampeonato(), &simulacao->getControlo(), simulacao/*simulacao->getListaMensagens()*/);
+				modo2(simulacao->getCampeonato(), &simulacao->getControlo());
 				simulacao->getControlo().terminaCompeticao();
 			}
 			else
@@ -595,7 +630,7 @@ int Menus::modo1(Simulacao* simulacao, string comando)
 	return 1;
 }
 
-void Menus::movimentoCarros(Autodromo* autodromo, int seg)
+void Menus::movimentoCarros(Autodromo* autodromo, int seg, vector<string>* listaMensagens)
 {
 	for (int i = 0; i < seg && autodromo->getPista()->getComecou() == JA_COMECOU; i++) {
 		autodromo->getPista()->avancaTempo();
@@ -608,6 +643,7 @@ void Menus::movimentoCarros(Autodromo* autodromo, int seg)
 		}
 		autodromo->getPista()->carregaGrelha();
 		autodromo->getPista()->mostraGrelha();
+		addMensagemAcidente(listaMensagens, autodromo->getPista()->getCorridas());
 		if (autodromo->getPista()->atualizaPares() < 2) {
 			limpaPista();
 			autodromo->getPista()->terminarCorrida(autodromo->getGaragem());

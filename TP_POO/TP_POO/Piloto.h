@@ -12,6 +12,7 @@ using namespace std;
 #define FORA_CARRO 0
 
 class Carro;
+class Pista;
 
 class Piloto
 {
@@ -42,15 +43,11 @@ public:
 	void travarCarro();
 	void acelararCarro();
 
-	virtual int passouTempo(int s) =0;
+	virtual int passouTempo(int s, Pista *pista) =0;
 	virtual string getProbAsString()const;
 
 	string getAsString()const;
 	bool operator==(const Piloto& ob)const;
-
-	virtual bool acidente() =0;
-	virtual int verificaLugar(int lugar, int max) =0;
-	virtual void perdeuLugar() =0;
 
 	virtual Piloto* duplica()const =0;
 

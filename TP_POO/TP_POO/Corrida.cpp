@@ -6,7 +6,6 @@
 #include "Pista.h"
 
 
-
 Corrida::Corrida(Carro* part)
 {
 	posicao = 0;
@@ -39,6 +38,7 @@ void Corrida::setTravar(bool t)
 int Corrida::getPosicao()const {
 	return posicao;
 }
+
 void Corrida::setPosicao(int pos) {
 	posicao=pos;
 }
@@ -51,6 +51,7 @@ void Corrida::avancaPosicao(int pos)
 int Corrida::getLugar()const {
 	return lugar;
 }
+
 void Corrida::setLugar(int lug) {
 	lugar = lug;
 }
@@ -58,6 +59,7 @@ void Corrida::setLugar(int lug) {
 Piloto* Corrida::getParticipante()const {
 	return participante;
 }
+
 void Corrida::setParticipante(Piloto* pil) {
 	participante = pil;
 	pil->entraCarro(carro);
@@ -66,6 +68,7 @@ void Corrida::setParticipante(Piloto* pil) {
 Carro* Corrida::getCarro()const {
 	return carro;
 }
+
 void Corrida::setCarro(Carro* car) {
 	carro = car;
 }

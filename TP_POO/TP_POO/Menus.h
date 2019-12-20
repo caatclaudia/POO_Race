@@ -24,16 +24,17 @@ public:
 	void base()const;
 	void limpaPista()const;
 
-	//void mostraMensagem(vector<string>&listaMensagens);
-
 	void carregaP(DVG& controlo, string nome);
 	void carregaC(DVG& controlo, string nome);
 	void carregaA(Simulacao* simulacao, string nome);
 
-	int modo2(vector<Autodromo*> campeonato, DVG *controlo,Simulacao *simulacao/*vector<string> listaMensagens*/);
+	void addMensagem(vector<string>* listaMensagens, string s);
+	void addMensagemAcidente(vector<string>* listaMensagens, vector<Corrida*> c);
+
+	int modo2(vector<Autodromo*> campeonato, DVG *controlo);
 	int modo1(Simulacao *simulacao, string comando);
 
-	void movimentoCarros(Autodromo* autodromo, int seg);
+	void movimentoCarros(Autodromo* autodromo, int seg, vector<string>* listaMensagens);
 
 	void associaCarros(Simulacao* simulacao, int num);
 

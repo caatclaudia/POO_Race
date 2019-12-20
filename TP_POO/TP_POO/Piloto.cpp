@@ -1,5 +1,6 @@
 #include "Piloto.h"
 #include "Carro.h"
+#include "Pista.h"
 
 
 Piloto::Piloto(const string nome, const string t):nome(nome), tipo(t)

@@ -116,7 +116,7 @@ void Pista::comecarCorrida()
 				(*ptr)->getParticipante()->iniciaCompeticao();
 				(*ptr)->getParticipante()->setSegundos();
 				(*ptr)->setPosicao(0);
-				(*ptr)->getParticipante()->passouTempo(1);
+				(*ptr)->getParticipante()->passouTempo(1, this);
 				(*ptr)->setTravar(false);
 			}
 		}
@@ -163,19 +163,9 @@ void Pista::avancaTempo(int sec)
 	if (comecou == JA_COMECOU) {
 		for (auto ptr = corridas.begin(); ptr != corridas.end(); ptr++) {
 			if (!(*ptr)->getTravar())
-				(*ptr)->avancaPosicao((*ptr)->getParticipante()->passouTempo(sec));
+				(*ptr)->avancaPosicao((*ptr)->getParticipante()->passouTempo(sec, this));
 			else if ((*ptr)->getCarro()->getVelocidade() > 0)
 				(*ptr)->getParticipante()->travarCarro();
-			if ((*ptr)->getParticipante()->getTipo() == "crazy") {
-				(*ptr)->getParticipante()->verificaLugar((*ptr)->getLugar(), (int)corridas.size());
-				if ((*ptr)->getParticipante()->acidente())
-				{
-					for (auto p = corridas.begin(); p != corridas.end(); p++) {
-						if ((*p)->getLugar() == (*ptr)->getLugar() + 1)
-							(*p)->getCarro()->acidenteDanoIrreparavel((*p)->getParticipante());
-					}
-				}
-			}
 		}
 		if (haCampeao())
 			terminarCorrida();
@@ -216,8 +206,6 @@ void Pista::verificaLugar()
 			if ((*ptr)->getPosicao() < (*pt)->getPosicao())
 				n++;
 		}
-		if ((*ptr)->getLugar() > n && n != (int)corridas.size())
-			(*ptr)->getParticipante()->perdeuLugar();
 		(*ptr)->setLugar(n);
 	}
 }

@@ -5,7 +5,7 @@ PilotoSurpresa::PilotoSurpresa(const string nome, const string t) : Piloto(nome,
 {
 }
 
-int PilotoSurpresa::passouTempo(int s)
+int PilotoSurpresa::passouTempo(int s, Pista* pista)
 {
 	if (Piloto::getSegundos() == 1) {
 		getCarro()->setMovimento(CARRO_MOVIMENTO);
@@ -20,8 +20,8 @@ int PilotoSurpresa::passouTempo(int s)
 		}
 	}
 
-	if ((rand() % 100) < 5)
-		getCarro()->setEmergencia(CARRO_DANIFICADO);
+	if ((rand() % 100) < 5) 
+		getCarro()->setEmergencia(EMERGENCIA_ON);
 
 	Piloto::setSegundos(Piloto::getSegundos() + 1);
 
@@ -33,20 +33,6 @@ string PilotoSurpresa::getProbAsString() const
 	ostringstream oss;
 	oss <<Piloto::getProbAsString()<< " tem " << prob << " probabilidade de explodir o carro!" << endl;
 	return oss.str();
-}
-
-bool PilotoSurpresa::acidente()
-{
-	return false;
-}
-
-int PilotoSurpresa::verificaLugar(int lugar, int max)
-{
-	return 0;
-}
-
-void PilotoSurpresa::perdeuLugar()
-{
 }
 
 PilotoSurpresa* PilotoSurpresa::duplica() const
