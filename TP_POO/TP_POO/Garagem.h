@@ -9,7 +9,7 @@ using namespace std;
 
 class Garagem
 {
-	vector<Carro*> carros;
+	vector<Carro *> carros;
 
 public:
 	Garagem();

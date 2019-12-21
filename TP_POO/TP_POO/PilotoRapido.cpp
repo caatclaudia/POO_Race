@@ -1,5 +1,7 @@
 #include "PilotoRapido.h"
 #include "Carro.h"
+#include "Pista.h"
+#include "Corrida.h"
 
 PilotoRapido::PilotoRapido(const string nome, const string t) : Piloto(nome, t), prob(0.1)
 {
@@ -8,29 +10,41 @@ PilotoRapido::PilotoRapido(const string nome, const string t) : Piloto(nome, t),
 
 int PilotoRapido::passouTempo(int s, Pista* pista)
 {
-	if (Piloto::getSegundos() == 1) {
-		getCarro()->setMovimento(CARRO_MOVIMENTO);
-		acelararCarro();
-	}
-	else {
-		if (Piloto::getCarro()->getEnergia() >= Piloto::getCarro()->getCapacidadeMaxima() / 2) {
+	if (Piloto::getCarro() != nullptr) {
+		if (Piloto::getSegundos() == 1) {
+			getCarro()->setMovimento(CARRO_MOVIMENTO);
 			acelararCarro();
-			if (Piloto::getCarro()->getEnergia() == Piloto::getCarro()->getCapacidadeMaxima() / 2)
-				contador++;
 		}
 		else {
-			if ((contador % 3) == 0)
+			if (Piloto::getCarro()->getEnergia() >= Piloto::getCarro()->getCapacidadeMaxima() / 2) {
 				acelararCarro();
-			contador++;
+				if (Piloto::getCarro()->getEnergia() == Piloto::getCarro()->getCapacidadeMaxima() / 2)
+					contador++;
+			}
+			else {
+				if ((contador % 3) == 0)
+					acelararCarro();
+				contador++;
+			}
 		}
+
+		if ((Piloto::getSegundos() % 10) == 0 && (rand() % 100) < 10) {
+			getCarro()->setEmergencia(EMERGENCIA_ON);
+			saiCarro();
+		}
+
+		Piloto::setSegundos(Piloto::getSegundos() + 1);
+
+		if (getCarro() == nullptr) {/*
+			for (auto ptr = pista->getCorridas().begin(); ptr != pista->getCorridas().end(); ptr++) {
+				if ((*ptr)->getParticipante()->getNome() == getNome())
+					(*ptr)->setTravar(true);
+			}*/
+			return 0;
+		}
+		return getCarro()->getVelocidade() * s;
 	}
-
-	if ((Piloto::getSegundos() % 10) == 0 && (rand() % 100) < 10) 
-		getCarro()->setEmergencia(EMERGENCIA_ON);
-
-	Piloto::setSegundos(Piloto::getSegundos() + 1);
-	
-	return getCarro()->getVelocidade() * s;
+	return 0;
 }
 
 string PilotoRapido::getProbAsString() const

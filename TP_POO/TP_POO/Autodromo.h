@@ -31,6 +31,8 @@ public:
 	bool acrescentaCarroGaragem(Carro *carro);
 	void getAsStringPontPilotos();
 
+	void reverCarros();
+
 	~Autodromo();
 };
 #endif

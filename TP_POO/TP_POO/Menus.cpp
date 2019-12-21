@@ -632,15 +632,16 @@ int Menus::modo1(Simulacao* simulacao, string comando)
 
 void Menus::movimentoCarros(Autodromo* autodromo, int seg, vector<string>* listaMensagens)
 {
+	ostringstream os;
 	for (int i = 0; i < seg && autodromo->getPista()->getComecou() == JA_COMECOU; i++) {
 		autodromo->getPista()->avancaTempo();
-		for (auto ptr = autodromo->getPista()->getCorridas().begin(); ptr != autodromo->getPista()->getCorridas().end(); ) {
+		/*for (auto ptr = autodromo->getPista()->getCorridas().begin(); ptr != autodromo->getPista()->getCorridas().end(); ) {
 			if ((*ptr)->getTravar()==true && (*ptr)->getCarro()->getVelocidade()==0) {
 				ptr = autodromo->getPista()->getCorridas().erase(ptr);
 			}
 			else
 				ptr++;
-		}
+		}*/
 		autodromo->getPista()->carregaGrelha();
 		autodromo->getPista()->mostraGrelha();
 		addMensagemAcidente(listaMensagens, autodromo->getPista()->getCorridas());
@@ -650,6 +651,14 @@ void Menus::movimentoCarros(Autodromo* autodromo, int seg, vector<string>* lista
 		}
 		Sleep(10);
 	}
+	for (auto ptr = autodromo->getPista()->getCorridas().begin(); ptr != autodromo->getPista()->getCorridas().end(); ptr++) {
+		if ((*ptr)->getCarro()->getAcidente() != CARRO_BOMESTADO || (*ptr)->getCarro()->getEmergencia() == EMERGENCIA_ON) {
+			os << "Piloto " << (*ptr)->getParticipante()->getNome() << " (" << (*ptr)->getCarro()->getID() << ") fora da corrida" << endl;
+			addMensagem(listaMensagens, os.str());
+			os.str("");
+		}
+	}
+	autodromo->reverCarros();
 	if (autodromo->getPista()->getComecou() == JA_TERMINOU) {
 		autodromo->getAsStringPontPilotos();
 	}

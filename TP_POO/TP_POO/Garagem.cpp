@@ -2,26 +2,30 @@
 #include "Autodromo.h"
 #include "Carro.h"
 #include "Piloto.h"
+#include "Pista.h"
+#include "Corrida.h"
+#include <sstream>
+#include <iostream>
 
 
 Garagem::Garagem()
 {
 }
 
-bool Garagem::adicionaCarro(Carro *car)
+bool Garagem::adicionaCarro(Carro* car)
 {
 	for (auto ptr = carros.begin(); ptr != carros.end(); ++ptr) {
 		if ((*ptr)->getID() == car->getID())
 			return false;
 	}
-	carros.push_back(car);
+		carros.push_back(car);	
 	return true;
 }
 
 void Garagem::removeCarro(Carro* car)
 {
 	for (auto ptr = carros.begin(); ptr != carros.end(); ++ptr) {
-		if (*(ptr) == car)
+		if ((*ptr)->getID() == car->getID())
 			*carros.erase(ptr);
 	}
 }

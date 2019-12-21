@@ -82,6 +82,8 @@ bool Carro::getEmergencia()const
 void Carro::setEmergencia(bool emer)
 {
 	emergencia = emer;
+	if (emergencia == EMERGENCIA_ON)
+		movimento = CARRO_PARADO;
 }
 
 bool Carro::getCondutor()const 

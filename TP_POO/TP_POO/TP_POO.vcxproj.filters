@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="Autodromo.cpp" />
+    <ClCompile Include="Carro.cpp" />
+    <ClCompile Include="Consola.cpp" />
+    <ClCompile Include="Corrida.cpp" />
+    <ClCompile Include="CrazyDriver.cpp" />
+    <ClCompile Include="DVG.cpp" />
+    <ClCompile Include="Garagem.cpp" />
+    <ClCompile Include="Menus.cpp" />
+    <ClCompile Include="Piloto.cpp" />
+    <ClCompile Include="PilotoRapido.cpp" />
+    <ClCompile Include="PilotoSurpresa.cpp" />
+    <ClCompile Include="Pista.cpp" />
+    <ClCompile Include="Simulacao.cpp" />
+    <ClCompile Include="TP_POO.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Autodromo.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Carro.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Consola.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Corrida.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="CrazyDriver.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="DVG.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Garagem.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Menus.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Piloto.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="PilotoRapido.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="PilotoSurpresa.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Pista.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Simulacao.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Header">
+      <UniqueIdentifier>{8259293d-99e2-4fc5-89c5-07b34a86e6c3}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

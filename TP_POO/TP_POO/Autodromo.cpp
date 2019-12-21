@@ -11,7 +11,7 @@ Autodromo::Autodromo(int N, double comprimento,  const string n):nome(n)
 {
 	
 	p = new Pista(N, comprimento);
-	gar = nullptr;
+	gar = new Garagem();
 }
 
 string Autodromo::getNome() const
@@ -112,6 +112,20 @@ void Autodromo::getAsStringPontPilotos()
 	}
 }
 
+void Autodromo::reverCarros()
+{
+	vector<Carro*> carrosARemover;
+	for (auto ptr = p->getCorridas().begin(); ptr != p->getCorridas().end(); ptr++) {
+		if ((*ptr)->getCarro()->getAcidente() != CARRO_BOMESTADO || (*ptr)->getCarro()->getEmergencia() == EMERGENCIA_ON) {
+			gar->adicionaCarro((*ptr)->getCarro());
+			carrosARemover.push_back((*ptr)->getCarro());
+		}
+	}
+	for (auto pt = carrosARemover.begin(); pt!=carrosARemover.end(); pt++)
+		p->removerCarro((*pt)->getID());
+	for (auto p : carrosARemover)
+		delete p;
+}
 
 Autodromo::~Autodromo()
 {
