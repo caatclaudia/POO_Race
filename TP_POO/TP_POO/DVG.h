@@ -21,7 +21,7 @@ public:
 	void setNomeDVG(string nome);
 	string getNomeDVG() const;
 
-	vector<Carro*> & getCarro();
+	//vector<Carro*> & getCarro();
 	int getNCarros()const;
 	void novoCarro(string marca, float cInicial, float cMaxima, int vMaxima, string modelo="modelo base");
 	void removeCarro(Carro* car);

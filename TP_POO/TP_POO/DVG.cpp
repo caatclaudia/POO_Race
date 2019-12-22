@@ -25,10 +25,10 @@ string DVG::getNomeDVG() const
 	return nomeDVG;
 }
 
-vector<Carro*> & DVG::getCarro()
-{
-	return carros;
-}
+//vector<Carro*> & DVG::getCarro()
+//{
+//	return carros;
+//}
 
 int DVG::getNCarros() const
 {

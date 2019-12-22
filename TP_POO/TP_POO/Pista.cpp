@@ -49,33 +49,33 @@ int Pista::nParticipantes() const
 	return corridas.size();
 }
 
-bool Pista::adicionarCarro(Carro* c)
-{
-	if (((int)(corridas.size())) <= nMax) {
-		corridas.push_back(new Corrida(c));
-		return true;
-	}
-	else {
-		Consola::gotoxy(76, 2);
-		cout << "Numero maximo de carros atingido!";
-	}
-	return false;
-}
-
-void Pista::parPilotoCarro(Piloto* p, Carro* c)
-{
-	if (comecou == NAO_COMECOU) {
-		for (auto ptr = corridas.begin(); ptr != corridas.end(); ptr++) {
-			if ((*ptr)->getCarro() == c)
-				if ((*ptr)->getParticipante() == nullptr)
-					(*ptr)->setParticipante(p);
-				else {
-					(*ptr)->getParticipante()->saiCarro();
-					(*ptr)->setParticipante(p);
-				}
-		}
-	}
-}
+//bool Pista::adicionarCarro(Carro* c)
+//{
+//	if (((int)(corridas.size())) <= nMax) {
+//		corridas.push_back(new Corrida(c));
+//		return true;
+//	}
+//	else {
+//		Consola::gotoxy(76, 2);
+//		cout << "Numero maximo de carros atingido!";
+//	}
+//	return false;
+//}
+//
+//void Pista::parPilotoCarro(Piloto* p, Carro* c)
+//{
+//	if (comecou == NAO_COMECOU) {
+//		for (auto ptr = corridas.begin(); ptr != corridas.end(); ptr++) {
+//			if ((*ptr)->getCarro() == c)
+//				if ((*ptr)->getParticipante() == nullptr)
+//					(*ptr)->setParticipante(p);
+//				else {
+//					(*ptr)->getParticipante()->saiCarro();
+//					(*ptr)->setParticipante(p);
+//				}
+//		}
+//	}
+//}
 
 void Pista::removerPar(Corrida *c)
 {
@@ -167,7 +167,7 @@ void Pista::avancaTempo(int sec)
 			else if ((*ptr)->getCarro()->getVelocidade() > 0)
 				(*ptr)->getParticipante()->travarCarro();
 			if ((*ptr)->getPosicao() >= comprimento)
-				(*ptr)->setPosicao(comprimento);
+				(*ptr)->setPosicao((int)comprimento);
 		}
 		if (haCampeao())
 			terminarCorrida();
@@ -175,16 +175,16 @@ void Pista::avancaTempo(int sec)
 	}
 }
 
-void Pista::removerCarroemEmergencia(Garagem* g)
-{
-	for (auto ptr = corridas.begin(); ptr != corridas.end(); ptr++) {
-		if ((*ptr)->getCarro()->getEmergencia() == EMERGENCIA_ON) {
-			(*ptr)->getParticipante()->saiCarro();
-			g->adicionaCarro((*ptr)->getCarro());
-			delete (*ptr);
-		}
-	}
-}
+//void Pista::removerCarroemEmergencia(Garagem* g)
+//{
+//	for (auto ptr = corridas.begin(); ptr != corridas.end(); ptr++) {
+//		if ((*ptr)->getCarro()->getEmergencia() == EMERGENCIA_ON) {
+//			(*ptr)->getParticipante()->saiCarro();
+//			g->adicionaCarro((*ptr)->getCarro());
+//			delete (*ptr);
+//		}
+//	}
+//}
 
 void Pista::removerCarro(char c)
 {

@@ -33,15 +33,15 @@ public:
 	void adicionaCorrida(Corrida* novo);
 	int nParticipantes()const;
 
-	bool adicionarCarro(Carro* c);
-	void parPilotoCarro(Piloto* p, Carro* c);
+	//bool adicionarCarro(Carro* c);
+	//void parPilotoCarro(Piloto* p, Carro* c);
 	void removerPar(Corrida* c);
 	void atualizaPontuacao();
 	void comecarCorrida();
 	void terminarCorrida(Garagem* g);
 	void terminarCorrida();
 	void avancaTempo(int sec=1);
-	void removerCarroemEmergencia(Garagem* g);
+	//void removerCarroemEmergencia(Garagem* g);
 	void removerCarro(char c);
 	
 	void verificaLugar();

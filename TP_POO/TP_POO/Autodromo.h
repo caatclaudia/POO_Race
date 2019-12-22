@@ -25,10 +25,10 @@ public:
 	string getAsString()const;
 	Garagem* getGaragem() const;
 	void obterInfo()const;
-	void carregaCarros();
+	//void carregaCarros();
 
-	bool acrescentaCarroPista(Carro *carro);
-	bool acrescentaCarroGaragem(Carro *carro);
+	//bool acrescentaCarroPista(Carro *carro);
+	//bool acrescentaCarroGaragem(Carro *carro);
 	void getAsStringPontPilotos();
 
 	void reverCarros();

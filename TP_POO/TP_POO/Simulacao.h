@@ -36,7 +36,7 @@ public:
 	int getAuxiliarCorridaSize() const;
 
 	vector<Autodromo*> getCampeonato() ;
-	Autodromo* getCampeonatoN(int n) const;
+	//Autodromo* getCampeonatoN(int n) const;
 	int getCampeonatoSize() const;
 	void addCampeonato(Autodromo *novo);
 

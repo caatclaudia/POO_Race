@@ -168,13 +168,13 @@ void Carro::travar()
 		movimento = CARRO_PARADO;
 }
 
-void Carro::acidenteDanifica() 
-{
-	do {
-		travar();
-	} while (velocidade > 0);
-	acidente = CARRO_DANIFICADO;
-}
+//void Carro::acidenteDanifica() 
+//{
+//	do {
+//		travar();
+//	} while (velocidade > 0);
+//	acidente = CARRO_DANIFICADO;
+//}
 
 void Carro::acidenteDanoIrreparavel(Piloto* ob)
 {

@@ -60,7 +60,7 @@ public:
 	void acelarar();
 	void travar();
 
-	void acidenteDanifica();
+	//void acidenteDanifica();
 	void acidenteDanoIrreparavel(Piloto* ob);
 
 	string getAsString()const;
