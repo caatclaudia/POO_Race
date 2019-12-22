@@ -58,6 +58,7 @@ public:
 	void listaCarros()const;
 
 	void carregaGrelha();
+	void mostraGaragem(Garagem* gar)const;
 	vector< vector< char> > GetGrelha()const;
 	void mostraGrelha()const;
 

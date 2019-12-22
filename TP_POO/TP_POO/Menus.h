@@ -29,7 +29,7 @@ public:
 	void carregaA(Simulacao* simulacao, string nome);
 
 	void addMensagem(vector<string>* listaMensagens, string s);
-	void addMensagemAcidente(vector<string>* listaMensagens, vector<Corrida*> c);
+	void addMensagemAcidente(vector<string>* listaMensagens, Corrida* c);
 
 	int modo2(vector<Autodromo*> campeonato, DVG *controlo);
 	int modo1(Simulacao *simulacao, string comando);

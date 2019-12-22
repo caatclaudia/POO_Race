@@ -123,8 +123,7 @@ void Autodromo::reverCarros()
 	}
 	for (auto pt = carrosARemover.begin(); pt!=carrosARemover.end(); pt++)
 		p->removerCarro((*pt)->getID());
-	for (auto p : carrosARemover)
-		delete p;
+	carrosARemover.clear();
 }
 
 Autodromo::~Autodromo()

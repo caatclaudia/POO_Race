@@ -42,6 +42,7 @@ int PilotoRapido::passouTempo(int s, Pista* pista)
 			}*/
 			return 0;
 		}
+		
 		return getCarro()->getVelocidade() * s;
 	}
 	return 0;

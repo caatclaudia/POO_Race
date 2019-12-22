@@ -3,3 +3,6 @@
 400 10 20 Seat Ibiza
 380 10 10 Honda Civic
 380 100 100 Opel Astra
+360 10 30 Audi A6
+260 20 50 Skoda Octavia
+320 30 50 Volvo V60

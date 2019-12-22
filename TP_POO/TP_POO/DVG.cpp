@@ -71,6 +71,7 @@ void DVG::novoPiloto(string n,string t)
 	}
 	if (igual) {
 		n = n + to_string(Nome);
+		Nome++;
 		if (t == "crazy")
 			pilotos.push_back(new CrazyDriver(n, t));
 		else if (t == "rapido")
@@ -114,7 +115,7 @@ int DVG::getNPilotosDisponiveis()
 {
 	int n = 0;
 	for (auto ptr = pilotos.begin(); ptr != pilotos.end(); ++ptr) {
-		if ((*ptr)->getCarro() == false)
+		if ((*ptr)->getCarro() == nullptr)
 			n++;
 	}
 	return n;

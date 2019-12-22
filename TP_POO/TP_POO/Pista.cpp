@@ -138,8 +138,8 @@ void Pista::terminarCorrida(Garagem* g)
 		comecou = JA_TERMINOU;
 		atualizaPontuacao();
 		for (auto ptr = corridas.begin(); ptr != corridas.end(); ptr++) {
-		//	(*ptr)->getParticipante()->saiCarro();
-		//	g->adicionaCarro((*ptr)->getCarro());
+			(*ptr)->getParticipante()->saiCarro();
+			g->adicionaCarro((*ptr)->getCarro());
 			(*ptr)->setPosicao(0);
 			(*ptr)->setTravar(true);
 		}
@@ -166,6 +166,8 @@ void Pista::avancaTempo(int sec)
 				(*ptr)->avancaPosicao((*ptr)->getParticipante()->passouTempo(sec, this));
 			else if ((*ptr)->getCarro()->getVelocidade() > 0)
 				(*ptr)->getParticipante()->travarCarro();
+			if ((*ptr)->getPosicao() >= comprimento)
+				(*ptr)->setPosicao(comprimento);
 		}
 		if (haCampeao())
 			terminarCorrida();
@@ -213,7 +215,7 @@ void Pista::verificaLugar()
 bool Pista::haCampeao() const
 {
 	for (auto ptr = corridas.begin(); ptr != corridas.end(); ptr++) {
-		if ((*ptr)->getPosicao() == comprimento)
+		if ((*ptr)->getPosicao() >= comprimento)
 			return true;
 	}
 	return false;
@@ -221,10 +223,11 @@ bool Pista::haCampeao() const
 
 int Pista::atualizaPares()
 {
+	int num = 0;
 	for (int i = 0; i < (int)corridas.size(); i++)
-		if (!corridas[i]->continuaDisponivel())
-			removerPar(corridas[i]);
-	return (int)corridas.size();
+		if (corridas[i]->continuaDisponivel())
+			num++;
+	return num;
 }
 
 int Pista::getComecou()const 
@@ -247,7 +250,7 @@ string Pista::getAsString() const
 void Pista::listaCarros() const
 {
 	int x = 1;
-	for (int i = 0; i != corridas.size(); i++) {
+	for (int i = 0; i < (int)corridas.size(); i++) {
 		Consola::gotoxy(76, x++);
 		cout << corridas[i]->getParticipante()->getAsString();
 	}
@@ -280,6 +283,21 @@ void Pista::carregaGrelha()
 	}
 }
 
+void Pista::mostraGaragem(Garagem* gar) const
+{
+	if ((int)gar->getCarros().size() > 0) {
+		Consola::gotoxy(2, 17);
+		cout << "Garagem: ";
+		Consola::gotoxy(2, 18);
+		for (auto ptr = gar->getCarros().begin();ptr!= gar->getCarros().end(); ptr++)
+		{
+			//Consola::setTextColor(rand() % 15 + 1);
+			cout << (*ptr)->getID() << "    ";
+			//Consola::setTextColor(Consola::BRANCO);
+		}
+	}
+}
+
 vector< vector< char> > Pista::GetGrelha()const
 {
 	return grelha;
@@ -287,8 +305,12 @@ vector< vector< char> > Pista::GetGrelha()const
 
 void Pista::mostraGrelha()const
 {
+	int inicio;
 	Consola::setTextColor(Consola::VERMELHO);
-	int inicio = 17 / ((int)corridas.size()*2);
+	if ((int)corridas.size() > 0)
+		inicio = 16 / ((int)corridas.size() * 2);
+	else
+		inicio = 16;
 	for (int i = 0; i < (int)corridas.size()*2; i++) {
 		for (int j = 0; j < COLUNAS; j++) {
 			Consola::gotoxy(2+j, inicio + i);

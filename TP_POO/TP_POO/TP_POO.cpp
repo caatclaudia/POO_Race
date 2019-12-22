@@ -16,7 +16,6 @@
 
 char Carro::identificacao = 'a';
 int DVG::Nome = 1;
-int Menus::NomeAutodromos = 1;
 int Simulacao::NomeAutodromos = 1;
 
 void inicio() {

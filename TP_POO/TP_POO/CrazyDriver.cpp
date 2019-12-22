@@ -41,7 +41,7 @@ int CrazyDriver::passouTempo(int s, Pista* pista)
 		}
 
 		Piloto::setSegundos(Piloto::getSegundos() + 1);
-
+		
 		if ((rand() % 100) < 5) {
 			getCarro()->acidenteDanoIrreparavel(this);
 			for (int i = 0; i < (int)pista->getCorridas().size(); i++) {
@@ -51,7 +51,7 @@ int CrazyDriver::passouTempo(int s, Pista* pista)
 				}
 			}
 		}
-
+		
 		pista->verificaLugar();
 		for (int j = 0; j < (int)pista->getCorridas().size(); j++) {
 			if (pista->getCorridaN(j)->getParticipante()->getNome() == Piloto::getNome()) {

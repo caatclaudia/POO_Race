@@ -1,4 +1,3 @@
-﻿  Autodromo.cpp
-  Garagem.cpp
-  Generating Code...
-  TP_POO.vcxproj -> C:\Users\Claudia Tavares\Documents\GitHub\POO\TP_POO\Debug\TP_POO.exe
+﻿  Pista.cpp
+C:\Users\Diana\Desktop\ISEC\4ºano\POO\TP_v2\POO\TP_POO\TP_POO\Pista.cpp(170,24): warning C4244: 'argument': conversion from 'const double' to 'int', possible loss of data
+  TP_POO.vcxproj -> C:\Users\Diana\Desktop\ISEC\4ºano\POO\TP_v2\POO\TP_POO\Debug\TP_POO.exe

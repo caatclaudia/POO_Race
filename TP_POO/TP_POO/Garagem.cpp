@@ -14,11 +14,12 @@ Garagem::Garagem()
 
 bool Garagem::adicionaCarro(Carro* car)
 {
-	for (auto ptr = carros.begin(); ptr != carros.end(); ++ptr) {
-		if ((*ptr)->getID() == car->getID())
+	//for (auto ptr = carros.begin(); ptr != carros.end(); ++ptr) {
+	for(int i=0;i<(int)carros.size();i++){
+		if (carros[i]->getID() == car->getID())
 			return false;
 	}
-		carros.push_back(car);	
+	carros.push_back(car);	
 	return true;
 }
 
@@ -26,7 +27,7 @@ void Garagem::removeCarro(Carro* car)
 {
 	for (auto ptr = carros.begin(); ptr != carros.end(); ++ptr) {
 		if ((*ptr)->getID() == car->getID())
-			*carros.erase(ptr);
+			carros.erase(ptr);
 	}
 }
 
@@ -38,6 +39,5 @@ vector<Carro*>& Garagem::getCarros()
 
 Garagem::~Garagem()
 {
-	for (Carro* p : carros)
-		delete p;
+	carros.clear();
 }

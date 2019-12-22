@@ -108,6 +108,7 @@ void Simulacao::addAutodromos(int N, double comp, string nome)
 	}
 	if (igual) {
 		nome = nome + to_string(NomeAutodromos);
+		NomeAutodromos++;
 		autodromos.push_back(new Autodromo(N, comp, nome));
 	}
 	else {

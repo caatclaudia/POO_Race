@@ -60,37 +60,12 @@ void Menus::base()const
 void Menus::limpaPista() const 
 {
 	for (int i = 1; i < 74; i++) {
-		for (int j = 1; j < 18; j++) {
+		for (int j = 1; j < 19; j++) {
 			Consola::gotoxy(i, j);
 			cout << " ";
 		}
 	}
 }
-
-/*void Menus::mostraMensagem(vector<string> listaMensagens)
-{
-	/*int pos = 1;
-
-	for (int i = 0; i < 10; i++) {
-		Consola::gotoxy(76, pos++);
-		cout << "                                            ";
-	}
-	int pos = 2;
-	if (listaMensagens.size() > 0) {
-		for (int i = 0; i < (int)listaMensagens.size(); i++) {
-			Consola::gotoxy(76, pos++);
-			cout << listaMensagens[i] << endl;
-		}
-		/*for (int i = 0; i < listaMensagens.size(); i++) {
-			listaMensagens.erase(listaMensagens.begin() + i);
-		}
-		listaMensagens.clear();
-	}
-	else {
-		Consola::gotoxy(76, pos);
-		cout << "Turno sem acontecimentos.";
-	}
-}*/
 
 void Menus::carregaP(DVG& controlo, string nome)
 {
@@ -157,29 +132,28 @@ void Menus::addMensagem(vector<string>* listaMensagens, string s)
 		listaMensagens->pop_back();
 }
 
-void Menus::addMensagemAcidente(vector<string>* listaMensagens, vector<Corrida*> c)
+void Menus::addMensagemAcidente(vector<string>* listaMensagens, Corrida* c)
 {
 	bool ACIDENTE = false;
 	ostringstream os;
 
-	for (auto ptr = c.begin(); ptr != c.end(); ptr++) {
-		if ((*ptr)->getCarro()->getAcidente() != CARRO_BOMESTADO) {
-			os << "Acidente do piloto " << (*ptr)->getParticipante()->getNome() << " (" << (*ptr)->getCarro()->getID() << ")" << endl;
-			addMensagem(listaMensagens, os.str());
-			os.str("");
-			ACIDENTE = true;
-		}
-
-		if ((*ptr)->getCarro()->getEmergencia() == EMERGENCIA_ON) {
-			os << "O piloto " << (*ptr)->getParticipante()->getNome() << " (" << (*ptr)->getCarro()->getID() << ") - emergencia ativa" << endl;
-			addMensagem(listaMensagens, os.str());
-			os.str("");
-		}
-		// FAZER a prob do piloto surpresa
+	if (c->getCarro()->getAcidente() != CARRO_BOMESTADO) {
+		os << "Acidente do piloto " << c->getParticipante()->getNome() << " (" << c->getCarro()->getID() << ")" << endl;
+		addMensagem(listaMensagens, os.str());
+		os.str("");
+		ACIDENTE = true;
 	}
+
+	if (c->getCarro()->getEmergencia() == EMERGENCIA_ON) {
+		os << "Piloto " << c->getParticipante()->getNome() << " (" << c->getCarro()->getID() << ") - emergencia ativa" << endl;
+		addMensagem(listaMensagens, os.str());
+		os.str("");
+		ACIDENTE = true;
+	}
+	// FAZER a prob do piloto surpresa
 	if (!ACIDENTE)
 	{
-		os << "Ronda sem Acidentes!" << endl;
+		os << "Ronda sem acontecimentos!" << endl;
 		addMensagem(listaMensagens, os.str());
 		os.str("");
 	}
@@ -288,6 +262,7 @@ int Menus::modo2(vector<Autodromo*> campeonato, DVG *controlo)
 					PARAMETRO_INVALIDO = true;
 			}
 			else if (comando1 == "passatempo") {
+				limpaPista();
 				int n;
 				if (buffer >> n && n > 0) {
 					if (campeonato[indice]->getPista()->getComecou() == JA_TERMINOU) {
@@ -633,7 +608,7 @@ int Menus::modo1(Simulacao* simulacao, string comando)
 void Menus::movimentoCarros(Autodromo* autodromo, int seg, vector<string>* listaMensagens)
 {
 	ostringstream os;
-	for (int i = 0; i < seg && autodromo->getPista()->getComecou() == JA_COMECOU; i++) {
+	for (int i = 0; i < seg && autodromo->getPista()->getComecou() == JA_COMECOU && autodromo->getPista()->atualizaPares()>=2; i++) {
 		autodromo->getPista()->avancaTempo();
 		/*for (auto ptr = autodromo->getPista()->getCorridas().begin(); ptr != autodromo->getPista()->getCorridas().end(); ) {
 			if ((*ptr)->getTravar()==true && (*ptr)->getCarro()->getVelocidade()==0) {
@@ -644,19 +619,20 @@ void Menus::movimentoCarros(Autodromo* autodromo, int seg, vector<string>* lista
 		}*/
 		autodromo->getPista()->carregaGrelha();
 		autodromo->getPista()->mostraGrelha();
-		addMensagemAcidente(listaMensagens, autodromo->getPista()->getCorridas());
+		autodromo->getPista()->mostraGaragem(autodromo->getGaragem());
+		if (i == seg - 1) {
+			for (auto ptr = autodromo->getPista()->getCorridas().begin(); ptr != autodromo->getPista()->getCorridas().end(); ptr++) {
+				if ((*ptr)->getCarro()->getAcidente() != CARRO_BOMESTADO || (*ptr)->getCarro()->getEmergencia() == EMERGENCIA_ON) {
+					addMensagemAcidente(listaMensagens, (*ptr));
+				}
+			}
+		}
 		if (autodromo->getPista()->atualizaPares() < 2) {
+			Sleep(30);
 			limpaPista();
 			autodromo->getPista()->terminarCorrida(autodromo->getGaragem());
 		}
 		Sleep(10);
-	}
-	for (auto ptr = autodromo->getPista()->getCorridas().begin(); ptr != autodromo->getPista()->getCorridas().end(); ptr++) {
-		if ((*ptr)->getCarro()->getAcidente() != CARRO_BOMESTADO || (*ptr)->getCarro()->getEmergencia() == EMERGENCIA_ON) {
-			os << "Piloto " << (*ptr)->getParticipante()->getNome() << " (" << (*ptr)->getCarro()->getID() << ") fora da corrida" << endl;
-			addMensagem(listaMensagens, os.str());
-			os.str("");
-		}
 	}
 	autodromo->reverCarros();
 	if (autodromo->getPista()->getComecou() == JA_TERMINOU) {
