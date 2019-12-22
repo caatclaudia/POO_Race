@@ -610,16 +610,9 @@ void Menus::movimentoCarros(Autodromo* autodromo, int seg, vector<string>* lista
 	ostringstream os;
 	for (int i = 0; i < seg && autodromo->getPista()->getComecou() == JA_COMECOU && autodromo->getPista()->atualizaPares()>=2; i++) {
 		autodromo->getPista()->avancaTempo();
-		/*for (auto ptr = autodromo->getPista()->getCorridas().begin(); ptr != autodromo->getPista()->getCorridas().end(); ) {
-			if ((*ptr)->getTravar()==true && (*ptr)->getCarro()->getVelocidade()==0) {
-				ptr = autodromo->getPista()->getCorridas().erase(ptr);
-			}
-			else
-				ptr++;
-		}*/
 		autodromo->getPista()->carregaGrelha();
-		autodromo->getPista()->mostraGrelha();
-		autodromo->getPista()->mostraGaragem(autodromo->getGaragem());
+		autodromo->mostraGrelha();
+		autodromo->mostraGaragem();
 		if (i == seg - 1) {
 			for (auto ptr = autodromo->getPista()->getCorridas().begin(); ptr != autodromo->getPista()->getCorridas().end(); ptr++) {
 				if ((*ptr)->getCarro()->getAcidente() != CARRO_BOMESTADO || (*ptr)->getCarro()->getEmergencia() == EMERGENCIA_ON) {
@@ -627,13 +620,10 @@ void Menus::movimentoCarros(Autodromo* autodromo, int seg, vector<string>* lista
 				}
 			}
 		}
-		if (autodromo->getPista()->atualizaPares() < 2) {
-			Sleep(30);
-			limpaPista();
-			autodromo->getPista()->terminarCorrida(autodromo->getGaragem());
-		}
 		Sleep(10);
 	}
+	if (autodromo->getPista()->atualizaPares() < 2) 
+		autodromo->getPista()->terminarCorrida(autodromo->getGaragem());
 	autodromo->reverCarros();
 	if (autodromo->getPista()->getComecou() == JA_TERMINOU) {
 		autodromo->getAsStringPontPilotos();

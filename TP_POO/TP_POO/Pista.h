@@ -32,6 +32,7 @@ public:
 	Corrida* getCorridaN(int num);
 	void adicionaCorrida(Corrida* novo);
 	int nParticipantes()const;
+	char getGrelhaXY(int x, int y) const;
 
 	//bool adicionarCarro(Carro* c);
 	//void parPilotoCarro(Piloto* p, Carro* c);
@@ -58,9 +59,7 @@ public:
 	void listaCarros()const;
 
 	void carregaGrelha();
-	void mostraGaragem(Garagem* gar)const;
-	vector< vector< char> > GetGrelha()const;
-	void mostraGrelha()const;
+	vector< vector< char> > getGrelha()const;
 
 	~Pista();
 };

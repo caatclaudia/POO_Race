@@ -126,6 +126,38 @@ void Autodromo::reverCarros()
 	carrosARemover.clear();
 }
 
+void Autodromo::mostraGaragem() const
+{
+	if ((int)gar->getCarros().size() > 0) {
+		Consola::gotoxy(2, 17);
+		cout << "Garagem: ";
+		Consola::gotoxy(2, 18);
+		for (auto ptr = gar->getCarros().begin(); ptr != gar->getCarros().end(); ptr++)
+		{
+			//Consola::setTextColor(rand() % 15 + 1);
+			cout << (*ptr)->getID() << "    ";
+			//Consola::setTextColor(Consola::BRANCO);
+		}
+	}
+}
+
+void Autodromo::mostraGrelha()const
+{
+	int inicio;
+	Consola::setTextColor(Consola::VERMELHO);
+	if (p->getCorridas().size() > 0)
+		inicio = 16 / (p->getCorridas().size() * 2);
+	else
+		inicio = 16;
+	for (int i = 0; i < p->getCorridas().size() * 2; i++) {
+		for (int j = 0; j < COLUNAS; j++) {
+			Consola::gotoxy(2 + j, inicio + i);
+			cout << p->getGrelha()[i][j];
+		}
+	}
+	Consola::setTextColor(Consola::BRANCO);
+}
+
 Autodromo::~Autodromo()
 {
 	delete p;

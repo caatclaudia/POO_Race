@@ -49,6 +49,11 @@ int Pista::nParticipantes() const
 	return corridas.size();
 }
 
+char Pista::getGrelhaXY(int x, int y) const
+{
+	return grelha[x][y];
+}
+
 //bool Pista::adicionarCarro(Carro* c)
 //{
 //	if (((int)(corridas.size())) <= nMax) {
@@ -283,43 +288,12 @@ void Pista::carregaGrelha()
 	}
 }
 
-void Pista::mostraGaragem(Garagem* gar) const
-{
-	if ((int)gar->getCarros().size() > 0) {
-		Consola::gotoxy(2, 17);
-		cout << "Garagem: ";
-		Consola::gotoxy(2, 18);
-		for (auto ptr = gar->getCarros().begin();ptr!= gar->getCarros().end(); ptr++)
-		{
-			//Consola::setTextColor(rand() % 15 + 1);
-			cout << (*ptr)->getID() << "    ";
-			//Consola::setTextColor(Consola::BRANCO);
-		}
-	}
-}
-
-vector< vector< char> > Pista::GetGrelha()const
+vector< vector< char> > Pista::getGrelha()const
 {
 	return grelha;
 }
 
-void Pista::mostraGrelha()const
-{
-	int inicio;
-	Consola::setTextColor(Consola::VERMELHO);
-	if ((int)corridas.size() > 0)
-		inicio = 16 / ((int)corridas.size() * 2);
-	else
-		inicio = 16;
-	for (int i = 0; i < (int)corridas.size()*2; i++) {
-		for (int j = 0; j < COLUNAS; j++) {
-			Consola::gotoxy(2+j, inicio + i);
-			cout <<grelha[i][j];
-		}
-	}
-	Consola::setTextColor(Consola::BRANCO);
-}
-
 Pista::~Pista()
 {
+	corridas.clear();
 }

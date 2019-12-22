@@ -141,8 +141,10 @@ void Simulacao::atualizaDVG()
 Simulacao::~Simulacao()     
 {
 	campeonato.clear();
+	lista.clear();
 	for (auto p : autodromos)
 		delete p;
 	for (auto p : auxiliarCorrida)
 		delete p;
+
 }

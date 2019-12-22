@@ -33,6 +33,10 @@ public:
 
 	void reverCarros();
 
+	void mostraGaragem() const;
+
+	void mostraGrelha() const;
+
 	~Autodromo();
 };
 #endif
