@@ -5,6 +5,7 @@
 #include "Pista.h"
 #include "Piloto.h"
 #include "Corrida.h"
+#include "Consola.h"
 #include <iostream>
 
 Simulacao::Simulacao()
@@ -136,6 +137,34 @@ void Simulacao::atualizaDVG()
 {
 	controlo.removeIrreparaveis();
 	controlo.removeMortos();
+}
+
+void Simulacao::getAsStringPilotos() {
+	int i = 1;
+	if (controlo.getNPilotos()==0) {
+		Consola::gotoxy(76, i);
+		cout << "Nao existe pilotos!";
+		return;
+	}
+	for (auto ptr = controlo.getPiloto().begin(); ptr != controlo.getPiloto().end(); ptr++) {
+		Consola::gotoxy(76, i);
+		cout << (*ptr)->getAsString();
+		i++;
+	}
+}
+
+void Simulacao::getAsStringCarros() {
+	int i = 1;
+	if (controlo.getNCarros()==0) {
+		Consola::gotoxy(76, i);
+		cout << "Nao existe carros!";
+		return;
+	}
+	for (auto ptr = controlo.getCarro().begin(); ptr != controlo.getCarro().end(); ptr++) {
+		Consola::gotoxy(76, i);
+		cout << (*ptr)->getAsString();
+		i++;
+	}
 }
 
 Simulacao::~Simulacao()     

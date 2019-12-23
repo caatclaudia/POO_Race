@@ -25,10 +25,10 @@ string DVG::getNomeDVG() const
 	return nomeDVG;
 }
 
-//vector<Carro*> & DVG::getCarro()
-//{
-//	return carros;
-//}
+vector<Carro*> & DVG::getCarro()
+{
+	return carros;
+}
 
 int DVG::getNCarros() const
 {
@@ -158,95 +158,10 @@ Piloto* DVG::pilotoNoCarro(char id) const
 	return nullptr;
 }
 
-void DVG::getAsStringPilotos()const {
-	int i = 1;
-	if (pilotos.empty()) {
-		Consola::gotoxy(76, i);
-		cout << "Nao existe pilotos!";
-		return;
-	}
-	for (auto ptr = pilotos.begin(); ptr != pilotos.end(); ptr++) {
-		Consola::gotoxy(76, i);
-		cout << (*ptr)->getAsString();
-		i++;
-	}
-}
-
-void DVG::getAsStringCarros()const {
-	int i = 1;
-	if (pilotos.empty()) {
-		Consola::gotoxy(76, i);
-		cout << "Nao existe carros!";
-		return;
-	}
-	for (auto ptr = carros.begin(); ptr != carros.end(); ptr++) {
-		Consola::gotoxy(76, i);
-		cout << (*ptr)->getAsString();
-		i++;
-	}
-}
-
 void DVG::terminaCompeticao()
 {
 	for (auto ptr = pilotos.begin(); ptr != pilotos.end(); ptr++)
 		(*ptr)->terminaCompeticao();
-}
-
-void DVG::getAsStringPontCompeticao() const
-{
-	int i = 1, max, indiceMax, l, total = 0;
-	vector<int> indiceUsado;
-	for (int j = 0; j != (int)pilotos.size(); j++)
-		if (pilotos[j]->getCompeticao())
-			total++;
-
-	for (int j = 0; (int)indiceUsado.size() != total; ) {
-		max = 0;
-		for (l = 0; l < (int)pilotos.size(); l++) {
-			bool EXISTE = false;
-			if (pilotos[l]->getCompeticao() == true && pilotos[l]->getPontuacao() >= max) {
-				for (int k = 0; k < (int)indiceUsado.size(); k++) {
-					if (l == indiceUsado[k])
-						EXISTE = true;
-				}
-				if (!EXISTE) {
-					indiceMax = l;
-					max = pilotos[l]->getPontuacao();
-				}
-			}
-		}
-		indiceUsado.push_back(indiceMax);
-
-		Consola::gotoxy(76, i++);
-		cout << (int)indiceUsado.size() << ": Piloto " << pilotos[indiceMax]->getNome() << " com " << pilotos[indiceMax]->getPontuacao() << " pontos!";
-	}
-}
-
-void DVG::getAsStringPontPilotos() const
-{
-	int i = 1, max, indiceMax, l;
-	vector<int> indiceUsado;
-	
-	for (int j = 0; (int)indiceUsado.size() != (int)pilotos.size(); ) {
-		max = 0;
-		for (l = 0; l < (int)pilotos.size(); l++) {
-			bool EXISTE = false;
-			if (pilotos[l]->getPontuacao() >= max) {
-				for (int k = 0; k < (int)indiceUsado.size(); k++) {
-					if (l == indiceUsado[k])
-						EXISTE = true;
-				}
-				if (!EXISTE) {
-					indiceMax = l;
-					max = pilotos[l]->getPontuacao();
-				}
-			}
-		}
-		indiceUsado.push_back(indiceMax);
-
-		Consola::gotoxy(76, i++);
-		cout << (int)indiceUsado.size() << ": Piloto " << pilotos[indiceMax]->getNome() << " com " << pilotos[indiceMax]->getPontuacao() << " pontos!";
-	}
 }
 
 void DVG::removeMortos()

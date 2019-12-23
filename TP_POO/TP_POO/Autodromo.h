@@ -24,18 +24,12 @@ public:
 	Pista* getPista()const;
 	string getAsString()const;
 	Garagem* getGaragem() const;
-	void obterInfo()const;
 	//void carregaCarros();
 
 	//bool acrescentaCarroPista(Carro *carro);
 	//bool acrescentaCarroGaragem(Carro *carro);
-	void getAsStringPontPilotos();
 
 	void reverCarros();
-
-	void mostraGaragem() const;
-
-	void mostraGrelha() const;
 
 	~Autodromo();
 };

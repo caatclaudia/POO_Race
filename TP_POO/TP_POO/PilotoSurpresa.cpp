@@ -42,12 +42,12 @@ int PilotoSurpresa::passouTempo(int s, Pista* pista)
 	return 0;
 }
 
-string PilotoSurpresa::getProbAsString() const
-{
-	ostringstream oss;
-	oss <<Piloto::getProbAsString()<< " tem " << prob << " probabilidade de explodir o carro!" << endl;
-	return oss.str();
-}
+//string PilotoSurpresa::getProbAsString() const
+//{
+//	ostringstream oss;
+//	oss <<Piloto::getProbAsString()<< " tem " << prob << " probabilidade de explodir o carro!" << endl;
+//	return oss.str();
+//}
 
 PilotoSurpresa* PilotoSurpresa::duplica() const
 {

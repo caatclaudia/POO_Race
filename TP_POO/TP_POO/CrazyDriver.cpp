@@ -74,12 +74,12 @@ int CrazyDriver::passouTempo(int s, Pista* pista)
 	return 0;
 }
 
-string CrazyDriver::getProbAsString()const 
-{
-	ostringstream oss;
-	oss << Piloto::getProbAsString() << " tem " << prob << " probabilidade de danificar irremidiavelmente o carro!" << endl;
-	return oss.str();
-}
+//string CrazyDriver::getProbAsString()const 
+//{
+//	ostringstream oss;
+//	oss << Piloto::getProbAsString() << " tem " << prob << " probabilidade de danificar irremidiavelmente o carro!" << endl;
+//	return oss.str();
+//}
 
 CrazyDriver* CrazyDriver::duplica() const
 {

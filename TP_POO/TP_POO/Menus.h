@@ -31,6 +31,16 @@ public:
 	void addMensagem(vector<string>* listaMensagens, string s);
 	void addMensagemAcidente(vector<string>* listaMensagens, Corrida* c);
 
+	void getAsStringPontCompeticao(DVG* controlo);
+	void listaCarrosPista(Pista* pista);
+
+	void getAsStringPontPilotos(DVG* controlo);
+
+	void obterInfo(Autodromo* autodromo);
+	void getAsStringPontPilotosPista(Autodromo* autodromo);
+	void mostraGaragem(Autodromo* autodromo) const;
+	void mostraGrelha(Autodromo* autodromo);
+
 	int modo2(vector<Autodromo*> campeonato, DVG *controlo);
 	int modo1(Simulacao *simulacao, string comando);
 

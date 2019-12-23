@@ -117,14 +117,14 @@ void Piloto::acelararCarro()
 //	return carro->getVelocidade() * s;
 //}
 
-string Piloto::getProbAsString() const
-{
-	ostringstream oss;
-	oss << "Piloto " << nome;
-	if (carro != nullptr)
-		oss << "("<< carro->getID()<<")";
-	return oss.str();
-}
+//string Piloto::getProbAsString() const
+//{
+//	ostringstream oss;
+//	oss << "Piloto " << nome;
+//	if (carro != nullptr)
+//		oss << "("<< carro->getID()<<")";
+//	return oss.str();
+//}
 
 string Piloto::getAsString() const
 {

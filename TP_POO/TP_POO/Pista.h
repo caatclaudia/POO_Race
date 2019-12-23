@@ -38,7 +38,7 @@ public:
 	//void parPilotoCarro(Piloto* p, Carro* c);
 	void removerPar(Corrida* c);
 	void atualizaPontuacao();
-	void comecarCorrida();
+	bool comecarCorrida();
 	void terminarCorrida(Garagem* g);
 	void terminarCorrida();
 	void avancaTempo(int sec=1);
@@ -55,8 +55,6 @@ public:
 	void setComecou(int c);
 
 	string getAsString()const;
-
-	void listaCarros()const;
 
 	void carregaGrelha();
 	vector< vector< char> > getGrelha()const;

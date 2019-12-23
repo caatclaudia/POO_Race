@@ -36,31 +36,6 @@ Garagem* Autodromo::getGaragem() const
 	return gar;
 }
 
-void Autodromo::obterInfo() const
-{
-	int i = 1;
-	Consola::gotoxy(76, i);
-	cout << "Corrida em " << nome << " (" << p->getComprimento() << "m): ";
-	if (p->getComecou() == NAO_COMECOU) {
-		Consola::gotoxy(76, i++);
-		cout << "Corrida nao iniciada";
-	}
-	else{
-		for (int n = 1; n <= p->nParticipantes(); n++) {
-			for (auto ptr = p->getCorridas().begin(); ptr != p->getCorridas().end(); ptr++) {
-				if ((*ptr)->getLugar() == n) {
-					Consola::gotoxy(76, i++);
-					cout << n << ". " << (*ptr)->getCarro()->getID() << " " << (*ptr)->getCarro()->getMarca() << " / " << (*ptr)->getParticipante()->getNome()
-						<< " (" << (*ptr)->getParticipante()->getTipo() << ")";
-					Consola::gotoxy(77, i++);
-					cout << (*ptr)->getCarro()->getEnergia() << "mAh, " << (*ptr)->getCarro()->getCapacidadeMaxima()
-						<< "mAh - " << (*ptr)->getPosicao() + 1 << "m - " << (*ptr)->getCarro()->getVelocidade() << "m/s" << endl;
-				}
-			}
-		}
-	}
-}
-
 //void Autodromo::carregaCarros()
 //{
 //	for (auto ptr = p->getCorridas().begin(); ptr != p->getCorridas().end(); ptr++)
@@ -85,33 +60,6 @@ void Autodromo::obterInfo() const
 //	return gar->adicionaCarro(carro);
 //}
 
-void Autodromo::getAsStringPontPilotos()
-{
-	int i = 1, max, indiceMax, l;
-	vector<int> indiceUsado;
-
-	for (int j = 0; (int)indiceUsado.size() != (int)p->getCorridas().size(); ) {
-		max = 0;
-		for (l = 0; l < (int)p->getCorridas().size(); l++) {
-			bool EXISTE = false;
-			if (p->getCorridaN(l)->getParticipante()->getPontuacao() >= max) {
-				for (int k = 0; k < (int)indiceUsado.size(); k++) {
-					if (l == indiceUsado[k])
-						EXISTE = true;
-				}
-				if (!EXISTE) {
-					indiceMax = l;
-					max = p->getCorridaN(l)->getParticipante()->getPontuacao();
-				}
-			}
-		}
-		indiceUsado.push_back(indiceMax);
-			
-		Consola::gotoxy(76, i++);
-		cout << (int)indiceUsado.size() << ": Piloto " << (p->getCorridaN(indiceMax)->getParticipante()->getNome()) << " com " << (p->getCorridaN(indiceMax)->getParticipante()->getPontuacao())<< " pontos!";
-	}
-}
-
 void Autodromo::reverCarros()
 {
 	vector<Carro*> carrosARemover;
@@ -124,38 +72,6 @@ void Autodromo::reverCarros()
 	for (auto pt = carrosARemover.begin(); pt!=carrosARemover.end(); pt++)
 		p->removerCarro((*pt)->getID());
 	carrosARemover.clear();
-}
-
-void Autodromo::mostraGaragem() const
-{
-	if ((int)gar->getCarros().size() > 0) {
-		Consola::gotoxy(2, 17);
-		cout << "Garagem: ";
-		Consola::gotoxy(2, 18);
-		for (auto ptr = gar->getCarros().begin(); ptr != gar->getCarros().end(); ptr++)
-		{
-			//Consola::setTextColor(rand() % 15 + 1);
-			cout << (*ptr)->getID() << "    ";
-			//Consola::setTextColor(Consola::BRANCO);
-		}
-	}
-}
-
-void Autodromo::mostraGrelha()const
-{
-	int inicio;
-	Consola::setTextColor(Consola::VERMELHO);
-	if (p->getCorridas().size() > 0)
-		inicio = 16 / (p->getCorridas().size() * 2);
-	else
-		inicio = 16;
-	for (int i = 0; i < p->getCorridas().size() * 2; i++) {
-		for (int j = 0; j < COLUNAS; j++) {
-			Consola::gotoxy(2 + j, inicio + i);
-			cout << p->getGrelha()[i][j];
-		}
-	}
-	Consola::setTextColor(Consola::BRANCO);
 }
 
 Autodromo::~Autodromo()

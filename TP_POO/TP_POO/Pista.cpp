@@ -107,7 +107,7 @@ void Pista::atualizaPontuacao()
 	}
 }
 
-void Pista::comecarCorrida()
+bool Pista::comecarCorrida()
 {
 	int n=0;
 	if (corridas.size() >= 2) {
@@ -125,15 +125,12 @@ void Pista::comecarCorrida()
 				(*ptr)->setTravar(false);
 			}
 		}
-		else {
-			Consola::gotoxy(76, 2);
-			cout << "Existem carros vazios" << endl;
-		}
+		else	//Existem carros vazios
+			return 0;
 	}
-	else{
-		Consola::gotoxy(76, 2);
-		cout << "Nao tem carros suficientes" << endl;
-	}
+	else	//Nao tem carros suficientes
+		return -1;
+	return 1;
 }
 
 
@@ -179,17 +176,6 @@ void Pista::avancaTempo(int sec)
 		verificaLugar();
 	}
 }
-
-//void Pista::removerCarroemEmergencia(Garagem* g)
-//{
-//	for (auto ptr = corridas.begin(); ptr != corridas.end(); ptr++) {
-//		if ((*ptr)->getCarro()->getEmergencia() == EMERGENCIA_ON) {
-//			(*ptr)->getParticipante()->saiCarro();
-//			g->adicionaCarro((*ptr)->getCarro());
-//			delete (*ptr);
-//		}
-//	}
-//}
 
 void Pista::removerCarro(char c)
 {
@@ -252,14 +238,14 @@ string Pista::getAsString() const
 	return oss.str();
 }
 
-void Pista::listaCarros() const
-{
-	int x = 1;
-	for (int i = 0; i < (int)corridas.size(); i++) {
-		Consola::gotoxy(76, x++);
-		cout << corridas[i]->getParticipante()->getAsString();
-	}
-}
+//void Pista::listaCarros() const
+//{
+//	int x = 1;
+//	for (int i = 0; i < (int)corridas.size(); i++) {
+//		Consola::gotoxy(76, x++);
+//		cout << corridas[i]->getParticipante()->getAsString();
+//	}
+//}
 
 void Pista::carregaGrelha() 
 {

@@ -4,6 +4,7 @@
 #include "Pista.h"
 #include "Piloto.h"
 #include "Corrida.h"
+#include "Garagem.h"
 
 using namespace std;
 
@@ -159,6 +160,157 @@ void Menus::addMensagemAcidente(vector<string>* listaMensagens, Corrida* c)
 	}
 }
 
+void Menus::getAsStringPontCompeticao(DVG *controlo)
+{
+	int i = 1, max, indiceMax, l, total = 0;
+	vector<int> indiceUsado;
+	for (int j = 0; j != controlo->getNPilotos(); j++)
+		if (controlo->procuraPilotoN(j)->getCompeticao())
+			total++;
+
+	for (int j = 0; (int)indiceUsado.size() != total; ) {
+		max = 0;
+		for (l = 0; l < controlo->getNPilotos(); l++) {
+			bool EXISTE = false;
+			if (controlo->procuraPilotoN(j)->getCompeticao() == true && controlo->procuraPilotoN(l)->getPontuacao() >= max) {
+				for (int k = 0; k < (int)indiceUsado.size(); k++) {
+					if (l == indiceUsado[k])
+						EXISTE = true;
+				}
+				if (!EXISTE) {
+					indiceMax = l;
+					max = controlo->procuraPilotoN(l)->getPontuacao();
+				}
+			}
+		}
+		indiceUsado.push_back(indiceMax);
+
+		Consola::gotoxy(76, i++);
+		cout << (int)indiceUsado.size() << ": Piloto " << controlo->procuraPilotoN(indiceMax)->getNome() << " com " << controlo->procuraPilotoN(indiceMax)->getPontuacao() << " pontos!";
+	}
+}
+
+void Menus::listaCarrosPista(Pista* pista)
+{
+	int x = 1;
+	for (int i = 0; i < (int)pista->getCorridas().size(); i++) {
+		Consola::gotoxy(76, x++);
+		cout << pista->getCorridaN(i)->getParticipante()->getAsString();
+	}
+}
+
+void Menus::getAsStringPontPilotos(DVG* controlo)
+{
+	int i = 1, max, indiceMax, l;
+	vector<int> indiceUsado;
+
+	for (int j = 0; (int)indiceUsado.size() != controlo->getNPilotos(); ) {
+		max = 0;
+		for (l = 0; l < controlo->getNPilotos(); l++) {
+			bool EXISTE = false;
+			if (controlo->procuraPilotoN(l)->getPontuacao() >= max) {
+				for (int k = 0; k < (int)indiceUsado.size(); k++) {
+					if (l == indiceUsado[k])
+						EXISTE = true;
+				}
+				if (!EXISTE) {
+					indiceMax = l;
+					max = controlo->procuraPilotoN(l)->getPontuacao();
+				}
+			}
+		}
+		indiceUsado.push_back(indiceMax);
+
+		Consola::gotoxy(76, i++);
+		cout << (int)indiceUsado.size() << ": Piloto " << controlo->procuraPilotoN(indiceMax)->getNome() << " com " << controlo->procuraPilotoN(indiceMax)->getPontuacao() << " pontos!";
+	}
+}
+
+void Menus::obterInfo(Autodromo *autodromo) 
+{
+	int i = 1;
+	Consola::gotoxy(76, i);
+	cout << "Corrida em " << autodromo->getNome() << " (" << autodromo->getPista()->getComprimento() << "m): ";
+	if (autodromo->getPista()->getComecou() == NAO_COMECOU) {
+		Consola::gotoxy(76, i++);
+		cout << "Corrida nao iniciada";
+	}
+	else {
+		for (int n = 1; n <= autodromo->getPista()->nParticipantes(); n++) {
+			for (auto ptr = autodromo->getPista()->getCorridas().begin(); ptr != autodromo->getPista()->getCorridas().end(); ptr++) {
+				if ((*ptr)->getLugar() == n) {
+					Consola::gotoxy(76, i++);
+					cout << n << ". " << (*ptr)->getCarro()->getID() << " " << (*ptr)->getCarro()->getMarca() << " / " << (*ptr)->getParticipante()->getNome()
+						<< " (" << (*ptr)->getParticipante()->getTipo() << ")";
+					Consola::gotoxy(77, i++);
+					cout << (*ptr)->getCarro()->getEnergia() << "mAh, " << (*ptr)->getCarro()->getCapacidadeMaxima()
+						<< "mAh - " << (*ptr)->getPosicao() + 1 << "m - " << (*ptr)->getCarro()->getVelocidade() << "m/s" << endl;
+				}
+			}
+		}
+	}
+}
+
+void Menus::getAsStringPontPilotosPista(Autodromo *autodromo)
+{
+	int i = 1, max, indiceMax, l;
+	vector<int> indiceUsado;
+
+	for (int j = 0; (int)indiceUsado.size() != (int)autodromo->getPista()->getCorridas().size(); ) {
+		max = 0;
+		for (l = 0; l < (int)autodromo->getPista()->getCorridas().size(); l++) {
+			bool EXISTE = false;
+			if (autodromo->getPista()->getCorridaN(l)->getParticipante()->getPontuacao() >= max) {
+				for (int k = 0; k < (int)indiceUsado.size(); k++) {
+					if (l == indiceUsado[k])
+						EXISTE = true;
+				}
+				if (!EXISTE) {
+					indiceMax = l;
+					max = autodromo->getPista()->getCorridaN(l)->getParticipante()->getPontuacao();
+				}
+			}
+		}
+		indiceUsado.push_back(indiceMax);
+
+		Consola::gotoxy(76, i++);
+		cout << (int)indiceUsado.size() << ": Piloto " << (autodromo->getPista()->getCorridaN(indiceMax)->getParticipante()->getNome()) 
+			<< " com " << (autodromo->getPista()->getCorridaN(indiceMax)->getParticipante()->getPontuacao()) << " pontos!";
+	}
+}
+
+void Menus::mostraGaragem(Autodromo* autodromo) const
+{
+	if ((int)autodromo->getGaragem()->getCarros().size() > 0) {
+		Consola::gotoxy(2, 17);
+		cout << "Garagem: ";
+		Consola::gotoxy(2, 18);
+		for (auto ptr = autodromo->getGaragem()->getCarros().begin(); ptr != autodromo->getGaragem()->getCarros().end(); ptr++)
+		{
+			//Consola::setTextColor(rand() % 15 + 1);
+			cout << (*ptr)->getID() << "    ";
+			//Consola::setTextColor(Consola::BRANCO);
+		}
+	}
+}
+
+void Menus::mostraGrelha(Autodromo* autodromo)
+{
+	int inicio;
+	Consola::setTextColor(Consola::VERMELHO);
+	if (autodromo->getPista()->getCorridas().size() > 0)
+		inicio = 16 / (autodromo->getPista()->getCorridas().size() * 2);
+	else
+		inicio = 16;
+	for (int i = 0; i < (int)autodromo->getPista()->getCorridas().size() * 2; i++) {
+		for (int j = 0; j < COLUNAS; j++) {
+			Consola::gotoxy(2 + j, inicio + i);
+			cout << autodromo->getPista()->getGrelha()[i][j];
+		}
+	}
+	Consola::setTextColor(Consola::BRANCO);
+}
+
 int Menus::modo2(vector<Autodromo*> campeonato, DVG *controlo)
 {
 	vector<string> listaMensagens;
@@ -180,7 +332,7 @@ int Menus::modo2(vector<Autodromo*> campeonato, DVG *controlo)
 		if (buffer >> comando1)
 		{
 			if (comando1 == "listacarros") {
-				campeonato[indice]->getPista()->listaCarros();
+				listaCarrosPista(campeonato[indice]->getPista());
 			}
 			else if (comando1 == "carregabat") {
 				char letra;
@@ -269,8 +421,17 @@ int Menus::modo2(vector<Autodromo*> campeonato, DVG *controlo)
 						Consola::gotoxy(76, 1);
 						cout << "Corrida ja terminada!";
 					}
-					if (campeonato[indice]->getPista()->getComecou() == NAO_COMECOU && campeonato[indice]->getPista()->atualizaPares()>=2)
-						campeonato[indice]->getPista()->comecarCorrida();
+					if (campeonato[indice]->getPista()->getComecou() == NAO_COMECOU && campeonato[indice]->getPista()->atualizaPares() >= 2) {
+						int res=campeonato[indice]->getPista()->comecarCorrida();
+						if (res == 0) {
+							Consola::gotoxy(76, 2);
+							cout << "Existem carros vazios!" << endl;
+						}
+						else if(res==-1){
+							Consola::gotoxy(76, 2);
+							cout << "Nao tem carros suficientes!" << endl;
+						}
+					}
 					if (campeonato[indice]->getPista()->getComecou() == JA_COMECOU) {
 						movimentoCarros(campeonato[indice], n, &listaMensagens);
 					}
@@ -294,10 +455,10 @@ int Menus::modo2(vector<Autodromo*> campeonato, DVG *controlo)
 				}
 			}
 			else if (comando1 == "pontuacao") {
-				controlo->getAsStringPontCompeticao();
+				getAsStringPontCompeticao(controlo);
 			}
 			else if(comando1=="obterinfo")
-				campeonato[indice]->obterInfo();
+				obterInfo(campeonato[indice]);
 			else if (comando1 == "voltar") {
 				Consola::gotoxy(76, 1);
 				cout << "Voltando...";
@@ -479,11 +640,11 @@ int Menus::modo1(Simulacao* simulacao, string comando)
 			}
 		}
 		else if (comando1 == "lista") {
-			simulacao->getControlo().getAsStringPilotos();
+			simulacao->getAsStringPilotos();
 			Consola::getch();
 			base();
 			fflush(stdout);
-			simulacao->getControlo().getAsStringCarros();
+			simulacao->getAsStringCarros();
 			Consola::getch();
 			base();
 			fflush(stdout);
@@ -590,7 +751,7 @@ int Menus::modo1(Simulacao* simulacao, string comando)
 				PARAMETRO_INVALIDO = true;
 		}
 		else if (comando1 == "pontuacao") {
-			simulacao->getControlo().getAsStringPontPilotos();
+			getAsStringPontPilotos(&simulacao->getControlo());
 		}
 		else {
 			Consola::gotoxy(76, 1);
@@ -611,8 +772,8 @@ void Menus::movimentoCarros(Autodromo* autodromo, int seg, vector<string>* lista
 	for (int i = 0; i < seg && autodromo->getPista()->getComecou() == JA_COMECOU && autodromo->getPista()->atualizaPares()>=2; i++) {
 		autodromo->getPista()->avancaTempo();
 		autodromo->getPista()->carregaGrelha();
-		autodromo->mostraGrelha();
-		autodromo->mostraGaragem();
+		mostraGrelha(autodromo);
+		mostraGaragem(autodromo);
 		if (i == seg - 1) {
 			for (auto ptr = autodromo->getPista()->getCorridas().begin(); ptr != autodromo->getPista()->getCorridas().end(); ptr++) {
 				if ((*ptr)->getCarro()->getAcidente() != CARRO_BOMESTADO || (*ptr)->getCarro()->getEmergencia() == EMERGENCIA_ON) {
@@ -626,7 +787,7 @@ void Menus::movimentoCarros(Autodromo* autodromo, int seg, vector<string>* lista
 		autodromo->getPista()->terminarCorrida(autodromo->getGaragem());
 	autodromo->reverCarros();
 	if (autodromo->getPista()->getComecou() == JA_TERMINOU) {
-		autodromo->getAsStringPontPilotos();
+		getAsStringPontPilotosPista(autodromo);
 	}
 }
 

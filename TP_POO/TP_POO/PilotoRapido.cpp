@@ -48,12 +48,12 @@ int PilotoRapido::passouTempo(int s, Pista* pista)
 	return 0;
 }
 
-string PilotoRapido::getProbAsString() const
-{
-	ostringstream oss;
-	oss << Piloto::getProbAsString() << " tem " << prob << " probabilidade de sofrer ataque de panico!" << endl;
-	return oss.str();
-}
+//string PilotoRapido::getProbAsString() const
+//{
+//	ostringstream oss;
+//	oss << Piloto::getProbAsString() << " tem " << prob << " probabilidade de sofrer ataque de panico!" << endl;
+//	return oss.str();
+//}
 
 PilotoRapido* PilotoRapido::duplica() const
 {

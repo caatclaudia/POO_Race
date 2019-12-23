@@ -47,5 +47,8 @@ public:
 
 	void atualizaDVG();
 
+	void getAsStringPilotos();
+	void getAsStringCarros();
+
 	~Simulacao();
 };
