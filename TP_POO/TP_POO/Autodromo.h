@@ -30,6 +30,7 @@ public:
 	//bool acrescentaCarroGaragem(Carro *carro);
 
 	void reverCarros();
+	void tudoGaragem();
 
 	~Autodromo();
 };

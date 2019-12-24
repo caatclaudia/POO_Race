@@ -318,6 +318,7 @@ int Menus::modo2(vector<Autodromo*> campeonato, DVG *controlo)
 	string comando, comando1;
 	bool PARAMETRO_INVALIDO;
 	int indice = 0;
+	campeonato[indice]->getPista()->setComecou(NAO_COMECOU);
 	Consola::gotoxy(76, 1);
 	cout << "Autodromo " << campeonato[indice]->getNome();
 	do {
@@ -788,6 +789,8 @@ void Menus::movimentoCarros(Autodromo* autodromo, int seg, vector<string>* lista
 	autodromo->reverCarros();
 	if (autodromo->getPista()->getComecou() == JA_TERMINOU) {
 		getAsStringPontPilotosPista(autodromo);
+		autodromo->tudoGaragem();
+		mostraGaragem(autodromo);
 	}
 }
 
