@@ -38,7 +38,7 @@ public:
 	//void parPilotoCarro(Piloto* p, Carro* c);
 	void removerPar(Corrida* c);
 	void atualizaPontuacao();
-	bool comecarCorrida();
+	int comecarCorrida();
 	void terminarCorrida(Garagem* g);
 	void terminarCorrida();
 	void avancaTempo(int sec=1);

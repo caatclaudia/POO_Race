@@ -97,17 +97,19 @@ void Pista::atualizaPontuacao()
 	verificaLugar();
 	if (comecou == JA_TERMINOU) {
 		for (int i = 0; i < (int)corridas.size(); i++) {
-			if (corridas[i]->getLugar() == 1)
-				corridas[i]->getParticipante()->acrescentaPontuacao(10);
-			else if (corridas[i]->getLugar() == 2)
-				corridas[i]->getParticipante()->acrescentaPontuacao(5);
-			else if (corridas[i]->getLugar() == 3)
-				corridas[i]->getParticipante()->acrescentaPontuacao(2);
+			if (corridas[i]->continuaDisponivel()) {
+				if (corridas[i]->getLugar() == 1)
+					corridas[i]->getParticipante()->acrescentaPontuacao(10);
+				else if (corridas[i]->getLugar() == 2)
+					corridas[i]->getParticipante()->acrescentaPontuacao(5);
+				else if (corridas[i]->getLugar() == 3)
+					corridas[i]->getParticipante()->acrescentaPontuacao(2);
+			}
 		}
 	}
 }
 
-bool Pista::comecarCorrida()
+int Pista::comecarCorrida()
 {
 	int n=0;
 	if (corridas.size() >= 2) {

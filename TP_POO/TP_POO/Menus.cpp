@@ -172,7 +172,7 @@ void Menus::getAsStringPontCompeticao(DVG *controlo)
 		max = 0;
 		for (l = 0; l < controlo->getNPilotos(); l++) {
 			bool EXISTE = false;
-			if (controlo->procuraPilotoN(j)->getCompeticao() == true && controlo->procuraPilotoN(l)->getPontuacao() >= max) {
+			if (controlo->procuraPilotoN(l)->getCompeticao() == true && controlo->procuraPilotoN(l)->getPontuacao() >= max) {
 				for (int k = 0; k < (int)indiceUsado.size(); k++) {
 					if (l == indiceUsado[k])
 						EXISTE = true;
