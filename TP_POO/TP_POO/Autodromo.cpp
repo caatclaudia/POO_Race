@@ -88,6 +88,10 @@ void Autodromo::tudoGaragem()
 
 Autodromo::~Autodromo()
 {
+	for(auto ptr : p->getCorridas())
+		ptr->getCarro()->acidenteDanoIrreparavel(ptr->getParticipante());
+	for (auto ptr : gar->getCarros())
+		ptr->acidenteDanoIrreparavel(nullptr);
 	delete p;
 	delete gar;
 }

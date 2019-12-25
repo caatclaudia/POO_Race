@@ -179,8 +179,10 @@ void Carro::travar()
 void Carro::acidenteDanoIrreparavel(Piloto* ob)
 {
 	acidente = CARRO_IRREPARAVEL;
-	ob->saiCarro();
-	ob->morreu();
+	if (ob != nullptr) {
+		ob->saiCarro();
+		ob->morreu();
+	}
 }
 
 string Carro::getAsString() const
