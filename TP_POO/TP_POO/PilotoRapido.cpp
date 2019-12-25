@@ -35,25 +35,13 @@ int PilotoRapido::passouTempo(int s, Pista* pista)
 
 		Piloto::setSegundos(Piloto::getSegundos() + 1);
 
-		if (getCarro() == nullptr) {/*
-			for (auto ptr = pista->getCorridas().begin(); ptr != pista->getCorridas().end(); ptr++) {
-				if ((*ptr)->getParticipante()->getNome() == getNome())
-					(*ptr)->setTravar(true);
-			}*/
+		if (getCarro() == nullptr)
 			return 0;
-		}
 		
 		return getCarro()->getVelocidade() * s;
 	}
 	return 0;
 }
-
-//string PilotoRapido::getProbAsString() const
-//{
-//	ostringstream oss;
-//	oss << Piloto::getProbAsString() << " tem " << prob << " probabilidade de sofrer ataque de panico!" << endl;
-//	return oss.str();
-//}
 
 PilotoRapido* PilotoRapido::duplica() const
 {

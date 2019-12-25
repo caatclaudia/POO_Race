@@ -62,24 +62,12 @@ int CrazyDriver::passouTempo(int s, Pista* pista)
 			}
 		}
 
-		if (getCarro() == nullptr) {/*
-			for (auto ptr = pista->getCorridas().begin(); ptr != pista->getCorridas().end(); ptr++) {
-				if ((*ptr)->getParticipante()->getNome() == getNome())
-					(*ptr)->setTravar(true);
-			}*/
+		if (getCarro() == nullptr)
 			return 0;
-		}
 		return Piloto::getCarro()->getVelocidade() * 1;
 	}
 	return 0;
 }
-
-//string CrazyDriver::getProbAsString()const 
-//{
-//	ostringstream oss;
-//	oss << Piloto::getProbAsString() << " tem " << prob << " probabilidade de danificar irremidiavelmente o carro!" << endl;
-//	return oss.str();
-//}
 
 CrazyDriver* CrazyDriver::duplica() const
 {

@@ -34,15 +34,12 @@ public:
 	int nParticipantes()const;
 	char getGrelhaXY(int x, int y) const;
 
-	//bool adicionarCarro(Carro* c);
-	//void parPilotoCarro(Piloto* p, Carro* c);
 	void removerPar(Corrida* c);
 	void atualizaPontuacao();
 	int comecarCorrida();
 	void terminarCorrida(Garagem* g);
 	void terminarCorrida();
 	void avancaTempo(int sec=1);
-	//void removerCarroemEmergencia(Garagem* g);
 	void removerCarro(char c);
 	
 	void verificaLugar();

@@ -54,34 +54,6 @@ char Pista::getGrelhaXY(int x, int y) const
 	return grelha[x][y];
 }
 
-//bool Pista::adicionarCarro(Carro* c)
-//{
-//	if (((int)(corridas.size())) <= nMax) {
-//		corridas.push_back(new Corrida(c));
-//		return true;
-//	}
-//	else {
-//		Consola::gotoxy(76, 2);
-//		cout << "Numero maximo de carros atingido!";
-//	}
-//	return false;
-//}
-//
-//void Pista::parPilotoCarro(Piloto* p, Carro* c)
-//{
-//	if (comecou == NAO_COMECOU) {
-//		for (auto ptr = corridas.begin(); ptr != corridas.end(); ptr++) {
-//			if ((*ptr)->getCarro() == c)
-//				if ((*ptr)->getParticipante() == nullptr)
-//					(*ptr)->setParticipante(p);
-//				else {
-//					(*ptr)->getParticipante()->saiCarro();
-//					(*ptr)->setParticipante(p);
-//				}
-//		}
-//	}
-//}
-
 void Pista::removerPar(Corrida *c)
 {
 	for (auto ptr = corridas.begin(); ptr != corridas.end(); ) {
@@ -239,15 +211,6 @@ string Pista::getAsString() const
 	oss << "(" << comprimento<<"m / "<< nMax <<" carros)";
 	return oss.str();
 }
-
-//void Pista::listaCarros() const
-//{
-//	int x = 1;
-//	for (int i = 0; i < (int)corridas.size(); i++) {
-//		Consola::gotoxy(76, x++);
-//		cout << corridas[i]->getParticipante()->getAsString();
-//	}
-//}
 
 void Pista::carregaGrelha() 
 {

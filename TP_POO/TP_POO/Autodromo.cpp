@@ -36,30 +36,6 @@ Garagem* Autodromo::getGaragem() const
 	return gar;
 }
 
-//void Autodromo::carregaCarros()
-//{
-//	for (auto ptr = p->getCorridas().begin(); ptr != p->getCorridas().end(); ptr++)
-//		(*ptr)->getCarro()->setEnergia((*ptr)->getCarro()->getCapacidadeMaxima());
-//	if(gar!=nullptr)
-//		for (auto ptr = gar->getCarros().begin(); ptr != gar->getCarros().end(); ptr++)
-//			(*ptr)->setEnergia((*ptr)->getCapacidadeMaxima());
-//}
-//
-//bool Autodromo::acrescentaCarroPista(Carro* carro)
-//{
-//	if (carro->getMovimento() == false && carro->getCondutor() == false)
-//		return p->adicionarCarro(carro);
-//	return false;
-//}
-//
-//bool Autodromo::acrescentaCarroGaragem(Carro* carro)		
-//{
-//	for (int i = 0; i < p->nParticipantes(); i++)
-//		if (p->getCorridaN(i)->getCarro()== carro)
-//			return false;
-//	return gar->adicionaCarro(carro);
-//}
-
 void Autodromo::carregaEnergia(int id, float n)
 {
 	for (int i = 0; i < (int)p->getCorridas().size(); i++)

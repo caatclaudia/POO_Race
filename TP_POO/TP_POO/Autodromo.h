@@ -24,10 +24,6 @@ public:
 	Pista* getPista()const;
 	string getAsString()const;
 	Garagem* getGaragem() const;
-	//void carregaCarros();
-
-	//bool acrescentaCarroPista(Carro *carro);
-	//bool acrescentaCarroGaragem(Carro *carro);
 
 	void carregaEnergia(int id, float n);
 	void carregaEnergiaM();

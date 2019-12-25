@@ -82,11 +82,6 @@ vector<Autodromo*> Simulacao::getCampeonato()
 	return campeonato;
 }
 
-//Autodromo* Simulacao::getCampeonatoN(int n) const
-//{
-//	return campeonato[n];
-//}
-
 int Simulacao::getCampeonatoSize() const
 {
 	return (int)campeonato.size();

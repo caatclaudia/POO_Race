@@ -30,24 +30,12 @@ int PilotoSurpresa::passouTempo(int s, Pista* pista)
 
 		Piloto::setSegundos(Piloto::getSegundos() + 1);
 
-		if (getCarro() == nullptr) {/*
-			for (auto ptr = pista->getCorridas().begin(); ptr != pista->getCorridas().end(); ptr++) {
-				if ((*ptr)->getParticipante()->getNome() == getNome())
-					(*ptr)->setTravar(true);
-			}*/
+		if (getCarro() == nullptr)
 			return 0;
-		}
 		return getCarro()->getVelocidade() * s;
 	}
 	return 0;
 }
-
-//string PilotoSurpresa::getProbAsString() const
-//{
-//	ostringstream oss;
-//	oss <<Piloto::getProbAsString()<< " tem " << prob << " probabilidade de explodir o carro!" << endl;
-//	return oss.str();
-//}
 
 PilotoSurpresa* PilotoSurpresa::duplica() const
 {

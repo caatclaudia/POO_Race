@@ -14,7 +14,6 @@ Garagem::Garagem()
 
 bool Garagem::adicionaCarro(Carro* car)
 {
-	//for (auto ptr = carros.begin(); ptr != carros.end(); ++ptr) {
 	for(int i=0;i<(int)carros.size();i++){
 		if (carros[i]->getID() == car->getID())
 			return false;
