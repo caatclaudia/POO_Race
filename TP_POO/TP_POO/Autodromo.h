@@ -29,6 +29,14 @@ public:
 	//bool acrescentaCarroPista(Carro *carro);
 	//bool acrescentaCarroGaragem(Carro *carro);
 
+	void carregaEnergia(int id, float n);
+	void carregaEnergiaM();
+
+	void avancaTempo();
+	int comecarCorrida();
+	void terminarCorrida();
+	int paresPista() const;
+
 	void reverCarros();
 	void tudoGaragem();
 

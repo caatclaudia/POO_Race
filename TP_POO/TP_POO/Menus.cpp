@@ -341,9 +341,7 @@ int Menus::modo2(vector<Autodromo*> campeonato, DVG *controlo)
 				if (buffer >> letra && buffer >> num && num > 0) {
 					Consola::gotoxy(76, 1);
 					cout << "Comando " << comando1 << " " << letra << " " << num;
-					for (int i = 0; i < (int)campeonato[indice]->getPista()->getCorridas().size(); i++)
-						if (campeonato[indice]->getPista()->getCorridaN(i)->getCarro()->getID() == letra)
-							campeonato[indice]->getPista()->getCorridaN(i)->getCarro()->carregaEnergia(num);
+					campeonato[indice]->carregaEnergia(letra, num);
 				}
 				else
 					PARAMETRO_INVALIDO = true;
@@ -351,15 +349,14 @@ int Menus::modo2(vector<Autodromo*> campeonato, DVG *controlo)
 			else if (comando1 == "carregatudo") {
 				Consola::gotoxy(76, 1);
 				cout << "Comando " << comando1;
-				for (int i = 0; i < (int)campeonato[indice]->getPista()->getCorridas().size(); i++)
-					campeonato[indice]->getPista()->getCorridaN(i)->getCarro()->carregaEnergiaM();
+				campeonato[indice]->carregaEnergiaM();
 			}
 			else if (comando1 == "corrida") {
 				listaMensagens.clear();
 				Consola::gotoxy(76, 1);
 				if (indice < (int)campeonato.size() - 1) {
 					indice++;
-					if (campeonato[indice]->getPista()->atualizaPares() >= 2) {
+					if (campeonato[indice]->paresPista() >= 2) {
 						cout << "Autodromo " << campeonato[indice]->getNome();
 						campeonato[indice]->getPista()->setComecou(NAO_COMECOU);
 					}
@@ -380,8 +377,8 @@ int Menus::modo2(vector<Autodromo*> campeonato, DVG *controlo)
 							campeonato[indice]->getPista()->removerCarro(letra);
 							controlo->removeCarro(controlo->procuraCarro(letra));
 							limpaPista();
-							if (campeonato[indice]->getPista()->atualizaPares() < 2)
-								campeonato[indice]->getPista()->terminarCorrida(campeonato[indice]->getGaragem());
+							if (campeonato[indice]->paresPista() < 2)
+								campeonato[indice]->terminarCorrida();
 						}
 				}
 				else
@@ -408,8 +405,8 @@ int Menus::modo2(vector<Autodromo*> campeonato, DVG *controlo)
 					campeonato[indice]->getPista()->removerCarro(letra);
 					controlo->removeCarro(controlo->procuraCarro(letra));
 					limpaPista();
-					if (campeonato[indice]->getPista()->atualizaPares() < 2)
-						campeonato[indice]->getPista()->terminarCorrida(campeonato[indice]->getGaragem());
+					if (campeonato[indice]->paresPista() < 2)
+						campeonato[indice]->terminarCorrida();
 				}
 				else
 					PARAMETRO_INVALIDO = true;
@@ -422,8 +419,8 @@ int Menus::modo2(vector<Autodromo*> campeonato, DVG *controlo)
 						Consola::gotoxy(76, 1);
 						cout << "Corrida ja terminada!";
 					}
-					if (campeonato[indice]->getPista()->getComecou() == NAO_COMECOU && campeonato[indice]->getPista()->atualizaPares() >= 2) {
-						int res=campeonato[indice]->getPista()->comecarCorrida();
+					if (campeonato[indice]->getPista()->getComecou() == NAO_COMECOU && campeonato[indice]->paresPista() >= 2) {
+						int res=campeonato[indice]->comecarCorrida();
 						if (res == 0) {
 							Consola::gotoxy(76, 2);
 							cout << "Existem carros vazios!" << endl;
@@ -770,9 +767,8 @@ int Menus::modo1(Simulacao* simulacao, string comando)
 void Menus::movimentoCarros(Autodromo* autodromo, int seg, vector<string>* listaMensagens)
 {
 	ostringstream os;
-	for (int i = 0; i < seg && autodromo->getPista()->getComecou() == JA_COMECOU && autodromo->getPista()->atualizaPares()>=2; i++) {
-		autodromo->getPista()->avancaTempo();
-		autodromo->getPista()->carregaGrelha();
+	for (int i = 0; i < seg && autodromo->getPista()->getComecou() == JA_COMECOU && autodromo->paresPista() >=2; i++) {
+		autodromo->avancaTempo();
 		mostraGrelha(autodromo);
 		mostraGaragem(autodromo);
 		if (i == seg - 1) {
@@ -784,8 +780,8 @@ void Menus::movimentoCarros(Autodromo* autodromo, int seg, vector<string>* lista
 		}
 		Sleep(10);
 	}
-	if (autodromo->getPista()->atualizaPares() < 2) 
-		autodromo->getPista()->terminarCorrida(autodromo->getGaragem());
+	if (autodromo->paresPista() < 2) 
+		autodromo->terminarCorrida();
 	autodromo->reverCarros();
 	if (autodromo->getPista()->getComecou() == JA_TERMINOU) {
 		getAsStringPontPilotosPista(autodromo);

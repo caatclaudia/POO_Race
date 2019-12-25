@@ -60,6 +60,40 @@ Garagem* Autodromo::getGaragem() const
 //	return gar->adicionaCarro(carro);
 //}
 
+void Autodromo::carregaEnergia(int id, float n)
+{
+	for (int i = 0; i < (int)p->getCorridas().size(); i++)
+		if(p->getCorridaN(i)->getCarro()->getID() == id)
+			p->getCorridaN(i)->getCarro()->carregaEnergia(n);
+}
+
+void Autodromo::carregaEnergiaM()
+{
+	for (int i = 0; i < (int)p->getCorridas().size(); i++)
+		p->getCorridaN(i)->getCarro()->carregaEnergiaM();
+}
+
+void Autodromo::avancaTempo()
+{
+	p->avancaTempo();
+	p->carregaGrelha();
+}
+
+int Autodromo::comecarCorrida()
+{
+	return p->comecarCorrida();
+}
+
+void Autodromo::terminarCorrida()
+{
+	p->terminarCorrida(gar);
+}
+
+int Autodromo::paresPista() const
+{
+	return p->atualizaPares();
+}
+
 void Autodromo::reverCarros()
 {
 	vector<Carro*> carrosARemover;

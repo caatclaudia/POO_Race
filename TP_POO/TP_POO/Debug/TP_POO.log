@@ -1,4 +1,9 @@
 ﻿  Autodromo.cpp
-  Carro.cpp
+  Corrida.cpp
+  Garagem.cpp
+  Menus.cpp
+  Pista.cpp
+  Simulacao.cpp
+  TP_POO.cpp
   Generating Code...
   TP_POO.vcxproj -> C:\Users\Claudia Tavares\Documents\GitHub\POO\TP_POO\Debug\TP_POO.exe
