@@ -96,6 +96,11 @@ void Autodromo::tudoGaragem()
 	carrosARemover.clear();
 }
 
+void Autodromo::limpaGaragem()
+{
+	gar->limpaCarros();
+}
+
 Autodromo::~Autodromo()
 {
 	for(auto ptr : p->getCorridas())

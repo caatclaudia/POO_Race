@@ -472,6 +472,10 @@ int Menus::modo2(vector<Autodromo*> campeonato, DVG *controlo)
 			}
 		}
 	} while (comando1 != "voltar");
+
+	for (int i = 0; i <= indice; i++)
+		campeonato[i]->limpaGaragem();
+
 	return 1;
 }
 
@@ -571,11 +575,15 @@ int Menus::modo1(Simulacao* simulacao, string comando)
 					string nomeP;
 					if (getline(buffer, nomeP)) {
 						nomeP = nomeP.substr(1);
-						Consola::gotoxy(76, 1);
-						cout << "Eliminado piloto " << nomeP;
-						if(simulacao->getControlo().procuraPiloto(nomeP)->getCarro()!=nullptr)
-							simulacao->getControlo().procuraPiloto(nomeP)->saiCarro();
-						simulacao->getControlo().removePiloto(simulacao->getControlo().procuraPiloto(nomeP));
+						if (simulacao->getControlo().procuraPiloto(nomeP) == nullptr)
+							PARAMETRO_INVALIDO = true;
+						else {
+							Consola::gotoxy(76, 1);
+							cout << "Eliminado piloto " << nomeP;
+							if (simulacao->getControlo().procuraPiloto(nomeP)->getCarro() != nullptr)
+								simulacao->getControlo().procuraPiloto(nomeP)->saiCarro();
+							simulacao->getControlo().removePiloto(simulacao->getControlo().procuraPiloto(nomeP));
+						}
 					}
 					else
 						PARAMETRO_INVALIDO = true;
@@ -583,12 +591,16 @@ int Menus::modo1(Simulacao* simulacao, string comando)
 				else if (tipo == "c") {
 					char id;
 					if (buffer >> id) {
-						Consola::gotoxy(76, 1);
-						cout << "Eliminado carro " << id;
-						for (auto ptr = simulacao->getControlo().getPiloto().begin(); ptr != simulacao->getControlo().getPiloto().end(); ptr++)
-							if ((*ptr)->getCarro()!=nullptr && (*ptr)->getCarro()->getID() == id)
-								(*ptr)->saiCarro();
-						simulacao->getControlo().removeCarro(simulacao->getControlo().procuraCarro(id));
+						if (simulacao->getControlo().procuraCarro(id) == nullptr)
+							PARAMETRO_INVALIDO = true;
+						else {
+							Consola::gotoxy(76, 1);
+							cout << "Eliminado carro " << id;
+							for (auto ptr = simulacao->getControlo().getPiloto().begin(); ptr != simulacao->getControlo().getPiloto().end(); ptr++)
+								if ((*ptr)->getCarro() != nullptr && (*ptr)->getCarro()->getID() == id)
+									(*ptr)->saiCarro();
+							simulacao->getControlo().removeCarro(simulacao->getControlo().procuraCarro(id));
+						}
 					}
 					else
 						PARAMETRO_INVALIDO = true;
@@ -618,7 +630,9 @@ int Menus::modo1(Simulacao* simulacao, string comando)
 			if (buffer >> letra) {
 				if (getline(buffer, nomeP)) {
 					nomeP = nomeP.substr(1);
-					if (simulacao->getControlo().procuraPiloto(nomeP)->getCarro() == nullptr && simulacao->getControlo().procuraCarro(letra)->getCondutor() == false) {
+					if (simulacao->getControlo().procuraPiloto(nomeP) == nullptr || simulacao->getControlo().procuraCarro(letra) == nullptr)
+						PARAMETRO_INVALIDO = true;
+					else if (simulacao->getControlo().procuraPiloto(nomeP)->getCarro() == nullptr && simulacao->getControlo().procuraCarro(letra)->getCondutor() == false) {
 						Consola::gotoxy(76, 1);
 						cout << "Piloto " << nomeP << " entrou no carro " << letra;
 						simulacao->getControlo().procuraPiloto(nomeP)->entraCarro(simulacao->getControlo().procuraCarro(letra));
@@ -630,7 +644,9 @@ int Menus::modo1(Simulacao* simulacao, string comando)
 		else if (comando1 == "saidocarro") {
 			char letra;
 			if (buffer >> letra) {
-				if (simulacao->getControlo().procuraCarro(letra)->getCondutor()) {
+				if (simulacao->getControlo().procuraCarro(letra) == nullptr)
+					PARAMETRO_INVALIDO = true;
+				else if (simulacao->getControlo().procuraCarro(letra) != nullptr && simulacao->getControlo().procuraCarro(letra)->getCondutor()) {
 					Consola::gotoxy(76, 1);
 					cout << "Piloto " << simulacao->getControlo().pilotoNoCarro(letra)->getNome() << " saiu do carro " << letra;
 					simulacao->getControlo().pilotoNoCarro(letra)->saiCarro();

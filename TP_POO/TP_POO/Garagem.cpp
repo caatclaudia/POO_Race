@@ -35,6 +35,11 @@ vector<Carro*>& Garagem::getCarros()
 	return carros;
 }
 
+void Garagem::limpaCarros()
+{
+	carros.clear();
+}
+
 
 Garagem::~Garagem()
 {

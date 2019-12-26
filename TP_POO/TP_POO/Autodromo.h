@@ -35,7 +35,10 @@ public:
 
 	void reverCarros();
 	void tudoGaragem();
-
+	void limpaGaragem();
+	
 	~Autodromo();
 };
 #endif
+
+

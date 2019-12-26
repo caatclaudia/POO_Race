@@ -17,6 +17,7 @@ public:
 	bool adicionaCarro(Carro* car);
 	void removeCarro(Carro* car);
 	vector<Carro*>& getCarros();
+	void limpaCarros();
 
 	~Garagem();
 };
