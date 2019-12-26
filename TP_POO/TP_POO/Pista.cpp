@@ -114,8 +114,6 @@ void Pista::terminarCorrida(Garagem* g)
 		comecou = JA_TERMINOU;
 		atualizaPontuacao();
 		for (auto ptr = corridas.begin(); ptr != corridas.end(); ptr++) {
-			(*ptr)->getParticipante()->saiCarro();
-			g->adicionaCarro((*ptr)->getCarro());
 			(*ptr)->setPosicao(0);
 			(*ptr)->setTravar(true);
 		}
