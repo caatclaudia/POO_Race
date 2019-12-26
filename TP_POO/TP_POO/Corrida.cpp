@@ -75,7 +75,8 @@ void Corrida::setCarro(Carro* car) {
 
 bool Corrida::continuaDisponivel() const
 {
-	if(participante->getVivo() && carro->getAcidente()!= CARRO_IRREPARAVEL && carro->getEmergencia()==EMERGENCIA_OFF)
+	if(participante->getVivo() && carro->getAcidente()!= CARRO_IRREPARAVEL && carro->getEmergencia()==EMERGENCIA_OFF 
+		&& participante->getCarro() != nullptr)
 		return true;
 	return false;
 }

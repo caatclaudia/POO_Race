@@ -244,6 +244,11 @@ vector< vector< char> > Pista::getGrelha()const
 	return grelha;
 }
 
+void Pista::limpaPista()
+{
+	corridas.clear();
+}
+
 Pista::~Pista()
 {
 	corridas.clear();

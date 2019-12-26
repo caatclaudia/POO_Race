@@ -86,14 +86,10 @@ void Autodromo::reverCarros()
 
 void Autodromo::tudoGaragem()
 {
-	vector<Carro*> carrosARemover;
 	for (auto ptr = p->getCorridas().begin(); ptr != p->getCorridas().end(); ptr++) {
 		gar->adicionaCarro((*ptr)->getCarro());
-		carrosARemover.push_back((*ptr)->getCarro());
 	}
-	for (auto pt = carrosARemover.begin(); pt != carrosARemover.end(); pt++)
-		p->removerCarro((*pt)->getID());
-	carrosARemover.clear();
+	p->limpaPista();
 }
 
 void Autodromo::limpaGaragem()

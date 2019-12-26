@@ -177,10 +177,20 @@ void Carro::acidenteDanoIrreparavel(Piloto* ob)
 	}
 }
 
+bool Carro::disponivel() const
+{
+	if (emergencia == EMERGENCIA_OFF && acidente == CARRO_BOMESTADO)
+		return true;
+	return false;
+}
+
 string Carro::getAsString() const
 {
 	ostringstream oss;
-	oss << "Carro " << ID << " -> "<<marca << " " <<modelo<< endl;
+	oss << "Carro " << ID << " -> "<<marca << " " <<modelo;
+	if (emergencia == EMERGENCIA_ON || acidente!=CARRO_BOMESTADO)
+		oss << " (!)";
+	oss << endl;
 	return oss.str();
 }
 

@@ -632,6 +632,10 @@ int Menus::modo1(Simulacao* simulacao, string comando)
 					nomeP = nomeP.substr(1);
 					if (simulacao->getControlo().procuraPiloto(nomeP) == nullptr || simulacao->getControlo().procuraCarro(letra) == nullptr)
 						PARAMETRO_INVALIDO = true;
+					else if (!simulacao->getControlo().procuraCarro(letra)->disponivel()) {
+						Consola::gotoxy(76, 1);
+						cout << "Carro " << letra << " nao esta disponivel!";
+					}
 					else if (simulacao->getControlo().procuraPiloto(nomeP)->getCarro() == nullptr && simulacao->getControlo().procuraCarro(letra)->getCondutor() == false) {
 						Consola::gotoxy(76, 1);
 						cout << "Piloto " << nomeP << " entrou no carro " << letra;
@@ -721,6 +725,7 @@ int Menus::modo1(Simulacao* simulacao, string comando)
 			string nome;
 			bool CERTO = false;
 			while (buffer >> nome) {
+				simulacao->atualizaAuxiliarCorrida();
 				if (simulacao->getAuxiliarCorridaSize() < 2) {
 					Consola::gotoxy(76, 1);
 					cout << "Falta participantes!";

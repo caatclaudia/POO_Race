@@ -56,6 +56,8 @@ public:
 	void carregaGrelha();
 	vector< vector< char> > getGrelha()const;
 
+	void limpaPista();
+
 	~Pista();
 };
 #endif
