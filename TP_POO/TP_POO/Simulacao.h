@@ -45,6 +45,7 @@ public:
 	bool eliminaAutodromos(string nome);
 
 	void atualizaDVG();
+	void atualizaAuxiliarCorrida();
 
 	void getAsStringPilotos();
 	void getAsStringCarros();

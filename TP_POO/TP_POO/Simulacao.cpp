@@ -134,6 +134,16 @@ void Simulacao::atualizaDVG()
 	controlo.removeMortos();
 }
 
+void Simulacao::atualizaAuxiliarCorrida()
+{
+	for (auto ptr = auxiliarCorrida.begin(); ptr != auxiliarCorrida.end(); ) {
+		if (!(*ptr)->continuaDisponivel())
+			ptr = auxiliarCorrida.erase(ptr);
+		else
+			ptr++;
+	}
+}
+
 void Simulacao::getAsStringPilotos() {
 	int i = 1;
 	if (controlo.getNPilotos()==0) {
