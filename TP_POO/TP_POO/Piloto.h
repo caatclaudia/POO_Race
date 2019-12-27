@@ -43,7 +43,7 @@ public:
 	void travarCarro();
 	void acelararCarro();
 
-	virtual int passouTempo(int s, Pista *pista) =0;
+	virtual int passouTempo(Pista *pista) =0;
 
 	string getAsString()const;
 	bool operator==(const Piloto& ob)const;

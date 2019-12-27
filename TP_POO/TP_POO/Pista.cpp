@@ -95,7 +95,7 @@ int Pista::comecarCorrida()
 				(*ptr)->getParticipante()->iniciaCompeticao();
 				(*ptr)->getParticipante()->setSegundos();
 				(*ptr)->setPosicao(0);
-				(*ptr)->getParticipante()->passouTempo(1, this);
+				(*ptr)->getParticipante()->passouTempo(this);
 				(*ptr)->setTravar(false);
 			}
 		}
@@ -132,12 +132,12 @@ void Pista::terminarCorrida()
 	}
 }
 
-void Pista::avancaTempo(int sec)
+void Pista::avancaTempo()
 {
 	if (comecou == JA_COMECOU) {
 		for (auto ptr = corridas.begin(); ptr != corridas.end(); ptr++) {
 			if (!(*ptr)->getTravar())
-				(*ptr)->avancaPosicao((*ptr)->getParticipante()->passouTempo(sec, this));
+				(*ptr)->avancaPosicao((*ptr)->getParticipante()->passouTempo(this));
 			else if ((*ptr)->getCarro()->getVelocidade() > 0)
 				(*ptr)->getParticipante()->travarCarro();
 			if ((*ptr)->getPosicao() >= comprimento)

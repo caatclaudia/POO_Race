@@ -105,7 +105,7 @@ int DVG::getNCarrosDisponiveis()
 {
 	int n = 0;
 	for (auto ptr = carros.begin(); ptr != carros.end(); ++ptr) {
-		if ((*ptr)->getAcidente() == 0 || (*ptr)->getCondutor() == false)
+		if ((*ptr)->disponivel() && (*ptr)->getCondutor() == false)
 			n++;
 	}
 	return n;

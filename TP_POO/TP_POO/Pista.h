@@ -39,7 +39,7 @@ public:
 	int comecarCorrida();
 	void terminarCorrida(Garagem* g);
 	void terminarCorrida();
-	void avancaTempo(int sec=1);
+	void avancaTempo();
 	void removerCarro(char c);
 	
 	void verificaLugar();

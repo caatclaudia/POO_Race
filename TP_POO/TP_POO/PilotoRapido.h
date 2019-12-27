@@ -10,7 +10,7 @@ class PilotoRapido : public Piloto
 public:
 	PilotoRapido(const string nome, const string t);
 
-	int passouTempo(int s, Pista* pista) override;
+	int passouTempo(Pista* pista) override;
 
 	PilotoRapido* duplica()const override;
 

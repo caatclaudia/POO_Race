@@ -12,7 +12,7 @@ public:
 
 	CrazyDriver(const string nome, const string t);
 
-	int passouTempo(int s, Pista* pista) override;
+	int passouTempo(Pista* pista) override;
 
 	CrazyDriver* duplica()const override;
 

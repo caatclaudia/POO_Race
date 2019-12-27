@@ -9,7 +9,7 @@ class PilotoSurpresa : public Piloto
 public:
 	PilotoSurpresa(const string nome, const string t);
 
-	int passouTempo(int s, Pista* pista) override;
+	int passouTempo(Pista* pista) override;
 
 	PilotoSurpresa* duplica()const override;
 

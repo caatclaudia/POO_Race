@@ -2,13 +2,15 @@
 #include "Carro.h"
 #include "Pista.h"
 #include "Corrida.h"
+#include <time.h>
 
 PilotoSurpresa::PilotoSurpresa(const string nome, const string t) : Piloto(nome, t), prob(0.05)
 {
 }
 
-int PilotoSurpresa::passouTempo(int s, Pista* pista)
+int PilotoSurpresa::passouTempo(Pista* pista)
 {
+	srand((unsigned)time(NULL));
 	if (Piloto::getCarro() != nullptr) {
 		if (Piloto::getSegundos() == 1) {
 			getCarro()->setMovimento(CARRO_MOVIMENTO);
@@ -32,7 +34,7 @@ int PilotoSurpresa::passouTempo(int s, Pista* pista)
 
 		if (getCarro() == nullptr)
 			return 0;
-		return getCarro()->getVelocidade() * s;
+		return getCarro()->getVelocidade();
 	}
 	return 0;
 }

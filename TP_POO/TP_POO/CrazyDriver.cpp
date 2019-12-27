@@ -2,13 +2,15 @@
 #include "Carro.h"
 #include "Pista.h"
 #include "Corrida.h"
+#include <time.h>
 
 CrazyDriver::CrazyDriver(const string nome, const string t) : Piloto(nome, t), prob(0.05), segundo(rand() % 5 + 1)
 {
 }
 
-int CrazyDriver::passouTempo(int s, Pista* pista)
+int CrazyDriver::passouTempo(Pista* pista)
 {
+	srand((unsigned)time(NULL));
 	if (Piloto::getCarro() != nullptr) {
 		int n = 0;
 		if (Piloto::getSegundos() < segundo) {
@@ -64,7 +66,7 @@ int CrazyDriver::passouTempo(int s, Pista* pista)
 
 		if (getCarro() == nullptr)
 			return 0;
-		return Piloto::getCarro()->getVelocidade() * 1;
+		return Piloto::getCarro()->getVelocidade();
 	}
 	return 0;
 }

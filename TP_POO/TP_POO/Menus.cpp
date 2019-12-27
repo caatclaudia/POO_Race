@@ -14,6 +14,7 @@ using namespace std;
 #include <fstream>
 #include <Windows.h>
 #include "Consola.h"
+#include <time.h>
 
 Menus::Menus()
 {
@@ -814,7 +815,8 @@ void Menus::movimentoCarros(Autodromo* autodromo, int seg, vector<string>* lista
 void Menus::associaCarros(Simulacao* simulacao, int num)
 {
 	bool existeC, existeP;
-	int max = num;
+	int max = num, num1, num2;
+	srand((unsigned)time(NULL));
 
 	if (num > simulacao->getControlo().getNCarrosDisponiveis() || num > simulacao->getControlo().getNPilotosDisponiveis()) {
 		if (simulacao->getControlo().getNCarrosDisponiveis() >= simulacao->getControlo().getNPilotosDisponiveis())
@@ -824,25 +826,26 @@ void Menus::associaCarros(Simulacao* simulacao, int num)
 	}
 	int ncar = simulacao->getControlo().getNCarros();
 	int npil = simulacao->getControlo().getNPilotos();
-	for (int i = 0; i < max; ) {
-		existeC = false;
-		existeP = false;
-		int num1 = rand() % ncar;
-		for (int j = 0; j < simulacao->getAuxiliarCorridaSize(); j++) {
-			if (simulacao->getControlo().procuraCarroN(num1) == simulacao->getAuxiliarCorridaN(j)->getCarro())
-				existeC = true;
-		}
-		int num2 = rand() % npil;
-		for (int j = 0; j < simulacao->getAuxiliarCorridaSize(); j++){
-			if (simulacao->getControlo().procuraPilotoN(num2) == simulacao->getAuxiliarCorridaN(j)->getParticipante())
-				existeP = true;
-		}
+	for (int i = 0; i < max; i++) {
+		do {
+			existeC = false;
+			num1 = rand() % ncar;
+			for (int j = 0; j < simulacao->getAuxiliarCorridaSize(); j++) {
+				if (simulacao->getControlo().procuraCarroN(num1) == simulacao->getAuxiliarCorridaN(j)->getCarro())
+					existeC = true;
+			}
+		} while (existeC || simulacao->getControlo().procuraCarroN(num1)->disponivel()==false || simulacao->getControlo().procuraCarroN(num1)->getCondutor()!= CARRO_SEM_CONDUTOR);
+		do {
+			existeP = false;
+			num2 = rand() % npil;
+			for (int j = 0; j < simulacao->getAuxiliarCorridaSize(); j++) {
+				if (simulacao->getControlo().procuraPilotoN(num2) == simulacao->getAuxiliarCorridaN(j)->getParticipante())
+					existeP = true;
+			}
+		} while (existeP || simulacao->getControlo().procuraPilotoN(num2)->getCarro()!=nullptr);
 		
-		if (existeP == false && existeC == false) {
-			simulacao->getControlo().procuraPilotoN(num2)->entraCarro(simulacao->getControlo().procuraCarroN(num1));
-			simulacao->addAuxiliarCorrida(new Corrida(simulacao->getControlo().procuraCarroN(num1), simulacao->getControlo().procuraPilotoN(num2)));
-			i++;
-		}
+		simulacao->getControlo().procuraPilotoN(num2)->entraCarro(simulacao->getControlo().procuraCarroN(num1));
+		simulacao->addAuxiliarCorrida(new Corrida(simulacao->getControlo().procuraCarroN(num1), simulacao->getControlo().procuraPilotoN(num2)));
 	}
 }
 
