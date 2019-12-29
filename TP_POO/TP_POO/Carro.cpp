@@ -17,6 +17,7 @@ Carro::Carro(const string marca, float cInicial, const float cMaxima, const int 
 	emergencia = EMERGENCIA_OFF;
 	acidente = CARRO_BOMESTADO;
 	condutor = CARRO_SEM_CONDUTOR;
+	cor = rand() % 15 + 1;
 }
 
 string Carro::getMarca()const
@@ -107,6 +108,11 @@ int Carro::getAcidente()const
 void Carro::setAcidente(int aci)
 {
 	acidente = aci;
+}
+
+int Carro::getCor() const
+{
+	return cor;
 }
 
 bool Carro::operator==(const Carro& ob) const

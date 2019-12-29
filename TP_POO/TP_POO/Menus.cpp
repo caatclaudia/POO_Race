@@ -22,6 +22,7 @@ Menus::Menus()
 
 void Menus::base()const 
 {
+	Consola::setTextColor(Consola::VERMELHO);
 	int i;
 	for (i = 0; i <= LINHAS_BASE; i++) {
 		if (i == 0 || i == LINHAS_BASE) {
@@ -57,6 +58,7 @@ void Menus::base()const
 		Consola::gotoxy(i, 21);
 		cout << " ";
 	}
+	Consola::setTextColor(Consola::BRANCO);
 }
 
 void Menus::limpaPista() const 
@@ -280,7 +282,7 @@ void Menus::getAsStringPontPilotosPista(Autodromo *autodromo)
 	}
 }
 
-void Menus::mostraGaragem(Autodromo* autodromo) const
+void Menus::mostraGaragem(Autodromo* autodromo, DVG* controlo) const
 {
 	if ((int)autodromo->getGaragem()->getCarros().size() > 0) {
 		Consola::gotoxy(2, 17);
@@ -288,28 +290,31 @@ void Menus::mostraGaragem(Autodromo* autodromo) const
 		Consola::gotoxy(2, 18);
 		for (auto ptr = autodromo->getGaragem()->getCarros().begin(); ptr != autodromo->getGaragem()->getCarros().end(); ptr++)
 		{
-			//Consola::setTextColor(rand() % 15 + 1);
+			Consola::setTextColor(controlo->procuraCarro((*ptr)->getID())->getCor());
 			cout << (*ptr)->getID() << "    ";
-			//Consola::setTextColor(Consola::BRANCO);
+			Consola::setTextColor(Consola::BRANCO);
 		}
 	}
 }
 
-void Menus::mostraGrelha(Autodromo* autodromo)
+void Menus::mostraGrelha(Autodromo* autodromo, DVG *controlo)
 {
 	int inicio;
-	Consola::setTextColor(Consola::VERMELHO);
 	if (autodromo->getPista()->getCorridas().size() > 0)
-		inicio = 16 / (autodromo->getPista()->getCorridas().size() * 2);
+		inicio = 16 / ((int)autodromo->getPista()->getCorridas().size() * 2);
 	else
 		inicio = 16;
 	for (int i = 0; i < (int)autodromo->getPista()->getCorridas().size() * 2; i++) {
 		for (int j = 0; j < COLUNAS; j++) {
 			Consola::gotoxy(2 + j, inicio + i);
-			cout << autodromo->getPista()->getGrelha()[i][j];
+			if (autodromo->getPista()->getGrelha()[i][j] != ' ' && autodromo->getPista()->getGrelha()[i][j] != '-') {
+				Consola::setTextColor(controlo->procuraCarro(tolower(autodromo->getPista()->getGrelha()[i][j]))->getCor());
+				cout << autodromo->getPista()->getGrelha()[i][j];
+				Consola::setTextColor(Consola::BRANCO);
+			}else
+				cout << autodromo->getPista()->getGrelha()[i][j];
 		}
 	}
-	Consola::setTextColor(Consola::BRANCO);
 }
 
 int Menus::modo2(vector<Autodromo*> campeonato, DVG *controlo)
@@ -432,7 +437,7 @@ int Menus::modo2(vector<Autodromo*> campeonato, DVG *controlo)
 						}
 					}
 					if (campeonato[indice]->getPista()->getComecou() == JA_COMECOU) {
-						movimentoCarros(campeonato[indice], n, &listaMensagens);
+						movimentoCarros(campeonato[indice], n, &listaMensagens,controlo);
 					}
 					Consola::gotoxy(2, 21);
 					cout << "Passou " << n << " segundos!";
@@ -786,13 +791,13 @@ int Menus::modo1(Simulacao* simulacao, string comando)
 	return 1;
 }
 
-void Menus::movimentoCarros(Autodromo* autodromo, int seg, vector<string>* listaMensagens)
+void Menus::movimentoCarros(Autodromo* autodromo, int seg, vector<string>* listaMensagens, DVG *controlo)
 {
 	ostringstream os;
 	for (int i = 0; i < seg && autodromo->getPista()->getComecou() == JA_COMECOU && autodromo->paresPista() >=2; i++) {
 		autodromo->avancaTempo();
-		mostraGrelha(autodromo);
-		mostraGaragem(autodromo);
+		mostraGrelha(autodromo,controlo);
+		mostraGaragem(autodromo, controlo);
 		if (i == seg - 1) {
 			for (auto ptr = autodromo->getPista()->getCorridas().begin(); ptr != autodromo->getPista()->getCorridas().end(); ptr++) {
 				if ((*ptr)->getCarro()->getAcidente() != CARRO_BOMESTADO || (*ptr)->getCarro()->getEmergencia() == EMERGENCIA_ON) {
@@ -808,7 +813,7 @@ void Menus::movimentoCarros(Autodromo* autodromo, int seg, vector<string>* lista
 	if (autodromo->getPista()->getComecou() == JA_TERMINOU) {
 		getAsStringPontPilotosPista(autodromo);
 		autodromo->tudoGaragem();
-		mostraGaragem(autodromo);
+		mostraGaragem(autodromo, controlo);
 	}
 }
 

@@ -38,13 +38,13 @@ public:
 
 	void obterInfo(Autodromo* autodromo);
 	void getAsStringPontPilotosPista(Autodromo* autodromo);
-	void mostraGaragem(Autodromo* autodromo) const;
-	void mostraGrelha(Autodromo* autodromo);
+	void mostraGaragem(Autodromo* autodromo, DVG* controlo) const;
+	void mostraGrelha(Autodromo* autodromo, DVG *controlo);
 
 	int modo2(vector<Autodromo*> campeonato, DVG *controlo);
 	int modo1(Simulacao *simulacao, string comando);
 
-	void movimentoCarros(Autodromo* autodromo, int seg, vector<string>* listaMensagens);
+	void movimentoCarros(Autodromo* autodromo, int seg, vector<string>* listaMensagens, DVG *controlo);
 
 	void associaCarros(Simulacao* simulacao, int num);
 

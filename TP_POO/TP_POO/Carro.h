@@ -26,7 +26,7 @@ class Carro
 	bool emergencia;
 	bool condutor;
 	int acidente;
-
+	int cor;
 
 public:
 	 static char identificacao;
@@ -50,6 +50,7 @@ public:
 	void setCondutor(bool v);
 	int getAcidente()const;
 	void setAcidente(int aci);
+	int getCor()const;
 
 	bool operator==(const Carro &ob)const;
 
