@@ -29,6 +29,14 @@ int PilotoRapido::passouTempo(Pista* pista)
 				contador++;
 			}
 		}
+		if (getCarro()->getEnergia() == 0) {
+			getCarro()->setEmergencia(EMERGENCIA_ON);
+			saiCarro();
+			for (auto ptr = pista->getCorridas().begin(); ptr != pista->getCorridas().end(); ptr++) {
+				if ((*ptr)->getParticipante()->getNome() == getNome())
+					(*ptr)->setTravar(true);
+			}
+		}
 
 		if ((Piloto::getSegundos() % 10) == 0 && (rand() % 100) < 10) {
 			getCarro()->setEmergencia(EMERGENCIA_ON);

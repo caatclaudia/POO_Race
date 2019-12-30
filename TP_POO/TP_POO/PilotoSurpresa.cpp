@@ -12,6 +12,7 @@ int PilotoSurpresa::passouTempo(Pista* pista)
 {
 	srand((unsigned)time(NULL));
 	if (Piloto::getCarro() != nullptr) {
+		int p = 0;
 		if (Piloto::getSegundos() == 1) {
 			getCarro()->setMovimento(CARRO_MOVIMENTO);
 			acelararCarro();
@@ -24,10 +25,26 @@ int PilotoSurpresa::passouTempo(Pista* pista)
 					acelararCarro();
 			}
 		}
-
-		if ((rand() % 100) < 5) {
+		if (getCarro()->getEnergia() == 0) {
 			getCarro()->setEmergencia(EMERGENCIA_ON);
 			saiCarro();
+			for (auto ptr = pista->getCorridas().begin(); ptr != pista->getCorridas().end(); ptr++) {
+				if ((*ptr)->getParticipante()->getNome() == getNome())
+					(*ptr)->setTravar(true);
+			}
+		}
+
+		if ((rand() % 100) < 5) {
+			getCarro()->acidenteDanoIrreparavel(this);
+			for (int i = 0; i < (int)pista->getCorridas().size(); i++) 
+				if (pista->getCorridaN(i)->getParticipante()->getNome() == Piloto::getNome()) 
+					p = pista->getCorridaN(i)->getPosicao();
+			for ( int i = 0; i < (int)pista->getCorridas().size(); i++) {
+				if ((pista->getCorridaN(i)->getPosicao()>=(p - 10) && pista->getCorridaN(i)->getPosicao()<=(p + 10)) && pista->getCorridaN(i)->getParticipante()->getNome() != Piloto::getNome()) {
+					pista->getCorridaN(i)->getCarro()->setEmergencia(EMERGENCIA_ON);
+					pista->getCorridaN(i)->getParticipante()->saiCarro();
+				}
+			}
 		}
 
 		Piloto::setSegundos(Piloto::getSegundos() + 1);

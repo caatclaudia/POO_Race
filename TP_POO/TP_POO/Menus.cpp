@@ -154,7 +154,6 @@ void Menus::addMensagemAcidente(vector<string>* listaMensagens, Corrida* c)
 		os.str("");
 		ACIDENTE = true;
 	}
-	// FAZER a prob do piloto surpresa
 	if (!ACIDENTE)
 	{
 		os << "Ronda sem acontecimentos!" << endl;
@@ -798,7 +797,7 @@ void Menus::movimentoCarros(Autodromo* autodromo, int seg, vector<string>* lista
 		autodromo->avancaTempo();
 		mostraGrelha(autodromo,controlo);
 		mostraGaragem(autodromo, controlo);
-		if (i == seg - 1) {
+		if ((i == seg - 1) || autodromo->paresPista() < 2) {
 			for (auto ptr = autodromo->getPista()->getCorridas().begin(); ptr != autodromo->getPista()->getCorridas().end(); ptr++) {
 				if ((*ptr)->getCarro()->getAcidente() != CARRO_BOMESTADO || (*ptr)->getCarro()->getEmergencia() == EMERGENCIA_ON) {
 					addMensagemAcidente(listaMensagens, (*ptr));
