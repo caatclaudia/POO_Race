@@ -38,6 +38,7 @@ public:
 	vector<Autodromo*> getCampeonato();
 	int getCampeonatoSize() const;
 	void addCampeonato(Autodromo *novo);
+	void eliminaCampeonato();
 
 
 	void addAutodromos(int N, double comp, string nome);
@@ -49,6 +50,7 @@ public:
 
 	void getAsStringPilotos();
 	void getAsStringCarros();
+	void getAsStringAutodromos();
 
 	~Simulacao();
 };

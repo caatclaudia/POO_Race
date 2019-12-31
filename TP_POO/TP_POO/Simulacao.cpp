@@ -95,6 +95,15 @@ void Simulacao::addCampeonato(Autodromo* novo)
 	campeonato.push_back(novo);
 }
 
+void Simulacao::eliminaCampeonato()
+{
+	/*for (auto ptr = campeonato.begin(); ptr != campeonato.end(); ptr++){
+		delete (*ptr);
+	}*/
+	campeonato.clear();
+
+}
+
 void Simulacao::addAutodromos(int N, double comp, string nome)
 {
 	bool igual = false;
@@ -154,6 +163,16 @@ void Simulacao::getAsStringPilotos() {
 	for (auto ptr = controlo.getPiloto().begin(); ptr != controlo.getPiloto().end(); ptr++) {
 		Consola::gotoxy(76, i);
 		cout << (*ptr)->getAsString();
+		if (i == 18) {
+			Consola::getch();
+			for (i = 76; i < COLUNAS_BASE; i++) {
+				for (int j = 1; j < 19; j++) {
+					Consola::gotoxy(i, j);
+					cout << " ";
+				}
+			}
+			i = 0;	
+		}
 		i++;
 	}
 }
@@ -168,7 +187,43 @@ void Simulacao::getAsStringCarros() {
 	for (auto ptr = controlo.getCarro().begin(); ptr != controlo.getCarro().end(); ptr++) {
 		Consola::gotoxy(76, i);
 		cout << (*ptr)->getAsString();
+		if (i == 18) {
+			Consola::getch();
+			for (i = 76; i < COLUNAS_BASE; i++) {
+				for (int j = 1; j < 19; j++) {
+					Consola::gotoxy(i, j);
+					cout << " ";
+				}
+			}
+			i = 0;
+		}
 		i++;
+	}
+}
+
+void Simulacao::getAsStringAutodromos()
+{
+	int i = 1;
+	if (autodromos.empty()) {
+		Consola::gotoxy(76, i);
+		cout << "Nao existe autodromos!";
+	}
+	else {
+		for (int x = 0; x < autodromos.size(); x++) {
+			Consola::gotoxy(76, i);
+			cout << autodromos[x]->getAsString();
+			if (i == 18) {
+				Consola::getch();
+				for (i = 76; i < COLUNAS_BASE; i++) {
+					for (int j = 1; j < 19; j++) {
+						Consola::gotoxy(i, j);
+						cout << " ";
+					}
+				}
+				i = 0;
+			}
+			i++;
+		}
 	}
 }
 

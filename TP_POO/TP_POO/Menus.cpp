@@ -50,10 +50,18 @@ void Menus::base()const
 			cout << " ";
 		}
 	}
+	for (i = 76; i < COLUNAS_BASE; i++) {
+		for (int j = 1; j < 19; j++) {
+			Consola::gotoxy(i, j);
+			cout << " ";
+		}
+	}
 	for (int i = 1; i < COLUNAS_BASE; i++) {
 		if (i >= 24) {
-			Consola::gotoxy(i, 20);
-			cout << " ";
+			for (int j = 20; j < LINHAS_BASE; j++) {
+				Consola::gotoxy(i, j);
+				cout << " ";
+			}
 		}
 		Consola::gotoxy(i, 21);
 		cout << " ";
@@ -232,12 +240,13 @@ void Menus::obterInfo(Autodromo *autodromo)
 {
 	int i = 1;
 	Consola::gotoxy(76, i);
-	cout << "Corrida em " << autodromo->getNome() << " (" << autodromo->getPista()->getComprimento() << "m): ";
+	
 	if (autodromo->getPista()->getComecou() == NAO_COMECOU) {
-		Consola::gotoxy(76, i++);
+		Consola::gotoxy(76, i);
 		cout << "Corrida nao iniciada";
 	}
 	else {
+		cout << "Corrida em " << autodromo->getNome() << " (" << autodromo->getPista()->getComprimento() << "m): ";
 		for (int n = 1; n <= autodromo->getPista()->nParticipantes(); n++) {
 			for (auto ptr = autodromo->getPista()->getCorridas().begin(); ptr != autodromo->getPista()->getCorridas().end(); ptr++) {
 				if ((*ptr)->getLugar() == n) {
@@ -462,6 +471,7 @@ int Menus::modo2(vector<Autodromo*> campeonato, DVG *controlo)
 			}
 			else if(comando1=="obterinfo")
 				obterInfo(campeonato[indice]);
+
 			else if (comando1 == "voltar") {
 				Consola::gotoxy(76, 1);
 				cout << "Voltando...";
@@ -671,18 +681,11 @@ int Menus::modo1(Simulacao* simulacao, string comando)
 			Consola::getch();
 			base();
 			fflush(stdout);
-			int i = 1;
-			if (simulacao->getAutodromos().empty()) {
-				Consola::gotoxy(76, i);
-				cout << "Nao existe carros!";
-			}
-			else {
-				for (int x = 0; x < simulacao->getAutodromosSize(); x++) {
-					Consola::gotoxy(76, i);
-					cout << simulacao->getAutodromoN(x)->getAsString();
-					i++;
-				}
-			}
+			simulacao->getAsStringAutodromos();
+			Consola::getch();
+			base();
+			fflush(stdout);
+			
 		}
 		else if (comando1 == "savedgv") {
 			string nome;
@@ -760,6 +763,8 @@ int Menus::modo1(Simulacao* simulacao, string comando)
 			if (CERTO) {
 				modo2(simulacao->getCampeonato(), &simulacao->getControlo());
 				simulacao->getControlo().terminaCompeticao();
+				simulacao->eliminaCampeonato();
+
 			}
 			else
 				PARAMETRO_INVALIDO = true;
