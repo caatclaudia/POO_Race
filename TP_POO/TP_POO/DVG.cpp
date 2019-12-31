@@ -32,7 +32,7 @@ vector<Carro*> & DVG::getCarro()
 
 int DVG::getNCarros() const
 {
-	return carros.size();
+	return (int)carros.size();
 }
 
 void DVG::novoCarro(string marca, float cInicial, float cMaxima, int vMaxima, string modelo)
@@ -59,7 +59,7 @@ vector<Piloto*> & DVG::getPiloto()
 
 int DVG::getNPilotos() const
 {
-	return pilotos.size();
+	return (int)pilotos.size();
 }
 
 void DVG::novoPiloto(string n,string t) 

@@ -14,6 +14,7 @@ int PilotoRapido::passouTempo(Pista* pista)
 	srand((unsigned)time(NULL));
 	if (Piloto::getCarro() != nullptr) {
 		if (Piloto::getSegundos() == 1) {
+			contador = 0;
 			getCarro()->setMovimento(CARRO_MOVIMENTO);
 			acelararCarro();
 		}

@@ -43,6 +43,10 @@ int PilotoSurpresa::passouTempo(Pista* pista)
 				if ((pista->getCorridaN(i)->getPosicao()>=(p - 10) && pista->getCorridaN(i)->getPosicao()<=(p + 10)) && pista->getCorridaN(i)->getParticipante()->getNome() != Piloto::getNome()) {
 					pista->getCorridaN(i)->getCarro()->setEmergencia(EMERGENCIA_ON);
 					pista->getCorridaN(i)->getParticipante()->saiCarro();
+					for (auto ptr = pista->getCorridas().begin(); ptr != pista->getCorridas().end(); ptr++) {
+						if ((*ptr)->getParticipante()->getNome() == getNome())
+							(*ptr)->setTravar(true);
+					}
 				}
 			}
 		}

@@ -46,7 +46,7 @@ void Pista::adicionaCorrida(Corrida* novo)
 
 int Pista::nParticipantes() const
 {
-	return corridas.size();
+	return (int)corridas.size();
 }
 
 char Pista::getGrelhaXY(int x, int y) const
