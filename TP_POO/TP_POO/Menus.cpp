@@ -129,7 +129,7 @@ void Menus::carregaA(Simulacao *simulacao, string nome)
 		string nome, linha;
 		while (getline(ficheiro, linha)) {
 			istringstream buffer(linha);
-			if (buffer >> n && buffer >> comp && buffer >> nome)
+			if (buffer >> n && buffer >> comp && buffer >> nome && n<=8)
 				simulacao->addAutodromos(n, comp, nome);
 		}
 		Consola::gotoxy(76, 1);
@@ -155,9 +155,14 @@ void Menus::addMensagemAcidente(vector<string>* listaMensagens, Corrida* c)
 		os.str("");
 		ACIDENTE = true;
 	}
-
 	if (c->getCarro()->getEmergencia() == EMERGENCIA_ON) {
 		os << "Piloto " << c->getParticipante()->getNome() << " (" << c->getCarro()->getID() << ") - emergencia ativa" << endl;
+		addMensagem(listaMensagens, os.str());
+		os.str("");
+		ACIDENTE = true;
+	}
+	if (c->getCarro()->getEnergia() == 0) {
+		os << "Piloto " << c->getParticipante()->getNome() << " (" << c->getCarro()->getID() << ") - sem energia no carro" << endl;
 		addMensagem(listaMensagens, os.str());
 		os.str("");
 		ACIDENTE = true;
@@ -569,7 +574,7 @@ int Menus::modo1(Simulacao* simulacao, string comando)
 					int n;
 					double comp;
 					string nomeA;
-					if (buffer >> n && buffer >> comp && buffer >> nomeA) {
+					if (buffer >> n && buffer >> comp && buffer >> nomeA && n <= 8) {
 						simulacao->addAutodromos(n, comp, nomeA);
 						Consola::gotoxy(76, 1);
 						cout << "Criado autodromo " << simulacao->getAutodromoN(simulacao->getAutodromosSize()-1)->getNome();
@@ -804,7 +809,7 @@ void Menus::movimentoCarros(Autodromo* autodromo, int seg, vector<string>* lista
 		mostraGaragem(autodromo, controlo);
 		if ((i == seg - 1) || autodromo->paresPista() < 2) {
 			for (auto ptr = autodromo->getPista()->getCorridas().begin(); ptr != autodromo->getPista()->getCorridas().end(); ptr++) {
-				if ((*ptr)->getCarro()->getAcidente() != CARRO_BOMESTADO || (*ptr)->getCarro()->getEmergencia() == EMERGENCIA_ON) {
+				if ((*ptr)->getCarro()->getAcidente() != CARRO_BOMESTADO || (*ptr)->getCarro()->getEmergencia() == EMERGENCIA_ON || (*ptr)->getCarro()->getEnergia()==0) {
 					addMensagemAcidente(listaMensagens, (*ptr));
 				}
 			}

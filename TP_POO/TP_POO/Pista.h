@@ -37,7 +37,6 @@ public:
 	void removerPar(Corrida* c);
 	void atualizaPontuacao();
 	int comecarCorrida();
-	void terminarCorrida(Garagem* g);
 	void terminarCorrida();
 	void avancaTempo();
 	void removerCarro(char c);

@@ -46,7 +46,7 @@ void Pista::adicionaCorrida(Corrida* novo)
 
 int Pista::nParticipantes() const
 {
-	return corridas.size();
+	return (int)corridas.size();
 }
 
 char Pista::getGrelhaXY(int x, int y) const
@@ -107,19 +107,6 @@ int Pista::comecarCorrida()
 	return 1;
 }
 
-
-void Pista::terminarCorrida(Garagem* g)
-{
-	if (comecou == JA_COMECOU) {
-		comecou = JA_TERMINOU;
-		atualizaPontuacao();
-		for (auto ptr = corridas.begin(); ptr != corridas.end(); ptr++) {
-			(*ptr)->setPosicao(0);
-			(*ptr)->setTravar(true);
-		}
-	}
-}
-
 void Pista::terminarCorrida()
 {
 	if (comecou == JA_COMECOU) {
@@ -127,6 +114,7 @@ void Pista::terminarCorrida()
 		atualizaPontuacao();
 		for (auto ptr = corridas.begin(); ptr != corridas.end(); ptr++) {
 			(*ptr)->setPosicao(0);
+			(*ptr)->getCarro()->setVelocidade(0);
 			(*ptr)->setTravar(true);
 		}
 	}

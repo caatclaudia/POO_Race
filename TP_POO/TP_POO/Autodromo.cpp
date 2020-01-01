@@ -62,7 +62,7 @@ int Autodromo::comecarCorrida()
 
 void Autodromo::terminarCorrida()
 {
-	p->terminarCorrida(gar);
+	p->terminarCorrida();
 }
 
 int Autodromo::paresPista() const

@@ -97,11 +97,7 @@ void Simulacao::addCampeonato(Autodromo* novo)
 
 void Simulacao::eliminaCampeonato()
 {
-	/*for (auto ptr = campeonato.begin(); ptr != campeonato.end(); ptr++){
-		delete (*ptr);
-	}*/
 	campeonato.clear();
-
 }
 
 void Simulacao::addAutodromos(int N, double comp, string nome)
