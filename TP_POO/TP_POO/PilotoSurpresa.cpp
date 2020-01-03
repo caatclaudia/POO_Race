@@ -34,7 +34,7 @@ int PilotoSurpresa::passouTempo(Pista* pista)
 			}
 		}
 
-		if ((rand() % 100) < 5) {
+		if ((rand() % 100) < 5 && getCarro() != nullptr) {
 			getCarro()->acidenteDanoIrreparavel(this);
 			for (int i = 0; i < (int)pista->getCorridas().size(); i++) 
 				if (pista->getCorridaN(i)->getParticipante()->getNome() == Piloto::getNome()) 
@@ -44,7 +44,6 @@ int PilotoSurpresa::passouTempo(Pista* pista)
 					pista->getCorridaN(i)->getCarro()->setEmergencia(EMERGENCIA_ON);
 					pista->getCorridaN(i)->getParticipante()->saiCarro();
 					pista->getCorridaN(i)->setTravar(true);
-					}
 				}
 			}
 		}

@@ -44,7 +44,7 @@ int CrazyDriver::passouTempo(Pista* pista)
 
 		Piloto::setSegundos(Piloto::getSegundos() + 1);
 		
-		if ((rand() % 100) < 5) {
+		if ((rand() % 100) < 5 && getCarro()!=nullptr) {
 			getCarro()->acidenteDanoIrreparavel(this);
 			for (int i = 0; i < (int)pista->getCorridas().size(); i++) {
 				if (pista->getCorridaN(i)->getLugar() == (n + 1)) {

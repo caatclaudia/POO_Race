@@ -97,12 +97,14 @@ bool Piloto::saiCarro() {
 
 void Piloto::travarCarro()
 {
-	carro->travar();
+	if(carro!=nullptr)
+		carro->travar();
 }
 
 void Piloto::acelararCarro()
 {
-	carro->acelarar();
+	if (carro != nullptr)
+		carro->acelarar();
 }
 
 string Piloto::getAsString() const
