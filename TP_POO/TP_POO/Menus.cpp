@@ -146,33 +146,23 @@ void Menus::addMensagem(vector<string>* listaMensagens, string s)
 
 void Menus::addMensagemAcidente(vector<string>* listaMensagens, Corrida* c)
 {
-	//bool ACIDENTE = false;
 	ostringstream os;
 
 	if (c->getCarro()->getAcidente() != CARRO_BOMESTADO) {
 		os << "Acidente do piloto " << c->getParticipante()->getNome() << " (" << c->getCarro()->getID() << ")" << endl;
 		addMensagem(listaMensagens, os.str());
 		os.str("");
-	//	ACIDENTE = true;
 	}
 	if (c->getCarro()->getEmergencia() == EMERGENCIA_ON) {
 		os << "Piloto " << c->getParticipante()->getNome() << " (" << c->getCarro()->getID() << ") - emergencia ativa" << endl;
 		addMensagem(listaMensagens, os.str());
 		os.str("");
-	//	ACIDENTE = true;
 	}
 	if (c->getCarro()->getEnergia() == 0) {
 		os << "Piloto " << c->getParticipante()->getNome() << " (" << c->getCarro()->getID() << ") - sem energia no carro" << endl;
 		addMensagem(listaMensagens, os.str());
 		os.str("");
-	//	ACIDENTE = true;
 	}
-	/*if ((int)listaMensagens->size()==0)
-	{
-		os << "Ronda sem acontecimentos!" << endl;
-		addMensagem(listaMensagens, os.str());
-		os.str("");
-	}*/
 }
 
 void Menus::getAsStringPontCompeticao(DVG *controlo)
